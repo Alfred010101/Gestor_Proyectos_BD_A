@@ -177,4 +177,13 @@ public class Staff
     {
         this.phoneNumber = phoneNumber;
     }    
+
+    @Override
+    public String toString()
+    {
+        return "ID: " + id + "\tRol: " + role + "\tDepartamento: " + departament 
+                + "\tNombre: " + name + "\tUsuario: " + user 
+                + "\tPassword: " + password + "\tE-mail: " + email 
+                + "\tDireccion: " + address + "\tTelefono: " + phoneNumber;
+    }
 }

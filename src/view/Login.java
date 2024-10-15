@@ -1,13 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
+
+import controller.StaffController;
 
 /**
  *
  * @author Alfred
  */
+
 public class Login extends javax.swing.JFrame
 {
 
@@ -59,6 +58,13 @@ public class Login extends javax.swing.JFrame
 
         btnStart.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         btnStart.setText("Comenzar");
+        btnStart.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnStartActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -116,6 +122,11 @@ public class Login extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnStartActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStartActionPerformed
+    {//GEN-HEADEREND:event_btnStartActionPerformed
+        StaffController.login(Login.this, txtName.getText(), String.valueOf(txtPassword.getPassword()));      
+    }//GEN-LAST:event_btnStartActionPerformed
 
     /**
      * @param args the command line arguments
