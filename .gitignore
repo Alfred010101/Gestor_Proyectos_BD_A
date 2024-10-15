@@ -1,0 +1,28 @@
+# Archivos generados por NetBeans
+nbproject/private/
+nbbuild/
+build/
+dist/
+
+# Archivos de logs y temporales
+*.log
+*.tmp
+
+# Archivos binarios
+*.class
+*.jar
+*.war
+
+# Archivos específicos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de configuración del entorno
+*.iml
+*.ipr
+*.iws
+
+# Archivos generados por compilaciones
+*.o
+*.so
+*.exe
