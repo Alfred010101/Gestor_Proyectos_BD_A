@@ -22,7 +22,10 @@ public class Workspace extends javax.swing.JFrame
     {
         this.employee = employee;
         initComponents();
-        output.setText(this.employee.toString());
+//        guiId.setText(String.valueOf(this.employee.getId()));
+        jLabel1.setText(this.employee.getName());
+//        output.setText(this.employee.toString());
+        //System.out.println(this.employee.toString());
     }
 
     /**
@@ -35,26 +38,45 @@ public class Workspace extends javax.swing.JFrame
     private void initComponents()
     {
 
-        output = new javax.swing.JLabel();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        menu1 = new view.Menu();
+        jLabel1 = new javax.swing.JLabel();
+        guiUser = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(89, 89, 89)
-                .addComponent(output)
-                .addContainerGap(626, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(output)
-                .addContainerGap(434, Short.MAX_VALUE))
-        );
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jSplitPane1.setRightComponent(jScrollPane1);
+
+        menu1.setMaximumSize(new java.awt.Dimension(32767, 32767));
+        menu1.setPreferredSize(new java.awt.Dimension(180, 482));
+        menu1.setLayout(new javax.swing.BoxLayout(menu1, javax.swing.BoxLayout.Y_AXIS));
+
+        jLabel1.setFont(new java.awt.Font("Lucida Console", 1, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/avatar-de-mujer_Res.png"))); // NOI18N
+        menu1.add(jLabel1);
+
+        guiUser.setFont(new java.awt.Font("Lucida Console", 0, 18)); // NOI18N
+        guiUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        menu1.add(guiUser);
+
+        jButton1.setText("jButton1");
+        menu1.add(jButton1);
+
+        jButton2.setText("jButton2");
+        menu1.add(jButton2);
+
+        jSplitPane1.setLeftComponent(menu1);
+
+        getContentPane().add(jSplitPane1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -105,6 +127,13 @@ public class Workspace extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel output;
+    private javax.swing.JLabel guiUser;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JTextArea jTextArea1;
+    private view.Menu menu1;
     // End of variables declaration//GEN-END:variables
 }

@@ -19,7 +19,6 @@ public class StaffController
         if (!Validations.isNull(username) && !Validations.isNull(password))
         {
             int session = StaffDAO.validateCredentials(username, password);
-            System.out.println(session);
             switch (session)
             {
                 case 0 ->
@@ -38,7 +37,6 @@ public class StaffController
                 }
                 default ->
                     JOptionPane.showMessageDialog(frame, "Algo salio mal.", "Error..", JOptionPane.WARNING_MESSAGE);
-                
             }
         }
         return false;
