@@ -7,7 +7,7 @@ package model;
 
 public class Staff
 {
-    private int id;
+    private final int id;
     private int role;
     private int departament;
     private String name;
@@ -16,10 +16,6 @@ public class Staff
     private String email;
     private String address;
     private int phoneNumber;
-
-    public Staff()
-    {
-    }
 
     public Staff(int id, int role, int departament, String name, String user, String password, String email, String address, int phoneNumber)
     {
@@ -42,13 +38,13 @@ public class Staff
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id)
-    {
-        this.id = id;
-    }
+//    /**
+//     * @param id the id to set
+//     */
+//    public void setId(int id)
+//    {
+//        this.id = id;
+//    }
 
     /**
      * @return the role
