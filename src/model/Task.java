@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class Task
 {
-    private int id;
+    private final int id;
     private int project;
     private int responsible;
     private int state;
@@ -38,13 +38,13 @@ public class Task
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id)
-    {
-        this.id = id;
-    }
+//    /**
+//     * @param id the id to set
+//     */
+//    public void setId(int id)
+//    {
+//        this.id = id;
+//    }
 
     /**
      * @return the project

@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class Project
 {
-    private int id;
+    private final int id;
     private int responsible;
     private String name;
     private int state;
@@ -37,13 +37,13 @@ public class Project
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id)
-    {
-        this.id = id;
-    }
+//    /**
+//     * @param id the id to set
+//     */
+//    public void setId(int id)
+//    {
+//        this.id = id;
+//    }
 
     /**
      * @return the responsible

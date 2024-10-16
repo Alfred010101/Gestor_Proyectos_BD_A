@@ -8,9 +8,9 @@ package model;
 
 public class TaskResource
 {
-    private int id;
-    private int resource;
-    private int task;
+    private final int id;
+    private final int resource;
+    private final int task;
     private int amount;
 
     public TaskResource(int id, int resource, int task, int amount)
@@ -29,13 +29,13 @@ public class TaskResource
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id)
-    {
-        this.id = id;
-    }
+//    /**
+//     * @param id the id to set
+//     */
+//    public void setId(int id)
+//    {
+//        this.id = id;
+//    }
 
     /**
      * @return the resource
@@ -45,13 +45,13 @@ public class TaskResource
         return resource;
     }
 
-    /**
-     * @param resource the resource to set
-     */
-    public void setResource(int resource)
-    {
-        this.resource = resource;
-    }
+//    /**
+//     * @param resource the resource to set
+//     */
+//    public void setResource(int resource)
+//    {
+//        this.resource = resource;
+//    }
 
     /**
      * @return the task
@@ -61,13 +61,13 @@ public class TaskResource
         return task;
     }
 
-    /**
-     * @param task the task to set
-     */
-    public void setTask(int task)
-    {
-        this.task = task;
-    }
+//    /**
+//     * @param task the task to set
+//     */
+//    public void setTask(int task)
+//    {
+//        this.task = task;
+//    }
 
     /**
      * @return the amount

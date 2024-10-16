@@ -8,7 +8,7 @@ package model;
 
 public class Resources
 {
-    private int id;
+    private final int id;
     private String name;
     private int totalAmount;
     private int quantityAvailable;
@@ -29,13 +29,13 @@ public class Resources
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id)
-    {
-        this.id = id;
-    }
+//    /**
+//     * @param id the id to set
+//     */
+//    public void setId(int id)
+//    {
+//        this.id = id;
+//    }
 
     /**
      * @return the name

@@ -10,7 +10,7 @@ import java.util.Date;
 public class Note
 {
 
-    private int id;
+    private final int id;
     private int employee;
     private String description;
     private Date date;
@@ -31,13 +31,13 @@ public class Note
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id)
-    {
-        this.id = id;
-    }
+//    /**
+//     * @param id the id to set
+//     */
+//    public void setId(int id)
+//    {
+//        this.id = id;
+//    }
 
     /**
      * @return the employee

@@ -8,7 +8,7 @@ package model;
 
 public class Role
 {
-    private int id;
+    private final int id;
     private String name;
 
     public Role(int id, String name)
@@ -25,13 +25,13 @@ public class Role
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id)
-    {
-        this.id = id;
-    }
+//    /**
+//     * @param id the id to set
+//     */
+//    public void setId(int id)
+//    {
+//        this.id = id;
+//    }
 
     /**
      * @return the name

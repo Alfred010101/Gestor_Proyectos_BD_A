@@ -8,7 +8,7 @@ package model;
 
 public class Department
 {
-    private int id;
+    private final int id;
     private int manager;
     private int name;
     private int phoneNumber;
@@ -29,13 +29,13 @@ public class Department
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id)
-    {
-        this.id = id;
-    }
+//    /**
+//     * @param id the id to set
+//     */
+//    public void setId(int id)
+//    {
+//        this.id = id;
+//    }
 
     /**
      * @return the manager
