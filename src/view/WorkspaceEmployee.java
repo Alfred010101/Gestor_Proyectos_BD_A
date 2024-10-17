@@ -5,8 +5,6 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -16,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import model.Staff;
-import test.Lib;
 
 /**
  *
@@ -195,8 +192,53 @@ public class WorkspaceEmployee extends JFrame
     private void initCardPanelTareas()
     {
         cardPanelTareas = new JPanel();
-        cardPanelTareas.add(new JLabel("Tarjeta 1"));
-        cardPanelTareas.setBackground(Color.CYAN);
+        cardPanelTareas.setLayout(new BoxLayout(cardPanelTareas, BoxLayout.Y_AXIS));
+        
+        JPanel panelBtnHoy = new JPanel();
+        panelBtnHoy.setBackground(Color.red);
+        JPanel panelTabHoy = new JPanel();
+        panelTabHoy.setBackground(Color.red);
+        
+        JButton btnHoy = new JButton("Mostrar Hoy");
+        btnHoy.addActionListener((e) ->
+        {
+            panelTabHoy.setVisible(!panelTabHoy.isVisible());
+        });
+        
+        panelBtnHoy.add(btnHoy);
+        
+        JPanel panelBtnSemana = new JPanel();
+        panelBtnSemana.setBackground(Color.ORANGE);
+        JPanel panelTabSemana = new JPanel();
+        panelTabSemana.setBackground(Color.ORANGE);
+        
+        JButton btnSemana = new JButton("Mostrar Semana");
+        btnSemana.addActionListener((e) ->
+        {
+            panelTabSemana.setVisible(!panelTabSemana.isVisible());
+        });
+        
+        panelBtnSemana.add(btnSemana);
+        
+        JPanel panelBtnMes = new JPanel();
+        panelBtnMes.setBackground(Color.GREEN);
+        JPanel panelTabMes = new JPanel();
+        panelTabMes.setBackground(Color.GREEN);
+        
+        JButton btnMes = new JButton("Mostrar Mes");
+        btnMes.addActionListener((e) ->
+        {
+            panelTabMes.setVisible(!panelTabMes.isVisible());
+        });
+        
+        panelBtnMes.add(btnMes);
+        
+        cardPanelTareas.add(panelBtnHoy);
+        cardPanelTareas.add(panelTabHoy);
+        cardPanelTareas.add(panelBtnSemana);
+        cardPanelTareas.add(panelTabSemana);
+        cardPanelTareas.add(panelBtnMes);
+        cardPanelTareas.add(panelTabMes);
     }
 
     private void initCardPanelProyectos()
