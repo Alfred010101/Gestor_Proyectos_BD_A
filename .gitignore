@@ -4,13 +4,16 @@ nbbuild/
 build/
 dist/
 
+#Pruevas de codigo
+src/test/
+
 # Archivos de logs y temporales
 *.log
 *.tmp
 
 # Archivos binarios
 *.class
-*.jar
+#*.jar
 *.war
 
 # Archivos específicos del sistema operativo

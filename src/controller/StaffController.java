@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import model.Staff;
 import utils.Validations;
 import view.Workspace;
+import view.WorkspaceEmployee;
 
 /**
  *
@@ -23,7 +24,8 @@ public class StaffController
             {
                 case 0 ->
                 {
-                    new Workspace(StaffDAO.getStaff(username, password)).setVisible(true);
+                    //new Workspace(StaffDAO.getStaff(username, password)).setVisible(true);
+                    new WorkspaceEmployee(StaffDAO.getStaff(username, password)).setVisible(true);
                     frame.dispose();
                     return true;
                 }
