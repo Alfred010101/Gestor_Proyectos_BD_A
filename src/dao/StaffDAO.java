@@ -22,7 +22,7 @@ public class StaffDAO
         {
             // asigar valor a los parametros de consulta
             statement.setString(1, username);
-            statement.setString(2, password);            
+            statement.setString(2, password);
 
             ResultSet resultSet = statement.executeQuery();
 
@@ -34,14 +34,14 @@ public class StaffDAO
         } catch (SQLException ex)
         {
 //            Logger.getLogger(StaffDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }catch(Exception e)
+        } catch (Exception e)
         {
 //            System.out.println("Null pointer");
             return -2;
         }
         return -1;
     }
-    
+
 //    public static Staff getStaff(String username, String password)
 //    {
 //        String query = "SELECT * FROM Personal WHERE Usuario = ? AND Contraseña = ?";
@@ -79,7 +79,6 @@ public class StaffDAO
 //        }
 //        return null;
 //    }
-    
     public static Staff getStaff(int id_empleado)
     {
         String query = "SELECT * FROM Personal WHERE Id_empleado = ?";
@@ -87,8 +86,8 @@ public class StaffDAO
         try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query);)
         {
             // asigar valor a los parametros de consulta
-            statement.setString(1, String.valueOf(id_empleado));
-            
+            statement.setInt(id_empleado, id_empleado);
+
             ResultSet resultSet = statement.executeQuery();
 
             // Procesar resultados
@@ -103,14 +102,14 @@ public class StaffDAO
                 String email = resultSet.getString("E-mail");
                 String address = resultSet.getString("Direccion");
                 int phoneNumber = resultSet.getInt("Telefono");
-                
+
                 return new Staff(id, role, departament, name, user, pass, email, address, phoneNumber);
-                            
+
             }
         } catch (SQLException ex)
         {
 //            Logger.getLogger(StaffDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }catch(Exception e)
+        } catch (Exception e)
         {
 //            System.out.println("Null pointer");
         }
