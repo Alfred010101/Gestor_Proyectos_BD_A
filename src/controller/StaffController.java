@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Staff;
 import utils.Validations;
-import view.Workspace;
+import view.WorkspaceAdministrator;
 import view.WorkspaceEmployee;
 
 /**
@@ -25,20 +25,29 @@ public class StaffController
                 case 0 ->
                 {
                     //new Workspace(StaffDAO.getStaff(username, password)).setVisible(true);
-                    new WorkspaceEmployee(StaffDAO.getStaff(username, password)).setVisible(true);
-                    frame.dispose();
-                    return true;
+                    //default, nunca debe entrar aqui, reg > 0
                 }
-                case 1 ->
+                case -1 ->
                 {
                     JOptionPane.showMessageDialog(frame, "Verifique sus credenciales y vuelva a intentar.", "Credenciales Invalidas", JOptionPane.WARNING_MESSAGE);
                 }
-                case 2 ->
+                case -2 ->
                 {
                     JOptionPane.showMessageDialog(frame, "NO se pudo establecer conexión con la base de datos.", "Fallo en la conexión", JOptionPane.ERROR_MESSAGE);
                 }
                 default ->
-                    JOptionPane.showMessageDialog(frame, "Algo salio mal.", "Error..", JOptionPane.WARNING_MESSAGE);
+                {
+                    Staff employeeStaff = StaffDAO.getStaff(session);
+                    if (employeeStaff.getId() == 1)
+                    {
+                        new WorkspaceAdministrator(employeeStaff).setVisible(true);
+                    }else
+                    {
+                        new WorkspaceEmployee(employeeStaff).setVisible(true);
+                    }
+                    frame.dispose();
+                    return true;
+                }
             }
         }
         return false;
