@@ -31,6 +31,8 @@ public class WorkspaceEmployee extends JFrame
     private JPanel panelCenter;
     private Staff employee;
     
+    private JButton btnMostrarMenu;
+    
     private JButton btnTareas;
     private JButton btnProyectos;
     private JButton btnColaboraciones;
@@ -85,10 +87,15 @@ public class WorkspaceEmployee extends JFrame
          */
         JPanel panelPerfil = GenerateComponents.crearPanelTransparente(new FlowLayout(FlowLayout.LEFT));
 
+        btnMostrarMenu = GenerateComponents.crearBotonConIcono("Mostrar menú", "avatar_final.png","#0277BD", "#01579B");
         JButton btnPerfil = GenerateComponents.crearBotonConIcono("Mi Perfil", "avatar_final.png", "#0277BD", "#01579B");
         JLabel lblUsuario = new JLabel(employee.getName());
         lblUsuario.setFont(new Font("Arial", Font.BOLD, 14));
         lblUsuario.setForeground(Color.WHITE);
+        
+        intiActionButtonNorth();
+        
+        panelPerfil.add(btnMostrarMenu);
         panelPerfil.add(btnPerfil);
         panelPerfil.add(lblUsuario);
 
@@ -109,6 +116,14 @@ public class WorkspaceEmployee extends JFrame
         panelNorth.add(panelIconos, BorderLayout.EAST);
     }
 
+     private void intiActionButtonNorth()
+     {
+         btnMostrarMenu.addActionListener((e) ->
+         {
+            panelWest.setVisible(!panelWest.isVisible());
+         });
+     }
+     
     /**
      * Gestiona la interfaz en el panel de la izquieda Revision : EN PROGRESO
      */
@@ -124,7 +139,7 @@ public class WorkspaceEmployee extends JFrame
         btnColaboraciones = GenerateComponents.crearBotonConIcono("Colaboraciones", "avatar_final.png");
         btnNuevoProyecto = GenerateComponents.crearBotonConIcono("Nuevo Proyecto", "avatar_final.png");
 
-        intiActionButton();
+        intiActionButtonWest();
 
         // Añadir botones al menú lateral
         panelWest.add(btnTareas);
@@ -133,7 +148,7 @@ public class WorkspaceEmployee extends JFrame
         panelWest.add(btnNuevoProyecto);
     }
 
-    private void intiActionButton()
+    private void intiActionButtonWest()
     {
         btnTareas.addActionListener((e) ->
         {
