@@ -64,7 +64,7 @@ public class GenerateComponents
         boton.setBackground(Color.WHITE);
         boton.setForeground(Color.BLACK);
         boton.setHorizontalAlignment(SwingConstants.LEFT); // Alinear texto e icono a la izquierda
-        boton.setPreferredSize(new Dimension(200, 50)); // Tamaño del botón
+        boton.setPreferredSize(new Dimension(170, 50)); // Tamaño del botón
         
         boton.setFocusPainted(false);
         boton.setBorderPainted(false);
