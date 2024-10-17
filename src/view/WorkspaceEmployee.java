@@ -4,8 +4,11 @@ import controller.TaskController;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -15,9 +18,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JViewport;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import model.Staff;
 import model.Task;
 
@@ -201,9 +206,9 @@ public class WorkspaceEmployee extends JFrame
         cardPanelTareas.setLayout(new BoxLayout(cardPanelTareas, BoxLayout.Y_AXIS));
         
         JPanel panelBtnHoy = new JPanel();
-        panelBtnHoy.setBackground(Color.WHITE);
+        panelBtnHoy.setBackground(Color.decode("#ccd1d1"));
         JPanel panelTabHoy = new JPanel();
-        panelTabHoy.setBackground(Color.WHITE);
+        panelTabHoy.setBackground(Color.decode("#ccd1d1"));
         panelTabHoy.add(initTableHoy());
         JButton btnHoy = new JButton("Mostrar Hoy");
         btnHoy.addActionListener((e) ->
@@ -250,15 +255,72 @@ public class WorkspaceEmployee extends JFrame
     private JScrollPane initTableHoy()
     {
         List<Task> tareas = TaskController.getMisTareas(employee.getId());
-        Object[][] data = new Object[tareas.size()][3];
+        Object[][] data = new Object[tareas.size()][5];
         for (int i = 0; i < tareas.size(); i++) {
             data[i][0] = tareas.get(i).getResponsible();
             data[i][1] = tareas.get(i).getState();
-            data[i][2] = tareas.get(i).getEndDate();
+            data[i][2] = tareas.get(i).getStartDate();
+            data[i][3] = tareas.get(i).getEndDate();
+            data[i][4] = tareas.get(i).getExpectedDate();
         }
-        String[] columnNames = {"Responsable", "Estado", "Fecha de Termino"};
-        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
-        return new JScrollPane(new JTable(tableModel));
+        String[] columnNames = {"Responsable", "Estado", "Fecha de Inicio", "Fecha de Termino", "Fecha Marcada"};
+//        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
+        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Deshabilitar la edición de todas las celdas
+            }
+        };
+        
+        // Crear la JTable con el modelo de datos personalizado
+        JTable table = new JTable(tableModel);
+
+//        // Estilizar la cabecera de la tabla
+        JTableHeader header = table.getTableHeader();
+        header.setBackground(new Color(51, 153, 255));
+        header.setForeground(Color.WHITE);
+        header.setFont(new Font("Segoe UI", Font.BOLD, 14));
+//        header.setPreferredSize(new Dimension(100, 40)); // Altura de la cabecera
+
+        // Estilizar las filas
+        table.setRowHeight(30); // Altura de las filas
+        table.setFont(new Font("Segoe UI", Font.PLAIN, 14)); 
+
+        // Estilizar la selección de filas
+        table.setSelectionForeground(Color.WHITE);
+//        table.setFillsViewportHeight(true);       
+        
+        // Crear un renderizador personalizado para la tabla
+        TableCellRenderer cellRenderer = new TableCellRenderer();
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
+        
+        // Agregar un detector de mouse para el efecto hover
+        table.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                int row = table.rowAtPoint(e.getPoint());
+                cellRenderer.setHoverRow(row);  // Establecer la fila que tiene hover
+                table.repaint();
+            }
+            
+            @Override
+            public void mouseExited(MouseEvent e) {
+                cellRenderer.setHoverRow(-1); // Elimina hover
+                table.repaint();
+            }
+        });
+
+        // Agregar la tabla a un JScrollPane para hacerla desplazable
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        scrollPane.setBackground(Color.WHITE);
+//        JViewport viewport = scrollPane.getViewport();
+//        viewport.setBackground(Color.RED);
+        Dimension tableSize = table.getPreferredSize();
+        scrollPane.setPreferredSize(new Dimension(tableSize.width * 2, table.getRowHeight() * table.getRowCount() + 24));
+        return scrollPane;
     }
 
     private void initCardPanelProyectos()
