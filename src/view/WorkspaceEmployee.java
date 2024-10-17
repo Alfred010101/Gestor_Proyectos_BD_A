@@ -1,19 +1,25 @@
 package view;
 
+import controller.TaskController;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.table.DefaultTableModel;
 import model.Staff;
+import model.Task;
 
 /**
  *
@@ -195,10 +201,10 @@ public class WorkspaceEmployee extends JFrame
         cardPanelTareas.setLayout(new BoxLayout(cardPanelTareas, BoxLayout.Y_AXIS));
         
         JPanel panelBtnHoy = new JPanel();
-        panelBtnHoy.setBackground(Color.red);
+        panelBtnHoy.setBackground(Color.WHITE);
         JPanel panelTabHoy = new JPanel();
-        panelTabHoy.setBackground(Color.red);
-        
+        panelTabHoy.setBackground(Color.WHITE);
+        panelTabHoy.add(initTableHoy());
         JButton btnHoy = new JButton("Mostrar Hoy");
         btnHoy.addActionListener((e) ->
         {
@@ -239,6 +245,20 @@ public class WorkspaceEmployee extends JFrame
         cardPanelTareas.add(panelTabSemana);
         cardPanelTareas.add(panelBtnMes);
         cardPanelTareas.add(panelTabMes);
+    }
+    
+    private JScrollPane initTableHoy()
+    {
+        List<Task> tareas = TaskController.getMisTareas(employee.getId());
+        Object[][] data = new Object[tareas.size()][3];
+        for (int i = 0; i < tareas.size(); i++) {
+            data[i][0] = tareas.get(i).getResponsible();
+            data[i][1] = tareas.get(i).getState();
+            data[i][2] = tareas.get(i).getEndDate();
+        }
+        String[] columnNames = {"Responsable", "Estado", "Fecha de Termino"};
+        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
+        return new JScrollPane(new JTable(tableModel));
     }
 
     private void initCardPanelProyectos()

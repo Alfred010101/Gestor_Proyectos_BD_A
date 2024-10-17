@@ -86,7 +86,7 @@ public class StaffDAO
         try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query);)
         {
             // asigar valor a los parametros de consulta
-            statement.setInt(id_empleado, id_empleado);
+            statement.setInt(1, id_empleado);
 
             ResultSet resultSet = statement.executeQuery();
 
