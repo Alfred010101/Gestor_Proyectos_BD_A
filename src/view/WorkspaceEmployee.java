@@ -40,26 +40,26 @@ import utils.Var;
  */
 public class WorkspaceEmployee extends JFrame
 {
-    
+
     private JPanel space;
     private JPanel panelNorth;
     private JPanel panelWest;
     private JPanel panelCenter;
     private Staff employee;
-    
+
     private JToggleButton btnMostrarMenu;
-    
+
     private JButton btnTareas;
     private JButton btnProyectos;
     private JButton btnColaboraciones;
     private JButton btnNuevoProyecto;
-    
+
     private CardLayout cardWork;
     private JPanel cardPanelTareas;
     private JPanel cardPanelProyectos;
     private JPanel cardPanelColaboraciones;
     private JPanel cardPanelNvProyecto;
-    
+
     public WorkspaceEmployee(Staff employee)
     {
         this.employee = employee;
@@ -71,7 +71,7 @@ public class WorkspaceEmployee extends JFrame
         initComponents();
         add(space);
     }
-    
+
     private void initComponents()
     {
         try
@@ -119,14 +119,14 @@ public class WorkspaceEmployee extends JFrame
          */
         JPanel panelIconos = GenerateComponents.crearPanelTransparente(null);
         panelIconos.setLayout(new BoxLayout(panelIconos, BoxLayout.X_AXIS));
-        
+
         JButton btnAyuda = GenerateComponents.crearBotonConIcono("Ayuda", "avatar_final.png", "#0277BD", "#556080");
         JButton btnNotificaciones = GenerateComponents.crearBotonConIcono("Notificaciones", "avatar_final.png", "#0277BD", "#556080");
         JButton btnSalir = GenerateComponents.crearBotonConIcono("Cerrar Sesión", "avatar_final.png", "#0277BD", "#556080");
         panelIconos.add(btnAyuda);
         panelIconos.add(btnNotificaciones);
         panelIconos.add(btnSalir);
-        
+
         panelNorth.add(panelPerfil, BorderLayout.WEST);
         panelNorth.add(panelIconos, BorderLayout.EAST);
     }
@@ -152,7 +152,7 @@ public class WorkspaceEmployee extends JFrame
         btnProyectos = GenerateComponents.crearBotonConIcono("Proyectos", "avatar_final.png");
         btnColaboraciones = GenerateComponents.crearBotonConIcono("Colaboraciones", "avatar_final.png");
         btnNuevoProyecto = GenerateComponents.crearBotonConIcono("Nuevo Proyecto", "avatar_final.png");
-        
+
         intiActionButtonWest();
 
         // Añadir botones al menú lateral
@@ -161,24 +161,24 @@ public class WorkspaceEmployee extends JFrame
         panelWest.add(btnColaboraciones);
         panelWest.add(btnNuevoProyecto);
     }
-    
+
     private void intiActionButtonWest()
     {
         btnTareas.addActionListener((e) ->
         {
             cardWork.show(panelCenter, "Card Tareas");
         });
-        
+
         btnProyectos.addActionListener((e) ->
         {
             cardWork.show(panelCenter, "Card Proyectos");
         });
-        
+
         btnColaboraciones.addActionListener((e) ->
         {
             cardWork.show(panelCenter, "Card Colaboraciones");
         });
-        
+
         btnNuevoProyecto.addActionListener((e) ->
         {
             cardWork.show(panelCenter, "Card Nuevo");
@@ -194,26 +194,26 @@ public class WorkspaceEmployee extends JFrame
         panelCenter.setBackground(Color.decode("#D7DBDD"));
         cardWork = new CardLayout();
         panelCenter.setLayout(cardWork);
-        
+
         initCardPanelTareas();
         initCardPanelProyectos();
         initCardPanelColaboraciones();
         initCardPanelNvProyecto();
-        
+
         panelCenter.add(cardPanelTareas, "Card Tareas");
         panelCenter.add(cardPanelProyectos, "Card Proyectos");
         panelCenter.add(cardPanelColaboraciones, "Card Colaboraciones");
         panelCenter.add(cardPanelNvProyecto, "Card Nuevo");
     }
-    
+
     private void initCardPanelTareas()
     {
         cardPanelTareas = new JPanel();
         cardPanelTareas.setLayout(new BoxLayout(cardPanelTareas, BoxLayout.Y_AXIS));
-        
+
         JPanel panelHerraminetas = new JPanel();
         panelHerraminetas.setBackground(Color.decode("#7f8c8d"));
-        
+
         JButton btnNvTarea = GenerateComponents.crearBotonHerramineta("Nueva Tarea", "agregar-tarea_Res.png");
         JPanel checkboxPanel = new JPanel();
 //        checkboxPanel.setBackground(Color.decode("#7f8c8d"));
@@ -240,7 +240,7 @@ public class WorkspaceEmployee extends JFrame
         checkboxPanel.add(checkbox3);
         checkboxPanel.add(checkbox4);
         checkboxPanel.add(checkbox5);
-        
+
         JPanel panelOrdenar = new JPanel();
         panelOrdenar.setLayout(new BoxLayout(panelOrdenar, BoxLayout.X_AXIS)); // Organizar verticalmente
         Border border2 = BorderFactory.createLineBorder(Color.decode("#e5e7e9"), 1); // Color y grosor del borde
@@ -257,31 +257,16 @@ public class WorkspaceEmployee extends JFrame
         panelHerraminetas.add(btnNvTarea);
         panelHerraminetas.add(checkboxPanel);
         panelHerraminetas.add(panelOrdenar);
-        
+
         JPanel panelBtnHoy = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelBtnHoy.setBackground(Color.decode("#ccd1d1"));
         JPanel panelTabHoy = new JPanel();
         panelTabHoy.setLayout(new BoxLayout(panelTabHoy, BoxLayout.Y_AXIS));
-//        JScrollPane panelTabHoy = initTableHoy();
-//        panelTabHoy.setBackground(Color.decode("#ccd1d1"));
         panelTabHoy.add(initTableHoy());
         JToggleButton btnHoy = GenerateComponents.crearBotonONOFF(panelTabHoy, "Ocultar Tareas de Hoy", "Mostrar Tareas de Hoy", "dep_lis.png", "dep_lis_Res.png");
 
-//        btnHoy.addActionListener((e) ->
-//        {
-//            if (panelTabHoy.isVisible())
-//            {
-//                btnHoy.setIcon(new ImageIcon(Var.PATHASSETS + "dep_lis_Res.png"));
-//                btnHoy.setText("Ocultar Tareas de Hoy");
-//            }else
-//            {
-//                btnHoy.setIcon(new ImageIcon(Var.PATHASSETS + "dep_lis_Res.png"));
-//                btnHoy.setText("Mostrar Tareas de Hoy");
-//            }
-//            panelTabHoy.setVisible(!panelTabHoy.isVisible());
-//        });
         panelBtnHoy.add(btnHoy);
-        
+
         JPanel panelBtnSemana = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelBtnSemana.setBackground(Color.decode("#ccd1d1"));
         JPanel panelTabSemana = new JPanel();
@@ -290,12 +275,8 @@ public class WorkspaceEmployee extends JFrame
         panelTabSemana.add(initTableHoy());
         JToggleButton btnSemana = GenerateComponents.crearBotonONOFF(panelTabSemana, "Ocultar Tareas de la Semana", "Mostrar Tareas de la Semana", "dep_lis.png", "dep_lis_Res.png");
 
-//        btnSemana.addActionListener((e) ->
-//        {
-//            panelTabSemana.setVisible(!panelTabSemana.isVisible());
-//        });
         panelBtnSemana.add(btnSemana);
-        
+
         JPanel panelBtnMes = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelBtnMes.setBackground(Color.decode("#ccd1d1"));
         JPanel panelTabMes = new JPanel();
@@ -303,13 +284,8 @@ public class WorkspaceEmployee extends JFrame
         panelTabMes.add(initTableHoy());
         JToggleButton btnMes = GenerateComponents.crearBotonONOFF(panelTabMes, "Ocultar Tareas del Mes", "Mostrar Tareas del Mes", "dep_lis.png", "dep_lis_Res.png");
 
-//        btnMes.addActionListener((e) ->
-//        {
-//            panelTabMes.setVisible(!panelTabMes.isVisible());
-//        });
-//        
         panelBtnMes.add(btnMes);
-        
+
         cardPanelTareas.add(panelHerraminetas);
         cardPanelTareas.add(panelBtnHoy);
         cardPanelTareas.add(panelTabHoy);
@@ -318,11 +294,11 @@ public class WorkspaceEmployee extends JFrame
         cardPanelTareas.add(panelBtnMes);
         cardPanelTareas.add(panelTabMes);
     }
-    
+
     private JScrollPane initTableHoy()
     {
         List<Task> tareas = TaskController.getMisTareas(employee.getId());
-        Object[][] data = new Object[tareas.size()][4];
+        Object[][] data = new Object[tareas.size()][5];
         for (int i = 0; i < tareas.size(); i++)
         {
 //            data[i][0] = tareas.get(i).getResponsible();
@@ -330,10 +306,11 @@ public class WorkspaceEmployee extends JFrame
             data[i][1] = tareas.get(i).getStartDate();
             data[i][2] = tareas.get(i).getEndDate();
             data[i][3] = tareas.get(i).getExpectedDate();
+            data[i][4] = null;
         }
         String[] columnNames =
         {
-            "Estado", "Fecha de Inicio", "Fecha de Termino", "Fecha Marcada"
+            "Estado", "Fecha de Inicio", "Fecha de Termino", "Fecha Marcada", "Acciones"
         };
 //        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
         DefaultTableModel tableModel = new DefaultTableModel(data, columnNames)
@@ -341,7 +318,7 @@ public class WorkspaceEmployee extends JFrame
             @Override
             public boolean isCellEditable(int row, int column)
             {
-                return false; // Deshabilitar la edición de todas las celdas
+                return column == 4; // Solo la columna de botones es editable
             }
         };
 
@@ -380,7 +357,7 @@ public class WorkspaceEmployee extends JFrame
                 cellRenderer.setHoverRow(row);  // Establecer la fila que tiene hover
                 table.repaint();
             }
-            
+
             @Override
             public void mouseExited(MouseEvent e)
             {
@@ -389,6 +366,11 @@ public class WorkspaceEmployee extends JFrame
             }
         });
 
+        // Renderizador para botones
+        table.getColumn("Acciones").setCellRenderer(new ButtonRenderer());
+
+        // Editor para botones
+        table.getColumn("Acciones").setCellEditor(new ButtonEditor(new JCheckBox()));
         // Agregar la tabla a un JScrollPane para hacerla desplazable
         JScrollPane scrollPane = new JScrollPane(table);
 //        scrollPane.setBorder(BorderFactory.createEmptyBorder());
@@ -403,31 +385,32 @@ public class WorkspaceEmployee extends JFrame
 //        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         // Ajustar el tamaño de las columnas manualmente
-        table.getColumnModel().getColumn(0).setPreferredWidth(150);
-        table.getColumnModel().getColumn(1).setPreferredWidth(300);
-        table.getColumnModel().getColumn(2).setPreferredWidth(300);
-        table.getColumnModel().getColumn(3).setPreferredWidth(300);
+        table.getColumnModel().getColumn(0).setPreferredWidth(100);
+        table.getColumnModel().getColumn(1).setPreferredWidth(250);
+        table.getColumnModel().getColumn(2).setPreferredWidth(250);
+        table.getColumnModel().getColumn(3).setPreferredWidth(250);
+        table.getColumnModel().getColumn(4).setPreferredWidth(300);
         //table.getColumnModel().getColumn(4).setPreferredWidth(120);
 
         Dimension tableSize = table.getPreferredSize();
         scrollPane.setPreferredSize(new Dimension(tableSize.width, table.getRowHeight() * table.getRowCount()));
         return scrollPane;
     }
-    
+
     private void initCardPanelProyectos()
     {
         cardPanelProyectos = new JPanel();
         cardPanelProyectos.add(new JLabel("Tarjeta 2"));
         cardPanelProyectos.setBackground(Color.GREEN);
     }
-    
+
     private void initCardPanelColaboraciones()
     {
         cardPanelColaboraciones = new JPanel();
         cardPanelColaboraciones.add(new JLabel("Tarjeta 3"));
         cardPanelColaboraciones.setBackground(Color.YELLOW);
     }
-    
+
     private void initCardPanelNvProyecto()
     {
         cardPanelNvProyecto = new JPanel();
