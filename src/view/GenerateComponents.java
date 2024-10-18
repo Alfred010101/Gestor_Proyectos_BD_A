@@ -2,16 +2,20 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 import utils.Var;
 
@@ -65,12 +69,12 @@ public class GenerateComponents
         boton.setForeground(Color.BLACK);
         boton.setHorizontalAlignment(SwingConstants.LEFT); // Alinear texto e icono a la izquierda
         boton.setPreferredSize(new Dimension(170, 50)); // Tamaño del botón
-        
+
         boton.setFocusPainted(false);
         boton.setBorderPainted(false);
         boton.setContentAreaFilled(false);
         boton.setIcon(new ImageIcon(Var.PATHASSETS + sources));
-        
+
 //        // Hacer que el botón ocupe todo el ancho del panel lateral
         boton.setMaximumSize(new Dimension(Integer.MAX_VALUE, boton.getMinimumSize().height));
 
@@ -131,6 +135,97 @@ public class GenerateComponents
             {
 //                boton.setContentAreaFilled(false);
                 boton.setBackground(Color.decode(color1));
+            }
+        });
+        return boton;
+    }
+
+    public static JToggleButton crearBotonONOFF(JPanel component, String txtON, String txtOFF, String sourcesON, String sourcesOFF)
+    {
+        JToggleButton boton = new JToggleButton("    " + txtON);
+        boton.setSelected(true);
+        boton.setBackground(Color.WHITE);
+        boton.setForeground(Color.BLACK);
+        boton.setFont(new Font("Arial", Font.PLAIN, 12));
+        
+//        boton.setHorizontalAlignment(SwingConstants.LEFT); // Alinear texto e icono a la izquierda
+//        boton.setPreferredSize(new Dimension(170, 50)); // Tamaño del botón
+
+        boton.setFocusPainted(false);
+        boton.setBorderPainted(false);
+        boton.setContentAreaFilled(false);
+        boton.setIcon(new ImageIcon(Var.PATHASSETS + sourcesON));
+
+//        // Hacer que el botón ocupe todo el ancho del panel lateral
+        boton.setMaximumSize(new Dimension(Integer.MAX_VALUE, boton.getMinimumSize().height));
+
+        boton.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseEntered(MouseEvent e)
+            {
+                boton.setContentAreaFilled(true);
+                boton.setBackground(Color.decode("#039BE5"));
+                boton.setForeground(Color.WHITE);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e)
+            {
+                boton.setContentAreaFilled(false);
+                boton.setBackground(Color.WHITE);
+                boton.setForeground(Color.BLACK);
+            }
+        });
+
+        boton.addActionListener((ActionEvent e) ->
+        {
+            if (boton.isSelected())
+            {
+                boton.setText(txtON);
+                boton.setIcon(new ImageIcon(Var.PATHASSETS + sourcesON));
+            } else
+            {
+                boton.setText(txtOFF);
+                boton.setIcon(new ImageIcon(Var.PATHASSETS + sourcesOFF));
+            }
+            component.setVisible(!component.isVisible());
+        });
+        return boton;
+    }
+    
+    public static JButton crearBotonHerramineta(String texto, String sources)
+    {
+        JButton boton = new JButton(texto);
+        boton.setBackground(Color.WHITE);
+        boton.setForeground(Color.BLACK);
+        boton.setHorizontalAlignment(SwingConstants.LEFT); // Alinear texto e icono a la izquierda
+//        boton.setPreferredSize(new Dimension(170, 50)); // Tamaño del botón
+
+        boton.setFocusPainted(false);
+        boton.setBorderPainted(false);
+        boton.setContentAreaFilled(false);
+        boton.setIcon(new ImageIcon(Var.PATHASSETS + sources));
+
+//        // Hacer que el botón ocupe todo el ancho del panel lateral
+//        boton.setMaximumSize(new Dimension(Integer.MAX_VALUE, boton.getMinimumSize().height));
+
+        boton.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseEntered(MouseEvent e)
+            {
+                boton.setContentAreaFilled(true);
+                boton.setBackground(Color.decode("#039BE5"));
+                boton.setForeground(Color.WHITE);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e)
+            {
+                boton.setContentAreaFilled(false);
+                boton.setBackground(Color.WHITE);
+                boton.setForeground(Color.BLACK);
             }
         });
         return boton;
