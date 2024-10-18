@@ -14,7 +14,8 @@ import javax.swing.table.DefaultTableCellRenderer;
  */
 
 public class TableCellRenderer extends DefaultTableCellRenderer {
-    private final Color HOVER_COLOR = new Color(240, 248, 255);
+//    private final Color HOVER_COLOR = new Color(240, 248, 255);
+    private final Color HOVER_COLOR = Color.decode("#aed6f1");
     private final Color DEFAULT_BACKGROUND = Color.WHITE;
     private int hoverRow = -1;
 

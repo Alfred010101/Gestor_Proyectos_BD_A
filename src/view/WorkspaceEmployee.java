@@ -64,7 +64,7 @@ public class WorkspaceEmployee extends JFrame
     {
         this.employee = employee;
         setTitle("Workspace");
-        setSize(800, 600);
+        setSize(900, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         space = new JPanel(new BorderLayout());
@@ -121,8 +121,8 @@ public class WorkspaceEmployee extends JFrame
         panelIconos.setLayout(new BoxLayout(panelIconos, BoxLayout.X_AXIS));
 
         JButton btnAyuda = GenerateComponents.crearBotonConIcono("Ayuda", "avatar_final.png", "#0277BD", "#556080");
-        JButton btnNotificaciones = GenerateComponents.crearBotonConIcono("Notificaciones", "avatar_final.png", "#0277BD", "#556080");
-        JButton btnSalir = GenerateComponents.crearBotonConIcono("Cerrar Sesión", "avatar_final.png", "#0277BD", "#556080");
+        JButton btnNotificaciones = GenerateComponents.crearBotonConIcono("Notificaciones", "boton-de-notificaciones_Res.png", "#0277BD", "#556080");
+        JButton btnSalir = GenerateComponents.crearBotonConIcono("Cerrar Sesión", "cerrar-sesion_Res.png", "#0277BD", "#556080");
         panelIconos.add(btnAyuda);
         panelIconos.add(btnNotificaciones);
         panelIconos.add(btnSalir);
@@ -210,7 +210,9 @@ public class WorkspaceEmployee extends JFrame
     {
         cardPanelTareas = new JPanel();
         cardPanelTareas.setLayout(new BoxLayout(cardPanelTareas, BoxLayout.Y_AXIS));
-
+        cardPanelTareas.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+        cardPanelTareas.setBackground(Color.decode("#ccd1d1"));
+        
         JPanel panelHerraminetas = new JPanel();
         panelHerraminetas.setBackground(Color.decode("#7f8c8d"));
 
@@ -285,7 +287,7 @@ public class WorkspaceEmployee extends JFrame
         JToggleButton btnMes = GenerateComponents.crearBotonONOFF(panelTabMes, "Ocultar Tareas del Mes", "Mostrar Tareas del Mes", "dep_lis.png", "dep_lis_Res.png");
 
         panelBtnMes.add(btnMes);
-
+        
         cardPanelTareas.add(panelHerraminetas);
         cardPanelTareas.add(panelBtnHoy);
         cardPanelTareas.add(panelTabHoy);
@@ -298,7 +300,7 @@ public class WorkspaceEmployee extends JFrame
     private JScrollPane initTableHoy()
     {
         List<Task> tareas = TaskController.getMisTareas(employee.getId());
-        Object[][] data = new Object[tareas.size()][5];
+        Object[][] data = new Object[tareas.size()][7];
         for (int i = 0; i < tareas.size(); i++)
         {
 //            data[i][0] = tareas.get(i).getResponsible();
@@ -307,10 +309,12 @@ public class WorkspaceEmployee extends JFrame
             data[i][2] = tareas.get(i).getEndDate();
             data[i][3] = tareas.get(i).getExpectedDate();
             data[i][4] = null;
+            data[i][5] = null;
+            data[i][6] = null;
         }
         String[] columnNames =
         {
-            "Estado", "Fecha de Inicio", "Fecha de Termino", "Fecha Marcada", "Acciones"
+            "Estado", "Fecha de Inicio", "Fecha de Termino", "Fecha Marcada", "Ver", "Editar", "Eliminar"
         };
 //        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
         DefaultTableModel tableModel = new DefaultTableModel(data, columnNames)
@@ -318,7 +322,7 @@ public class WorkspaceEmployee extends JFrame
             @Override
             public boolean isCellEditable(int row, int column)
             {
-                return column == 4; // Solo la columna de botones es editable
+                return column >= 4; // Solo la columna de botones es editable
             }
         };
 
@@ -367,10 +371,13 @@ public class WorkspaceEmployee extends JFrame
         });
 
         // Renderizador para botones
-        table.getColumn("Acciones").setCellRenderer(new ButtonRenderer());
-
-        // Editor para botones
-        table.getColumn("Acciones").setCellEditor(new ButtonEditor(new JCheckBox()));
+        table.getColumn("Ver").setCellRenderer(new ButtonRenderer("expediente_Res.png"));
+        table.getColumn("Ver").setCellEditor(new ButtonEditor(new JCheckBox(), "expediente_Res.png"));
+        table.getColumn("Editar").setCellRenderer(new ButtonRenderer("boton-editar_Res.png"));
+        table.getColumn("Editar").setCellEditor(new ButtonEditor(new JCheckBox(), "boton-editar_Res.png"));
+        table.getColumn("Eliminar").setCellRenderer(new ButtonRenderer("borrar_Res.png"));
+        table.getColumn("Eliminar").setCellEditor(new ButtonEditor(new JCheckBox(), "borrar_Res.png"));
+        
         // Agregar la tabla a un JScrollPane para hacerla desplazable
         JScrollPane scrollPane = new JScrollPane(table);
 //        scrollPane.setBorder(BorderFactory.createEmptyBorder());
@@ -389,7 +396,9 @@ public class WorkspaceEmployee extends JFrame
         table.getColumnModel().getColumn(1).setPreferredWidth(250);
         table.getColumnModel().getColumn(2).setPreferredWidth(250);
         table.getColumnModel().getColumn(3).setPreferredWidth(250);
-        table.getColumnModel().getColumn(4).setPreferredWidth(300);
+        table.getColumnModel().getColumn(4).setPreferredWidth(100);
+        table.getColumnModel().getColumn(5).setPreferredWidth(100);
+        table.getColumnModel().getColumn(6).setPreferredWidth(100);
         //table.getColumnModel().getColumn(4).setPreferredWidth(120);
 
         Dimension tableSize = table.getPreferredSize();
