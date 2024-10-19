@@ -48,7 +48,7 @@ import utils.Var;
 //        return this;
 //    }
 //}
-class ButtonRenderer extends JButton implements TableCellRenderer
+public class ButtonRenderer extends JButton implements TableCellRenderer
 {
 
     public ButtonRenderer(String icon)

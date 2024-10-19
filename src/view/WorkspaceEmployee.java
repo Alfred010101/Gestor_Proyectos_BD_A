@@ -11,9 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -24,7 +22,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JToggleButton;
-import javax.swing.JViewport;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
@@ -408,9 +405,10 @@ public class WorkspaceEmployee extends JFrame
 
     private void initCardPanelProyectos()
     {
-        cardPanelProyectos = new JPanel();
-        cardPanelProyectos.add(new JLabel("Tarjeta 2"));
-        cardPanelProyectos.setBackground(Color.GREEN);
+        EmployeeProjects prb= new EmployeeProjects(employee.getId());
+        cardPanelProyectos = prb.panel;
+//        cardPanelProyectos.add(new JLabel("Tarjeta 2"));
+//        cardPanelProyectos.setBackground(Color.GREEN);
     }
 
     private void initCardPanelColaboraciones()

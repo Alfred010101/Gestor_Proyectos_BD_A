@@ -99,7 +99,7 @@ import utils.Var;
 //    }
 //}
 
-class ButtonEditor extends DefaultCellEditor {
+public class ButtonEditor extends DefaultCellEditor {
     private JButton button;
     private String label;
     private boolean isPushed;
