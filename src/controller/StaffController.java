@@ -38,7 +38,7 @@ public class StaffController
                 default ->
                 {
                     Staff employeeStaff = StaffDAO.getStaff(session);
-                    if (employeeStaff.getId() == 1)
+                    if (employeeStaff.getRole() == 1)
                     {
                         new WorkspaceAdministrator(employeeStaff).setVisible(true);
                     }else
