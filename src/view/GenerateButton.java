@@ -71,7 +71,7 @@ public class GenerateButton
         return boton;
     }
     
-    public static JButton crearBotonConIcono(String texto, String sources, Var.MENU_ADMIN opc)
+    public static JButton crearBotonConIcono(String texto, String sources, int opc)
     {
         JButton boton = new JButton("    " + texto);
         boton.setBackground(Color.WHITE);
@@ -91,7 +91,7 @@ public class GenerateButton
             @Override
             public void mouseEntered(MouseEvent e)
             {
-                if (opc != Var.OPCION_ACTUAL)
+                if (opc != Var.OPCION_ACT)
                 {
                     boton.setContentAreaFilled(true);
                     boton.setBackground(Color.decode("#039BE5"));
@@ -102,7 +102,7 @@ public class GenerateButton
             @Override
             public void mouseExited(MouseEvent e)
             {
-                if (opc != Var.OPCION_ACTUAL)
+                if (opc != Var.OPCION_ACT)
                 {
                     boton.setContentAreaFilled(false);
                     boton.setBackground(Color.WHITE);

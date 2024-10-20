@@ -31,4 +31,6 @@ public class Var
     }
     
     public static MENU_ADMIN OPCION_ACTUAL;
+    
+    public static int OPCION_ACT = -1;
 }

@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -9,9 +10,12 @@ import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import model.Staff;
 import utils.Var;
 
@@ -22,11 +26,11 @@ import utils.Var;
  *
  * @author Alfred
  */
-public class PlantillaPrincipal
+public abstract class PlantillaPrincipal extends JFrame
 {
 
     /**
-     * Objetos que se pueden obtner para manipular desde fuera
+     * Objetos contnidos en la ventana
      */
     private JPanel panelPrincipal;
 
@@ -38,17 +42,35 @@ public class PlantillaPrincipal
     /**
      * Objetos contenidos en el panelWest
      */
-    private JPanel panelWest;
+    protected JPanel panelWest;
+
+    /**
+     * Objetos contenidos en el panelCenter
+     */
+    protected JPanel panelCenter;
+    protected CardLayout cardWork;
 
     /**
      * Objetos requeridos para contriur la plantilla
      */
-    private final Staff employee;
+    protected Staff employee;
 
     public PlantillaPrincipal(Staff employee)
     {
         this.employee = employee;
+        try
+        {
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException e)
+        {
+        }
+        setTitle("Workspace");
+        setSize(800, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
         initComponets();
+        add(panelPrincipal);
     }
 
     private void initComponets()
@@ -57,8 +79,10 @@ public class PlantillaPrincipal
 
         initPanelWest();
         initPanelNorth();
+        initPanelCenter();
         panelPrincipal.add(panelNorth, BorderLayout.NORTH);
         panelPrincipal.add(panelWest, BorderLayout.WEST);
+        panelPrincipal.add(panelCenter, BorderLayout.CENTER);
     }
 
     /**
@@ -122,115 +146,94 @@ public class PlantillaPrincipal
         panelWest.setLayout(new BoxLayout(panelWest, BoxLayout.Y_AXIS));
         panelWest.setBackground(Color.decode("#FFFFFF"));
 
+    }
+
+    private void initPanelCenter()
+    {
+        panelCenter = new JPanel();
+        panelCenter.setBackground(Color.decode("#D7DBDD"));
+        cardWork = new CardLayout();
+        panelCenter.setLayout(cardWork);
+    }
+    
+    protected abstract void initMenu();
+    
+    protected abstract void initWorckspace();
+    
+//    private void initMenu2()
+//    {
+////        Var.OPCION_ACTUAL = Var.MENU_ADMIN.DEPARTAMENTOS;
+//        JButton btnPersonal;
+//        JButton btnDepartamentos;
+//        JButton btnRecursos;
+//
 //        if (employee.getRole() == 1)
 //        {
-//            initMenuAdmin();
+//            btnPersonal = GenerateButton.crearBotonConIcono("Personal", "jefe-de-equipo_Res.png", Var.MENU_ADMIN.PERSONAL);
+//
+//            btnDepartamentos = GenerateButton.crearBotonConIcono("Departamentos", "departamento-de-la-compania_Res.png", Var.MENU_ADMIN.DEPARTAMENTOS);
+//
+//            btnRecursos = GenerateButton.crearBotonConIcono("Recursos", "en-stock_Res.png", Var.MENU_ADMIN.RECURSOS);
+//
 //        } else
 //        {
-        initMenu();
+//            btnPersonal = GenerateButton.crearBotonConIcono("Tareas", "tareas_Res.png", Var.MENU_ADMIN.PERSONAL);
+//
+//            btnDepartamentos = GenerateButton.crearBotonConIcono("Proyectos", "gestion-de-proyectos_Res.png", Var.MENU_ADMIN.DEPARTAMENTOS);
+//
+//            btnRecursos = GenerateButton.crearBotonConIcono("Colaboraciones", "colaborar_Res.png", Var.MENU_ADMIN.RECURSOS);
+//
 //        }
-    }
+//
+//        btnPersonal.addActionListener((e) ->
+//        {
+//            if (Var.OPCION_ACTUAL != Var.MENU_ADMIN.PERSONAL)
+//            {
+//                setBackgroundMenusAdmin(Var.MENU_ADMIN.PERSONAL, btnPersonal, btnDepartamentos, btnRecursos);
+//            }
+//        });
+//
+//        btnDepartamentos.addActionListener((e) ->
+//        {
+//            if (Var.OPCION_ACTUAL != Var.MENU_ADMIN.DEPARTAMENTOS)
+//            {
+//                setBackgroundMenusAdmin(Var.MENU_ADMIN.DEPARTAMENTOS, btnPersonal, btnDepartamentos, btnRecursos);
+//            }
+//        });
+//
+//        btnRecursos.addActionListener((e) ->
+//        {
+//            if (Var.OPCION_ACTUAL != Var.MENU_ADMIN.RECURSOS)
+//            {
+//                setBackgroundMenusAdmin(Var.MENU_ADMIN.RECURSOS, btnPersonal, btnDepartamentos, btnRecursos);
+//            }
+//        });
+//
+//        panelWest.add(btnPersonal);
+//        panelWest.add(btnDepartamentos);
+//        panelWest.add(btnRecursos);
+//    }
 
-    private void initMenu()
+    public void setBackgroundMenusAdmin(int opc, JButton... botones)
     {
-//        Var.OPCION_ACTUAL = Var.MENU_ADMIN.DEPARTAMENTOS;
-        JButton btnPersonal;
-        JButton btnDepartamentos;
-        JButton btnRecursos;
-
-        if (employee.getRole() == 1)
+        int menu = 0;
+        for(JButton btn : botones)
         {
-            btnPersonal = GenerateButton.crearBotonConIcono("Personal", "jefe-de-equipo_Res.png", Var.MENU_ADMIN.PERSONAL);
-
-            btnDepartamentos = GenerateButton.crearBotonConIcono("Departamentos", "departamento-de-la-compania_Res.png", Var.MENU_ADMIN.DEPARTAMENTOS);
-
-            btnRecursos = GenerateButton.crearBotonConIcono("Recursos", "en-stock_Res.png", Var.MENU_ADMIN.RECURSOS);
-
-        } else
-        {
-            btnPersonal = GenerateButton.crearBotonConIcono("Tareas", "tareas_Res.png", Var.MENU_ADMIN.PERSONAL);
-
-            btnDepartamentos = GenerateButton.crearBotonConIcono("Proyectos", "gestion-de-proyectos_Res.png", Var.MENU_ADMIN.DEPARTAMENTOS);
-
-            btnRecursos = GenerateButton.crearBotonConIcono("Colaboraciones", "colaborar_Res.png", Var.MENU_ADMIN.RECURSOS);
-
+            if (Var.OPCION_ACT == menu++)
+            {
+                btn.setBackground(Color.WHITE);
+                btn.setForeground(Color.BLACK);
+            }
         }
-
-        btnPersonal.addActionListener((e) ->
+        Var.OPCION_ACT = opc;
+        menu = 0;
+        for(JButton btn : botones)
         {
-            if (Var.OPCION_ACTUAL != Var.MENU_ADMIN.PERSONAL)
+            if (Var.OPCION_ACT == menu++)
             {
-                setBackgroundMenusAdmin(Var.MENU_ADMIN.PERSONAL, btnPersonal, btnDepartamentos, btnRecursos);
+                btn.setBackground(Color.LIGHT_GRAY);
+                btn.setForeground(Color.WHITE);
             }
-        });
-
-        btnDepartamentos.addActionListener((e) ->
-        {
-            if (Var.OPCION_ACTUAL != Var.MENU_ADMIN.DEPARTAMENTOS)
-            {
-                setBackgroundMenusAdmin(Var.MENU_ADMIN.DEPARTAMENTOS, btnPersonal, btnDepartamentos, btnRecursos);
-            }
-        });
-
-        btnRecursos.addActionListener((e) ->
-        {
-            if (Var.OPCION_ACTUAL != Var.MENU_ADMIN.RECURSOS)
-            {
-                setBackgroundMenusAdmin(Var.MENU_ADMIN.RECURSOS, btnPersonal, btnDepartamentos, btnRecursos);
-            }
-        });
-
-        panelWest.add(btnPersonal);
-        panelWest.add(btnDepartamentos);
-        panelWest.add(btnRecursos);
-    }
-
-    private void setBackgroundMenusAdmin(Var.MENU_ADMIN opc, JButton btn1, JButton btn2, JButton btn3)
-    {
-        Var.OPCION_ACTUAL = opc;
-        btn1.setBackground((Var.OPCION_ACTUAL == Var.MENU_ADMIN.PERSONAL) ? Color.LIGHT_GRAY : Color.WHITE);
-        btn2.setBackground((Var.OPCION_ACTUAL == Var.MENU_ADMIN.DEPARTAMENTOS) ? Color.LIGHT_GRAY : Color.WHITE);
-        btn3.setBackground((Var.OPCION_ACTUAL == Var.MENU_ADMIN.RECURSOS) ? Color.LIGHT_GRAY : Color.WHITE);
-
-        btn1.setForeground((Var.OPCION_ACTUAL == Var.MENU_ADMIN.PERSONAL) ? Color.WHITE : Color.BLACK);
-        btn2.setForeground((Var.OPCION_ACTUAL == Var.MENU_ADMIN.DEPARTAMENTOS) ? Color.WHITE : Color.BLACK);
-        btn3.setForeground((Var.OPCION_ACTUAL == Var.MENU_ADMIN.RECURSOS) ? Color.WHITE : Color.BLACK);
-    }
-
-    private void initMenuUser()
-    {
-        JButton btnTareas = GenerateButton.crearBotonConIcono("Tareas", "tareas_Res.png", Var.MENU_ADMIN.PERSONAL);
-
-        JButton btnProyectos = GenerateButton.crearBotonConIcono("Proyectos", "gestion-de-proyectos_Res.png", Var.MENU_ADMIN.DEPARTAMENTOS);
-
-        JButton btnColaboraciones = GenerateButton.crearBotonConIcono("Colaboraciones", "colaborar_Res.png", Var.MENU_ADMIN.RECURSOS);
-
-        btnTareas.addActionListener((e) ->
-        {
-            if (Var.OPCION_ACTUAL != Var.MENU_ADMIN.PERSONAL)
-            {
-                setBackgroundMenusAdmin(Var.MENU_ADMIN.PERSONAL, btnTareas, btnProyectos, btnColaboraciones);
-            }
-        });
-
-        btnProyectos.addActionListener((e) ->
-        {
-            if (Var.OPCION_ACTUAL != Var.MENU_ADMIN.DEPARTAMENTOS)
-            {
-                setBackgroundMenusAdmin(Var.MENU_ADMIN.DEPARTAMENTOS, btnTareas, btnProyectos, btnColaboraciones);
-            }
-        });
-
-        btnColaboraciones.addActionListener((e) ->
-        {
-            if (Var.OPCION_ACTUAL != Var.MENU_ADMIN.RECURSOS)
-            {
-                setBackgroundMenusAdmin(Var.MENU_ADMIN.RECURSOS, btnTareas, btnProyectos, btnColaboraciones);
-            }
-        });
-
-        panelWest.add(btnTareas);
-        panelWest.add(btnProyectos);
-        panelWest.add(btnColaboraciones);
+        }
     }
 }

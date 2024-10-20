@@ -1,44 +1,77 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import javax.swing.JFrame;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 import model.Staff;
+import utils.Var;
 
 /**
  *
  * @author Alfred
  */
-public class WorkspaceAdministrator extends JFrame
+public class WorkspaceAdministrator extends PlantillaPrincipal
 {
-
-    private Staff employee;
-    private PlantillaPrincipal plantilla;
 
     public WorkspaceAdministrator(Staff employee)
     {
-        this.employee = employee;
-        setTitle("Workspace");
-        setSize(800, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setLayout(new BorderLayout());
-        setBackground(Color.yellow);
+        super(employee);
         initComponents();
     }
 
     private void initComponents()
     {
-        try
-        {
-            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException e)
-        {
-        }
-        plantilla = new PlantillaPrincipal(employee);
-        add(plantilla.getPanelPrincipal(), BorderLayout.CENTER);
+        initMenu();
+        initWorckspace();
     }
 
+    @Override
+    protected void initMenu()
+    {
+        JButton btnPersonal = GenerateButton.crearBotonConIcono("Personal", "jefe-de-equipo_Res.png", 0);
+        
+        JButton btnDepartamentos = GenerateButton.crearBotonConIcono("Departamentos", "departamento-de-la-compania_Res.png", 1);
+
+        JButton btnRecursos = GenerateButton.crearBotonConIcono("Recursos", "en-stock_Res.png", 2);
+
+
+        btnPersonal.addActionListener((e) ->
+        {
+            if (Var.OPCION_ACT != 0)
+            {
+                setBackgroundMenusAdmin(0, btnPersonal, btnDepartamentos, btnRecursos);
+                cardWork.show(panelCenter, "Card Personal");
+            }
+        });
+
+        btnDepartamentos.addActionListener((e) ->
+        {
+            if (Var.OPCION_ACT != 1)
+            {
+                setBackgroundMenusAdmin(1, btnPersonal, btnDepartamentos, btnRecursos);
+                cardWork.show(panelCenter, "Card Departamentos");
+            }
+        });
+
+        btnRecursos.addActionListener((e) ->
+        {
+            if (Var.OPCION_ACT != 2)
+            {
+                setBackgroundMenusAdmin(2, btnPersonal, btnDepartamentos, btnRecursos);
+                cardWork.show(panelCenter, "Card Recursos");
+            }
+        });
+
+        panelWest.add(btnPersonal);
+        panelWest.add(btnDepartamentos);
+        panelWest.add(btnRecursos);
+    }    
+
+    @Override
+    protected void initWorckspace()
+    {
+        panelCenter.add(new JPanel(), "null");
+        panelCenter.add(new EmployeeProjects(employee.getId()).panel, "Card Personal");
+        panelCenter.add(new EmployeeProjects(employee.getId()).panel, "Card Departamentos");
+        panelCenter.add(new EmployeeProjects(employee.getId()).panel, "Card Recursos");
+    }
 }
