@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.List;
 import model.Staff;
 import utils.ConnectionBD;
 
@@ -114,5 +116,36 @@ public class StaffDAO
 //            System.out.println("Null pointer");
         }
         return null;
+    }
+
+    public static List<Staff> getEmployees()
+    {
+        String query = "SELECT * FROM Personal";
+        List<Staff> staffList = new ArrayList<>();
+        try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query); ResultSet resultSet = statement.executeQuery())
+        {
+            while (resultSet.next())
+            {
+                int id = resultSet.getInt("Id_empleado");
+                int role = resultSet.getInt("Id_rol");
+                int department = resultSet.getInt("Id_departamento");
+                String name = resultSet.getString("Nombre");
+                String user = resultSet.getString("Usuario");
+                String pass = resultSet.getString("Password");
+                String email = resultSet.getString("E-mail");
+                String address = resultSet.getString("Direccion");
+                int phoneNumber = resultSet.getInt("Telefono");
+
+                Staff staff = new Staff(id, role, department, name, user, pass, email, address, phoneNumber);
+                staffList.add(staff);
+            }
+        } catch (SQLException ex)
+        {
+            System.out.println(ex);
+        } catch (Exception e)
+        {
+            System.out.println(e);
+        }
+        return staffList;
     }
 }

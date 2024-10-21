@@ -22,6 +22,7 @@ public class WorkspaceAdministrator extends PlantillaPrincipal
     {
         initMenu();
         initWorckspace();
+        pack();
     }
 
     @Override
@@ -70,7 +71,7 @@ public class WorkspaceAdministrator extends PlantillaPrincipal
     protected void initWorckspace()
     {
         panelCenter.add(new JPanel(), "null");
-        panelCenter.add(new EmployeeProjects(employee.getId()).panel, "Card Personal");
+        panelCenter.add(new AdminEmployees(employee.getId()).panelPricipal, "Card Personal");
         panelCenter.add(new EmployeeProjects(employee.getId()).panel, "Card Departamentos");
         panelCenter.add(new EmployeeProjects(employee.getId()).panel, "Card Recursos");
     }

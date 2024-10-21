@@ -1,6 +1,7 @@
 package controller;
 
 import dao.StaffDAO;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Staff;
@@ -51,5 +52,11 @@ public class StaffController
             }
         }
         return false;
+    }
+    
+    public static List<Staff> getEmployees()
+    {
+        //Aqui deben ir validaciones
+        return StaffDAO.getEmployees();
     }
 }

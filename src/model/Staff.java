@@ -9,7 +9,7 @@ public class Staff
 {
     private final int id;
     private int role;
-    private int departament;
+    private int department;
     private String name;
     private String user;
     private String password;
@@ -21,7 +21,7 @@ public class Staff
     {
         this.id = id;
         this.role = role;
-        this.departament = departament;
+        this.department = departament;
         this.name = name;
         this.user = user;
         this.password = password;
@@ -63,19 +63,19 @@ public class Staff
     }
 
     /**
-     * @return the departament
+     * @return the department
      */
-    public int getDepartament()
+    public int getDepartment()
     {
-        return departament;
+        return department;
     }
 
     /**
-     * @param departament the departament to set
+     * @param departament the department to set
      */
-    public void setDepartament(int departament)
+    public void setDepartment(int departament)
     {
-        this.departament = departament;
+        this.department = departament;
     }
 
     /**
@@ -177,7 +177,7 @@ public class Staff
     @Override
     public String toString()
     {
-        return "ID: " + id + "\tRol: " + role + "\tDepartamento: " + departament 
+        return "ID: " + id + "\tRol: " + role + "\tDepartamento: " + department 
                 + "\tNombre: " + name + "\tUsuario: " + user 
                 + "\tPassword: " + password + "\tE-mail: " + email 
                 + "\tDireccion: " + address + "\tTelefono: " + phoneNumber;

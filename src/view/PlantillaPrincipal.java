@@ -12,6 +12,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.UIManager;
@@ -132,6 +133,10 @@ public abstract class PlantillaPrincipal extends JFrame
         JButton btnAyuda = GenerateButton.crearBotonBarra("Ayuda", "ayudar_Res.png", Var.COLORES_BOTONES_NORTH);
         JButton btnNotificaciones = GenerateButton.crearBotonBarra("Notificaciones", "boton-de-notificaciones_Res.png", Var.COLORES_BOTONES_NORTH);
         JButton btnSalir = GenerateButton.crearBotonBarra("Cerrar Sesión", "cerrar-sesion_Res.png", Var.COLORES_BOTONES_NORTH);
+        btnSalir.addActionListener((e) ->
+        {
+            btnSalirActionListener();
+        });
         panelIconos.add(btnAyuda);
         panelIconos.add(btnNotificaciones);
         panelIconos.add(btnSalir);
@@ -155,11 +160,11 @@ public abstract class PlantillaPrincipal extends JFrame
         cardWork = new CardLayout();
         panelCenter.setLayout(cardWork);
     }
-    
+
     protected abstract void initMenu();
-    
+
     protected abstract void initWorckspace();
-    
+
 //    private void initMenu2()
 //    {
 ////        Var.OPCION_ACTUAL = Var.MENU_ADMIN.DEPARTAMENTOS;
@@ -213,11 +218,10 @@ public abstract class PlantillaPrincipal extends JFrame
 //        panelWest.add(btnDepartamentos);
 //        panelWest.add(btnRecursos);
 //    }
-
     public void setBackgroundMenusAdmin(int opc, JButton... botones)
     {
         int menu = 0;
-        for(JButton btn : botones)
+        for (JButton btn : botones)
         {
             if (Var.OPCION_ACT == menu++)
             {
@@ -227,13 +231,24 @@ public abstract class PlantillaPrincipal extends JFrame
         }
         Var.OPCION_ACT = opc;
         menu = 0;
-        for(JButton btn : botones)
+        for (JButton btn : botones)
         {
             if (Var.OPCION_ACT == menu++)
             {
                 btn.setBackground(Color.LIGHT_GRAY);
                 btn.setForeground(Color.WHITE);
             }
+        }
+    }
+
+    private void btnSalirActionListener()
+    {
+        int confirmar = JOptionPane.showConfirmDialog(this, "Esta seguro de terminar la sesion", "Cerrar Sesión", JOptionPane.YES_NO_CANCEL_OPTION);
+        if (confirmar == JOptionPane.YES_OPTION)
+        {
+            employee = null;
+            dispose();
+            new Login().setVisible(true);
         }
     }
 }
