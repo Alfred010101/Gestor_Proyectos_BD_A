@@ -98,7 +98,7 @@ public class AdminResources extends CardJPanel
     
     private void initPanelCenter()
     {
-        tabla = GenerateTable.getTable(ResourcesController.getResoucesData(), Var.RESOURCES_COLUMN_NAMES, 3);
+        tabla = GenerateTable.getTable(ResourcesController.getResoucesData(), Var.RESOURCES_COLUMN_NAMES, 4);
         panelPricipal.add(tabla, BorderLayout.CENTER);
     }
 

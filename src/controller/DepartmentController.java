@@ -12,9 +12,9 @@ import model.Department;
 
 public class DepartmentController
 {
-    public static String getNameDepartment(int id)
+    public static String getDepartmentName(int id)
     {
-        return DepartmentDAO.getNameDepartment(id);
+        return DepartmentDAO.getDepartmentName(id);
     }
     
     public static Object[][] getDepartmentData()
@@ -25,12 +25,17 @@ public class DepartmentController
         {
             data[i][0] = departments.get(i).getId();
             data[i][1] = departments.get(i).getName();
-            data[i][2] = StaffController.getEmployeeName(departments.get(i).getManager());            
+            data[i][2] = getDepartmentJefe(departments.get(i).getManager());            
             data[i][3] = departments.get(i).getPhoneNumber();
             data[i][4] = null;
             data[i][5] = null;
             data[i][6] = null;
         }
         return data;
+    }
+    
+    public static String getDepartmentJefe(int id)
+    {
+        return DepartmentDAO.getDepartmentJefe(id);
     }
 }

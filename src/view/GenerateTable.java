@@ -146,7 +146,7 @@ public class GenerateTable
             data[i][0] = empleados.get(i).getId();
             data[i][1] = RoleController.getRole(empleados.get(i).getId());
             data[i][2] = empleados.get(i).getName();
-            data[i][3] = DepartmentController.getNameDepartment(empleados.get(i).getDepartment());
+            data[i][3] = DepartmentController.getDepartmentName(empleados.get(i).getDepartment());
             data[i][4] = empleados.get(i).getEmail();
             data[i][5] = empleados.get(i).getPhoneNumber();
             data[i][6] = null;
@@ -233,7 +233,7 @@ public class GenerateTable
 
         // Crear la JTable con el modelo de datos personalizado
         JTable table = new JTable(tableModel);
-
+        
         // Estilizar la cabecera de la tabla
         JTableHeader header = table.getTableHeader();
         header.setBackground(new Color(51, 153, 255));
@@ -280,7 +280,6 @@ public class GenerateTable
         table.getColumn("Eliminar").setCellEditor(new ButtonEditor(new JCheckBox(), "borrar_Res.png"));
         
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBackground(Color.RED);
         return scrollPane;
     }
 }

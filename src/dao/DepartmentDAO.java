@@ -16,29 +16,7 @@ import utils.ConnectionBD;
  */
 
 public class DepartmentDAO
-{
-    public static String getNameDepartment(int id)
-    {
-        String query = "SELECT Departamento FROM Departamentos WHERE Id_departamento = ?";
-        String name = "";
-        try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query);)
-        {
-            statement.setInt(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next())
-            {
-                name = resultSet.getString("Departamento");
-            }
-        } catch (SQLException ex)
-        {
-            System.out.println(ex);
-        } catch (Exception e)
-        {
-            System.out.println(e);
-        }
-        return name;
-    }
-    
+{    
     public static List<Department> getDepartments()
     {
         String query = "SELECT * FROM Departamentos";
@@ -63,5 +41,52 @@ public class DepartmentDAO
             System.out.println(e);
         }
         return departmentsList;
+    }
+    
+    public static String getDepartmentName(int id)
+    {
+        String query = "SELECT Departamento FROM Departamentos WHERE Id_departamento = ?";
+        String name = "";
+        try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query);)
+        {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next())
+            {
+                name = resultSet.getString("Departamento");
+            }
+        } catch (SQLException ex)
+        {
+            System.out.println(ex);
+        } catch (Exception e)
+        {
+            System.out.println(e);
+        }
+        return name;
+    }
+    
+    public static String getDepartmentJefe(int id)
+    {
+//        String query = "SELECT Personal.Id_empleado FROM Departamentos INNER JOIN Personal WHERE Departamento.Id_jefe = Personal.Id_empleado";
+//        String query = "SELECT Personal.Nombre FROM Personal WHERE Personal.Id_empleado = (SELECT Departamentos.Id_jefe FROM Departamentos WHERE Departamentos.Id_departamento = ?)";
+        String query = "SELECT Personal.Nombre FROM Personal WHERE Personal.Id_empleado = ?";
+//        String query = "SELECT Personal.Nombre FROM Personal WHERE Personal.Id_empleado = ?";
+        String jefe = "";
+        try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query);)
+        {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next())
+            {
+                jefe = resultSet.getString("Personal.Nombre");
+            }
+        } catch (SQLException ex)
+        {
+            System.out.println(ex);
+        } catch (Exception e)
+        {
+            System.out.println(e);
+        }
+        return jefe;
     }
 }
