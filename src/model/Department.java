@@ -10,10 +10,10 @@ public class Department
 {
     private final int id;
     private int manager;
-    private int name;
+    private String name;
     private int phoneNumber;
 
-    public Department(int id, int manager, int name, int phoneNumber)
+    public Department(int id, int manager, String name, int phoneNumber)
     {
         this.id = id;
         this.manager = manager;
@@ -56,7 +56,7 @@ public class Department
     /**
      * @return the name
      */
-    public int getName()
+    public String getName()
     {
         return name;
     }
@@ -64,7 +64,7 @@ public class Department
     /**
      * @param name the name to set
      */
-    public void setName(int name)
+    public void setName(String name)
     {
         this.name = name;
     }
