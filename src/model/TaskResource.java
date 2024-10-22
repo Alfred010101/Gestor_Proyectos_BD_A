@@ -29,14 +29,6 @@ public class TaskResource
         return id;
     }
 
-//    /**
-//     * @param id the id to set
-//     */
-//    public void setId(int id)
-//    {
-//        this.id = id;
-//    }
-
     /**
      * @return the resource
      */
@@ -45,14 +37,6 @@ public class TaskResource
         return resource;
     }
 
-//    /**
-//     * @param resource the resource to set
-//     */
-//    public void setResource(int resource)
-//    {
-//        this.resource = resource;
-//    }
-
     /**
      * @return the task
      */
@@ -60,14 +44,6 @@ public class TaskResource
     {
         return task;
     }
-
-//    /**
-//     * @param task the task to set
-//     */
-//    public void setTask(int task)
-//    {
-//        this.task = task;
-//    }
 
     /**
      * @return the amount

@@ -12,7 +12,7 @@ public class ConnectionBD
 {
     // Ruta de la base de datos Access
     // Ajusta la ruta...
-    private static final String PATH = "src/BD/Gestion1.accdb";
+    private static final String PATH = "src/BD/Enterprise_Database.accdb";
     private static final String URL = "jdbc:ucanaccess://" + PATH;
 
     public static Connection getConnection()
