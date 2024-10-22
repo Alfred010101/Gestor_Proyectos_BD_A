@@ -14,4 +14,9 @@ public class RoleController
     {
         return RoleDAO.getRole(pkId);
     }
+    
+    public static String getRoleName(int pkId)
+    {
+        return RoleDAO.getRole(pkId).getName();
+    }
 }
