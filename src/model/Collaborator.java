@@ -27,14 +27,6 @@ public class Collaborator
         return id;
     }
 
-//    /**
-//     * @param id the id to set
-//     */
-//    public void setId(int id)
-//    {
-//        this.id = id;
-//    }
-
     /**
      * @return the project
      */
@@ -43,14 +35,6 @@ public class Collaborator
         return project;
     }
 
-//    /**
-//     * @param project the project to set
-//     */
-//    public void setProject(int project)
-//    {
-//        this.project = project;
-//    }
-
     /**
      * @return the collaborator
      */
@@ -58,12 +42,4 @@ public class Collaborator
     {
         return collaborator;
     }
-
-//    /**
-//     * @param collaborator the collaborator to set
-//     */
-//    public void setCollaborator(int collaborator)
-//    {
-//        this.collaborator = collaborator;
-//    }
 }

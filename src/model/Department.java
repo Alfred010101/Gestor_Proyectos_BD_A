@@ -11,9 +11,9 @@ public class Department
     private final int id;
     private int manager;
     private String name;
-    private int phoneNumber;
+    private String phoneNumber;
 
-    public Department(int id, int manager, String name, int phoneNumber)
+    public Department(int id, int manager, String name, String phoneNumber)
     {
         this.id = id;
         this.manager = manager;
@@ -28,14 +28,6 @@ public class Department
     {
         return id;
     }
-
-//    /**
-//     * @param id the id to set
-//     */
-//    public void setId(int id)
-//    {
-//        this.id = id;
-//    }
 
     /**
      * @return the manager
@@ -72,7 +64,7 @@ public class Department
     /**
      * @return the phoneNumber
      */
-    public int getPhoneNumber()
+    public String getPhoneNumber()
     {
         return phoneNumber;
     }
@@ -80,7 +72,7 @@ public class Department
     /**
      * @param phoneNumber the phoneNumber to set
      */
-    public void setPhoneNumber(int phoneNumber)
+    public void setPhoneNumber(String phoneNumber)
     {
         this.phoneNumber = phoneNumber;
     }    

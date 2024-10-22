@@ -11,19 +11,21 @@ public class Staff
     private int role;
     private int department;
     private String name;
-    private String user;
+    private String apPaterno;
+    private String apMaterno;
     private String password;
     private String email;
     private String address;
-    private int phoneNumber;
+    private String phoneNumber;
 
-    public Staff(int id, int role, int departament, String name, String user, String password, String email, String address, int phoneNumber)
+    public Staff(int id, int role, int departament, String name, String apPaterno, String apMaterno, String password, String email, String address, String phoneNumber)
     {
         this.id = id;
         this.role = role;
         this.department = departament;
         this.name = name;
-        this.user = user;
+        this.apPaterno = apPaterno;
+        this.apMaterno = apMaterno;
         this.password = password;
         this.email = email;
         this.address = address;
@@ -37,14 +39,6 @@ public class Staff
     {
         return id;
     }
-
-//    /**
-//     * @param id the id to set
-//     */
-//    public void setId(int id)
-//    {
-//        this.id = id;
-//    }
 
     /**
      * @return the role
@@ -71,11 +65,11 @@ public class Staff
     }
 
     /**
-     * @param departament the department to set
+     * @param department the department to set
      */
-    public void setDepartment(int departament)
+    public void setDepartment(int department)
     {
-        this.department = departament;
+        this.department = department;
     }
 
     /**
@@ -95,19 +89,35 @@ public class Staff
     }
 
     /**
-     * @return the user
+     * @return the apPaterno
      */
-    public String getUser()
+    public String getApPaterno()
     {
-        return user;
+        return apPaterno;
     }
 
     /**
-     * @param user the user to set
+     * @param apPaterno the apPaterno to set
      */
-    public void setUser(String user)
+    public void setApPaterno(String apPaterno)
     {
-        this.user = user;
+        this.apPaterno = apPaterno;
+    }
+
+    /**
+     * @return the apMaterno
+     */
+    public String getApMaterno()
+    {
+        return apMaterno;
+    }
+
+    /**
+     * @param apMaterno the apMaterno to set
+     */
+    public void setApMaterno(String apMaterno)
+    {
+        this.apMaterno = apMaterno;
     }
 
     /**
@@ -161,7 +171,7 @@ public class Staff
     /**
      * @return the phoneNumber
      */
-    public int getPhoneNumber()
+    public String getPhoneNumber()
     {
         return phoneNumber;
     }
@@ -169,17 +179,17 @@ public class Staff
     /**
      * @param phoneNumber the phoneNumber to set
      */
-    public void setPhoneNumber(int phoneNumber)
+    public void setPhoneNumber(String phoneNumber)
     {
         this.phoneNumber = phoneNumber;
-    }    
-
-    @Override
+    }
+    
+     @Override
     public String toString()
     {
-        return "ID: " + id + "\tRol: " + role + "\tDepartamento: " + department 
-                + "\tNombre: " + name + "\tUsuario: " + user 
-                + "\tPassword: " + password + "\tE-mail: " + email 
-                + "\tDireccion: " + address + "\tTelefono: " + phoneNumber;
+        return "ID: " + getId() + "\tRol: " + getRole() + "\tDepartamento: " + getDepartment() 
+                + "\tNombre: " + getName() + " " + getApPaterno() + " " + getApMaterno()
+                + "\tPassword: " + getPassword() + "\tE-mail: " + getEmail() 
+                + "\tDireccion: " + getAddress() + "\tTelefono: " + getPhoneNumber();
     }
 }

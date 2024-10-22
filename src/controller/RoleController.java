@@ -2,6 +2,7 @@
 package controller;
 
 import dao.RoleDAO;
+import model.Role;
 
 /**
  *
@@ -9,8 +10,8 @@ import dao.RoleDAO;
  */
 public class RoleController
 {
-    public static String getRole(int id)
+    public static Role getRole(int pkId)
     {
-        return RoleDAO.getRole(id);
+        return RoleDAO.getRole(pkId);
     }
 }

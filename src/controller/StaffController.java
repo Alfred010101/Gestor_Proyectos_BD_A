@@ -20,7 +20,7 @@ public class StaffController
     {
         if (!Validations.isNull(username) && !Validations.isNull(password))
         {
-            int session = StaffDAO.validateCredentials(username, password);
+            int session = StaffDAO.validateCredentials(Integer.parseInt(username), password);
             switch (session)
             {
                 case 0 ->
@@ -60,10 +60,10 @@ public class StaffController
         return StaffDAO.getEmployees();
     }
 
-    public static Staff getEmployee()
+    public static Staff getEmployee(int pkId)
     {
         //Aqui deben ir validaciones
-        return StaffDAO.getEmployee();
+        return StaffDAO.getStaff(pkId);
     }
     
     public static String getEmployeeName(int id)

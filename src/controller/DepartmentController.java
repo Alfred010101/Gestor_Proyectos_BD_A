@@ -2,6 +2,7 @@
 package controller;
 
 import dao.DepartmentDAO;
+import dao.StaffDAO;
 import java.util.List;
 import model.Department;
 
@@ -14,7 +15,7 @@ public class DepartmentController
 {
     public static String getDepartmentName(int id)
     {
-        return DepartmentDAO.getDepartmentName(id);
+        return DepartmentDAO.getDepartment(id).getName();
     }
     
     public static Object[][] getDepartmentData()
@@ -25,7 +26,10 @@ public class DepartmentController
         {
             data[i][0] = departments.get(i).getId();
             data[i][1] = departments.get(i).getName();
-            data[i][2] = getDepartmentJefe(departments.get(i).getManager());            
+            if (departments.get(i).getManager() > 0)
+            {
+                data[i][2] = StaffDAO.getStaff(departments.get(i).getManager()).getName();
+            }                        
             data[i][3] = departments.get(i).getPhoneNumber();
             data[i][4] = null;
             data[i][5] = null;
@@ -36,6 +40,6 @@ public class DepartmentController
     
     public static String getDepartmentJefe(int id)
     {
-        return DepartmentDAO.getDepartmentJefe(id);
+        return StaffDAO.getStaff(DepartmentDAO.getDepartment(id).getManager()).getName();
     }
 }

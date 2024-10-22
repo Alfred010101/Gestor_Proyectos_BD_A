@@ -1,4 +1,3 @@
-
 package dao;
 
 import java.sql.Connection;
@@ -16,6 +15,7 @@ import utils.ConnectionBD;
  */
 public class ResourcesDAO
 {
+
     public static List<Resources> getResources()
     {
         String query = "SELECT * FROM Recursos";
@@ -24,21 +24,48 @@ public class ResourcesDAO
         {
             while (resultSet.next())
             {
-                int id = resultSet.getInt("Id_recurso");
-                String name = resultSet.getString("Nombre");
-                int cantidadTotal = resultSet.getInt("Cantidad_total");
-                int cantidadDisponible = resultSet.getInt("Cantidad_disponible");
+                int pkId = resultSet.getInt("pk_id");
+                String name = resultSet.getString("nombre");
+                int cantidadTotal = resultSet.getInt("total");
+                int cantidadDisponible = resultSet.getInt("disponible");
 
-                Resources resource = new Resources(id, name, cantidadDisponible, cantidadTotal);
-                resourcesList.add(resource);
+                resourcesList.add(new Resources(pkId, name, cantidadDisponible, cantidadTotal));
+
             }
         } catch (SQLException ex)
         {
-            System.out.println(ex);
+            System.out.println("SQLException : " + ex);
         } catch (Exception e)
         {
-            System.out.println(e);
+            System.out.println("Exception : " + e);
         }
         return resourcesList;
+    }
+    
+    public static Resources getResource(int id)
+    {
+        String query = "SELECT * FROM Recursos WHERE pk_id = ?";
+        try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query);)
+        {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next())
+            {
+                int pkId = resultSet.getInt("pk_id");
+                String name = resultSet.getString("nombre");
+                int cantidadTotal = resultSet.getInt("total");
+                int cantidadDisponible = resultSet.getInt("disponible");
+
+                return new Resources(pkId, name, cantidadDisponible, cantidadTotal);
+
+            }
+        } catch (SQLException ex)
+        {
+            System.out.println("SQLException : " + ex);
+        } catch (Exception e)
+        {
+            System.out.println("Exception : " + e);
+        }
+        return null;
     }
 }

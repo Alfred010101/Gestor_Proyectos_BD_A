@@ -25,14 +25,6 @@ public class Role
         return id;
     }
 
-//    /**
-//     * @param id the id to set
-//     */
-//    public void setId(int id)
-//    {
-//        this.id = id;
-//    }
-
     /**
      * @return the name
      */
