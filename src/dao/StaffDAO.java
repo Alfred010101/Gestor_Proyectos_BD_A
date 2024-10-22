@@ -75,7 +75,6 @@ public class StaffDAO
     public static Staff getStaff(int id)
     {
         String query = "SELECT * FROM Personal WHERE pk_id = ?";
-        System.out.println(id);
         try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query);)
         {
             statement.setInt(1, id);
@@ -103,7 +102,6 @@ public class StaffDAO
         {
             System.out.println("Exception : " + e);
         }
-        System.out.println("Empty");
         return null;
     }
 }
