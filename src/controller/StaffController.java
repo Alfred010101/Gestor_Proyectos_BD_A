@@ -59,4 +59,15 @@ public class StaffController
         //Aqui deben ir validaciones
         return StaffDAO.getEmployees();
     }
+
+    public static Staff getEmployee()
+    {
+        //Aqui deben ir validaciones
+        return StaffDAO.getEmployee();
+    }
+    
+    public static String getEmployeeName(int id)
+    {
+        return StaffDAO.getStaff(id).getName();
+    }
 }

@@ -146,7 +146,7 @@ public class GenerateTable
             data[i][0] = empleados.get(i).getId();
             data[i][1] = RoleController.getRole(empleados.get(i).getId());
             data[i][2] = empleados.get(i).getName();
-            data[i][3] = DepartmentController.getNameDepartment(empleados.get(i).getDepartment());
+            data[i][3] = DepartmentController.getDepartmentName(empleados.get(i).getDepartment());
             data[i][4] = empleados.get(i).getEmail();
             data[i][5] = empleados.get(i).getPhoneNumber();
             data[i][6] = null;
@@ -217,22 +217,69 @@ public class GenerateTable
         
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBackground(Color.RED);
-//      scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        return scrollPane;
+    }
+    
+    public static JScrollPane getTable(Object[][] data, String[] columnNames, int numColumn)
+    {
+        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames)
+        {
+            @Override
+            public boolean isCellEditable(int row, int column)
+            {
+                return column >= numColumn; // Solo la columna de botones es editable
+            }
+        };
 
-        // Ajustar el tamaño de las columnas manualmente
-//        table.getColumnModel().getColumn(0).setPreferredWidth(50);
-//        table.getColumnModel().getColumn(1).setPreferredWidth(50);
-//        table.getColumnModel().getColumn(2).setPreferredWidth(150);
-//        table.getColumnModel().getColumn(3).setPreferredWidth(150);
-//        table.getColumnModel().getColumn(4).setPreferredWidth(100);
-//        table.getColumnModel().getColumn(5).setPreferredWidth(100);
-//        table.getColumnModel().getColumn(6).setPreferredWidth(70);
-//        table.getColumnModel().getColumn(7).setPreferredWidth(70);
-//        table.getColumnModel().getColumn(8).setPreferredWidth(70);
-        //table.getColumnModel().getColumn(4).setPreferredWidth(120);
+        // Crear la JTable con el modelo de datos personalizado
+        JTable table = new JTable(tableModel);
+        
+        // Estilizar la cabecera de la tabla
+        JTableHeader header = table.getTableHeader();
+        header.setBackground(new Color(51, 153, 255));
+        header.setForeground(Color.WHITE);
+        header.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        header.setPreferredSize(new Dimension(header.getWidth(), 30));
 
-//        Dimension tableSize = table.getPreferredSize();
-//        scrollPane.setPreferredSize(new Dimension(tableSize.width, table.getRowHeight() * table.getRowCount()));
+        // Estilizar las filas
+        table.setRowHeight(30); // Altura de las filas
+        table.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        table.setSelectionForeground(Color.WHITE);
+        
+        // Crear un renderizador personalizado para la tabla
+        TableCellRenderer cellRenderer = new TableCellRenderer();
+        for (int i = 0; i < table.getColumnCount(); i++)
+        {
+            table.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
+        
+        table.addMouseMotionListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseMoved(MouseEvent e)
+            {
+                int row = table.rowAtPoint(e.getPoint());
+                cellRenderer.setHoverRow(row);  // Establecer la fila que tiene hover
+                table.repaint();
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e)
+            {
+                cellRenderer.setHoverRow(-1); // Elimina hover
+                table.repaint();
+            }
+        });
+
+        // Renderizador para botones
+        table.getColumn("Ver").setCellRenderer(new ButtonRenderer("expediente_Res.png"));
+        table.getColumn("Ver").setCellEditor(new ButtonEditor(new JCheckBox(), "expediente_Res.png"));
+        table.getColumn("Editar").setCellRenderer(new ButtonRenderer("boton-editar_Res.png"));
+        table.getColumn("Editar").setCellEditor(new ButtonEditor(new JCheckBox(), "boton-editar_Res.png"));
+        table.getColumn("Eliminar").setCellRenderer(new ButtonRenderer("borrar_Res.png"));
+        table.getColumn("Eliminar").setCellEditor(new ButtonEditor(new JCheckBox(), "borrar_Res.png"));
+        
+        JScrollPane scrollPane = new JScrollPane(table);
         return scrollPane;
     }
 }

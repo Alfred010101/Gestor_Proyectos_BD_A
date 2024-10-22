@@ -106,49 +106,27 @@ public class ButtonEditor extends DefaultCellEditor {
 
     public ButtonEditor(JCheckBox checkBox, String icon) {
         super(checkBox);
-//        button = GenerateComponents.crearBotonHerramineta("", Var.PATHASSETS + icon);
-//        button.setOpaque(true);
-//        button.setText(text);
         button = new JButton();
         button.setIcon(new ImageIcon(Var.PATHASSETS + icon));
-        button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                fireEditingStopped(); // Dejar de editar cuando se presiona el botón
-            }
-        });
-        
-        button.addMouseListener(new MouseAdapter()
+        button.addActionListener((ActionEvent e) ->
         {
-            @Override
-            public void mouseEntered(MouseEvent e)
-            {
-                button.setContentAreaFilled(true);
-                button.setBackground(Color.decode("#039BE5"));
-                button.setForeground(Color.WHITE);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e)
-            {
-                button.setContentAreaFilled(false);
-                button.setBackground(Color.WHITE);
-                button.setForeground(Color.BLACK);
-            }
+            System.out.println("Fila " + label);
+            fireEditingStopped(); // Dejar de editar cuando se presiona el botón
         });
     }
 
     @Override
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-        label = button.getText();
+        label = String.valueOf(table.getSelectedRow());
         isPushed = true;
         return button;
     }
 
     @Override
     public Object getCellEditorValue() {
-        if (isPushed) {
-            System.out.println("Botón '" + label + "' presionado en la fila: " + label);
-        }
+//        if (isPushed) {
+//            System.out.println("Botón '" + label + "' presionado en la fila: " + label);
+//        }
         isPushed = false;
         return label;
     }
