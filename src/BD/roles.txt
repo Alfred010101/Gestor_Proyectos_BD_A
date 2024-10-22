@@ -1,0 +1,5 @@
+1,Desarrollador
+2,Disenador
+3,Gerente de Proyecto
+4,Analista
+5,Tester

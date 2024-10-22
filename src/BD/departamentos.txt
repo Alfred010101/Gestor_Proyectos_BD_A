@@ -1,0 +1,10 @@
+1,NULL,Desarrollo,555-001
+2,NULL,Diseño,555-002
+3,NULL,Recursos Humanos,555-003
+4,NULL,IT,555-004
+5,NULL,Finanzas,555-005
+6,NULL,Marketing,555-006
+7,NULL,Ventas,555-007
+8,NULL,Atención al Cliente,555-008
+9,NULL,Logística,555-009
+10,NULL,Soporte,555-010

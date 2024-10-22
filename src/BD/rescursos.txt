@@ -1,0 +1,30 @@
+1,Computadora,10,5
+2,Laptop,15,10
+3,Proyector,8,3
+4,Impresora,6,2
+5,Escáner,5,1
+6,Software A,20,15
+7,Software B,20,18
+8,Silla,25,20
+9,Escritorio,30,25
+10,Cable de red,50,40
+11,Router,12,8
+12,Monitor,15,10
+13,Teclado,50,45
+14,Ratón,50,40
+15,Kit de herramientas,10,5
+16,Pantalla LED,7,4
+17,Tablet,10,7
+18,Cámara web,20,15
+19,Micrófono,10,8
+20,Altavoces,10,5
+21,Power bank,15,10
+22,Proyector portátil,10,5
+23,Monitor adicional,12,6
+24,Unidad externa,20,15
+25,Sistema de audio,5,2
+26,Pantalla táctil,4,2
+27,Cargador,30,25
+28,Estabilizador,8,4
+29,Panel solar,10,6
+30,Accesorios varios,50,45
