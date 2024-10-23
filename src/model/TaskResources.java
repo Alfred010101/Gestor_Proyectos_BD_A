@@ -6,14 +6,14 @@ package model;
  * @author Alfred
  */
 
-public class TaskResource
+public class TaskResources
 {
     private final int id;
     private final int resource;
     private final int task;
     private int amount;
 
-    public TaskResource(int id, int resource, int task, int amount)
+    public TaskResources(int id, int resource, int task, int amount)
     {
         this.id = id;
         this.resource = resource;

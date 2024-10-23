@@ -216,7 +216,7 @@ public class GenerateTable
         table.getColumn("Eliminar").setCellEditor(new ButtonEditor(new JCheckBox(), "borrar_Res.png"));
         
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBackground(Color.RED);
+//        scrollPane.setBackground(Color.RED);
         return scrollPane;
     }
     

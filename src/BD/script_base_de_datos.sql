@@ -36,7 +36,8 @@ ADD CONSTRAINT fk_jefe FOREIGN KEY (fk_jefe) REFERENCES Personal(pk_id);
 CREATE TABLE Proyectos (
     pk_id AUTOINCREMENT PRIMARY KEY,
     fk_lider INTEGER,
-    nombre VARCHAR(50) NOT NULL,    
+    nombre VARCHAR(50) NOT NULL,  
+    descripcion VARCHAR(128),  
     estado INTEGER NOT NULL,
     fecha_inicio DATE NOT NULL,
     fecha_termino DATE,
@@ -47,8 +48,8 @@ CREATE TABLE Proyectos (
 -- 5 Crear la tabla Colaboradores
 CREATE TABLE Colaboradores (
     pk_id AUTOINCREMENT PRIMARY KEY,
-    fk_proyecto INTEGER,
-    fk_colaborador INTEGER,
+    fk_proyecto INTEGER NOT NULL,
+    fk_colaborador INTEGER NOT NULL,
     FOREIGN KEY (fk_proyecto) REFERENCES Proyectos(pk_id),
     FOREIGN KEY (fk_colaborador) REFERENCES Personal(pk_id)
 );

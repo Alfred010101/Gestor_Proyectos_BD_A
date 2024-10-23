@@ -20,7 +20,7 @@ public abstract class CardJPanel
         panelPricipal = new JPanel();
         panelPricipal.setBackground(Color.LIGHT_GRAY);
         panelPricipal.setLayout(new BorderLayout());
-        panelPricipal.setBorder(new EmptyBorder(0, 10, 5, 10));
+        panelPricipal.setBorder(new EmptyBorder(10, 10, 10, 10));
     }
     
     protected abstract void reset();
