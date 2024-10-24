@@ -11,4 +11,17 @@ public class Validations
     {
         return string == null;
     }    
+    
+    public static boolean validaEntero(String var)
+    {
+        try
+        {
+            Integer.parseInt(var);
+        } catch (Exception e)
+        {
+            return false;
+        }
+        return true;
+        
+    }
 }
