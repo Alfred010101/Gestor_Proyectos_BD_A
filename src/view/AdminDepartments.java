@@ -98,7 +98,7 @@ public class AdminDepartments extends CardJPanel
     
     private void initPanelCenter()
     {
-        tabla = GenerateTable.getTable(DepartmentController.getDepartmentData(), Var.DEPARTMENT_COLUMN_NAMES, 4);
+        tabla = GenerateTable.getTable(DepartmentController.getDepartmentData(), Var.DEPARTMENT_COLUMN_NAMES);
         panelPricipal.add(tabla, BorderLayout.CENTER);
     }
 

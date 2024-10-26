@@ -2,6 +2,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -43,7 +44,8 @@ public class AdminEmployees extends CardJPanel
         tabbedPane.setBorder(new EmptyBorder(0, 0, 10, 0));
         
         JPanel panelInicio = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JButton btnAgregar = GenerateComponents.crearBotonHerramineta("", "agregar-tarea_Res.png");
+        panelInicio.setBackground(Color.LIGHT_GRAY);
+        JButton btnAgregar = GenerateComponents.crearBotonHerramineta("", "nuevo_Res.png");
         JButton btnVer = GenerateComponents.crearBotonHerramineta("", "expediente_Res.png");
         JButton btnModificar = GenerateComponents.crearBotonHerramineta("", "boton-editar_Res.png");
         JButton btnEliminar = GenerateComponents.crearBotonHerramineta("", "borrar_Res.png");

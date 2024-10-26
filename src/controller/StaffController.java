@@ -66,8 +66,29 @@ public class StaffController
         return StaffDAO.getStaff(pkId);
     }
     
-    public static String getEmployeeName(int id)
+//    public static String getEmployeeName(int id)
+//    {
+//        return StaffDAO.getStaff(id).getName();
+//    }
+    public static int getEmployeePass(int id, String pass)
     {
-        return StaffDAO.getStaff(id).getName();
+        Staff user = StaffDAO.getStaff(id);
+        try
+        {
+            return user.getPassword().compareTo(pass);
+        } catch (NullPointerException e)
+        {
+        }
+        return -1;
+    }
+    
+    public static String getEmployeeRole(int id)
+    {
+        return StaffDAO.getStaffRol(id);
+    }
+    
+    public static String getEmployeeDepartment(int id)
+    {
+        return StaffDAO.getStaffRol(id);
     }
 }

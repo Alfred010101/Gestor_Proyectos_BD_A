@@ -43,7 +43,8 @@ public class StaffDAO
 
     public static List<Staff> getEmployees()
     {
-        String query = "SELECT * FROM Personal";
+        String query = "SELECT * "
+                + "FROM Personal";
         List<Staff> staffList = new ArrayList<>();
         try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query); ResultSet resultSet = statement.executeQuery())
         {
@@ -74,7 +75,9 @@ public class StaffDAO
 
     public static Staff getStaff(int id)
     {
-        String query = "SELECT * FROM Personal WHERE pk_id = ?";
+        String query = "SELECT * "
+                + "FROM Personal "
+                + "WHERE pk_id = ?";
         try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query);)
         {
             statement.setInt(1, id);
@@ -103,5 +106,57 @@ public class StaffDAO
             System.out.println("Exception : " + e);
         }
         return null;
+    }
+
+    public static String getStaffRol(int id)
+    {
+        String query = "SELECT Roles.nombre "
+                + "FROM Roles "
+                + "WHERE pk_id = "
+                + "(SELECT Personal.fk_rol "
+                + "FROM Personal "
+                + "WHERE pk_id = ?)";
+        try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query);)
+        {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next())
+            {
+                return resultSet.getString("Roles.nombre");
+            }
+        } catch (SQLException ex)
+        {
+            System.out.println("SQLException : " + ex);
+        } catch (Exception e)
+        {
+            System.out.println("Exception : " + e);
+        }
+        return "";
+    }
+
+    public static String getStaffDepartment(int id)
+    {
+        String query = "SELECT Departamnetos.nombre "
+                + "FROM Departamnetos "
+                + "WHERE pk_id = "
+                + "(SELECT Personal.fk_departamento "
+                + "FROM Personal "
+                + "WHERE pk_id = ?)";
+        try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query);)
+        {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next())
+            {
+                return resultSet.getString("Departamnetos.nombre");
+            }
+        } catch (SQLException ex)
+        {
+            System.out.println("SQLException : " + ex);
+        } catch (Exception e)
+        {
+            System.out.println("Exception : " + e);
+        }
+        return "";
     }
 }
