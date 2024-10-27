@@ -13,7 +13,7 @@ src/test/
 
 # Archivos binarios
 *.class
-*.jar
+#.jar
 *.war
 *.accdb
 
