@@ -23,11 +23,6 @@ public class StaffController
             int session = StaffDAO.validateCredentials(Integer.parseInt(username), password);
             switch (session)
             {
-                case 0 ->
-                {
-                    //new Workspace(StaffDAO.getStaff(username, password)).setVisible(true);
-                    //default, nunca debe entrar aqui, reg > 0
-                }
                 case -1 ->
                 {
                     JOptionPane.showMessageDialog(frame, "Verifique sus credenciales y vuelva a intentar.", "Credenciales Invalidas", JOptionPane.WARNING_MESSAGE);
@@ -36,16 +31,15 @@ public class StaffController
                 {
                     JOptionPane.showMessageDialog(frame, "NO se pudo establecer conexión con la base de datos.", "Fallo en la conexión", JOptionPane.ERROR_MESSAGE);
                 }
+                case 1 ->
+                {
+                    new WorkspaceAdministrator(Integer.parseInt(username)).setVisible(true);
+                    frame.dispose();
+                    return true;
+                }
                 default ->
                 {
-                    Staff employeeStaff = StaffDAO.getStaff(session);
-                    if (employeeStaff.getRole() == 1)
-                    {
-                        new WorkspaceAdministrator(employeeStaff).setVisible(true);
-                    }else
-                    {
-                        new WorkspaceEmployee(employeeStaff).setVisible(true);
-                    }
+                    new WorkspaceEmployee(Integer.parseInt(username)).setVisible(true);
                     frame.dispose();
                     return true;
                 }
@@ -66,8 +60,29 @@ public class StaffController
         return StaffDAO.getStaff(pkId);
     }
     
-    public static String getEmployeeName(int id)
+//    public static String getEmployeeName(int id)
+//    {
+//        return StaffDAO.getStaff(id).getName();
+//    }
+    public static int getEmployeePass(int id, String pass)
     {
-        return StaffDAO.getStaff(id).getName();
+        Staff user = StaffDAO.getStaff(id);
+        try
+        {
+            return user.getPassword().compareTo(pass);
+        } catch (NullPointerException e)
+        {
+        }
+        return -1;
+    }
+    
+    public static String getEmployeeRole(int id)
+    {
+        return StaffDAO.getStaffRol(id);
+    }
+    
+    public static String getEmployeeDepartment(int id)
+    {
+        return StaffDAO.getStaffRol(id);
     }
 }
