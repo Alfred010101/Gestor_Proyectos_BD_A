@@ -206,13 +206,13 @@ class Tareas
         });
 
         // Renderizador para botones
-        table.getColumn("Ver").setCellRenderer(new ButtonRenderer("expediente_Res.png"));
-        table.getColumn("Ver").setCellEditor(new ButtonEditor(new JCheckBox(), "expediente_Res.png"));
-        table.getColumn("Editar").setCellRenderer(new ButtonRenderer("boton-editar_Res.png"));
-        table.getColumn("Editar").setCellEditor(new ButtonEditor(new JCheckBox(), "boton-editar_Res.png"));
-        table.getColumn("Eliminar").setCellRenderer(new ButtonRenderer("borrar_Res.png"));
-        table.getColumn("Eliminar").setCellEditor(new ButtonEditor(new JCheckBox(), "borrar_Res.png"));
-        
+//        table.getColumn("Ver").setCellRenderer(new ButtonRenderer("expediente_Res.png"));
+//        table.getColumn("Ver").setCellEditor(new ButtonEditor(new JCheckBox(), "expediente_Res.png"));
+//        table.getColumn("Editar").setCellRenderer(new ButtonRenderer("boton-editar_Res.png"));
+//        table.getColumn("Editar").setCellEditor(new ButtonEditor(new JCheckBox(), "boton-editar_Res.png"));
+//        table.getColumn("Eliminar").setCellRenderer(new ButtonRenderer("borrar_Res.png"));
+//        table.getColumn("Eliminar").setCellEditor(new ButtonEditor(new JCheckBox(), "borrar_Res.png"));
+//        
         // Agregar la tabla a un JScrollPane para hacerla desplazable
         JScrollPane scrollPane = new JScrollPane(table);
 //        scrollPane.setBorder(BorderFactory.createEmptyBorder());

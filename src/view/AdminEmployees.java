@@ -2,6 +2,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -11,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
@@ -23,11 +25,18 @@ import javax.swing.border.EmptyBorder;
 public class AdminEmployees extends CardJPanel
 {
     private final int idEmployee;
-    private JScrollPane tabla;
-            
+    private JTable tabla;
+    private JScrollPane contenedorTabla;
+    boolean[] seleccionados;
+                
     public AdminEmployees(int idEmployee)
     {
         this.idEmployee = idEmployee;
+        seleccionados = new boolean[9];
+        for (int i = 0; i < 9; i++)
+        {
+            seleccionados[i] = true;
+        }
         initComponets();
     }
     
@@ -43,7 +52,8 @@ public class AdminEmployees extends CardJPanel
         tabbedPane.setBorder(new EmptyBorder(0, 0, 10, 0));
         
         JPanel panelInicio = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JButton btnAgregar = GenerateComponents.crearBotonHerramineta("", "agregar-tarea_Res.png");
+        panelInicio.setBackground(Color.LIGHT_GRAY);
+        JButton btnAgregar = GenerateComponents.crearBotonHerramineta("", "nuevo_Res.png");
         JButton btnVer = GenerateComponents.crearBotonHerramineta("", "expediente_Res.png");
         JButton btnModificar = GenerateComponents.crearBotonHerramineta("", "boton-editar_Res.png");
         JButton btnEliminar = GenerateComponents.crearBotonHerramineta("", "borrar_Res.png");
@@ -72,20 +82,22 @@ public class AdminEmployees extends CardJPanel
         panelFiltrar.add(btnRoles);
         panelFiltrar.add(btnDepartamentos);
         
-        JPopupMenu popupCampos = SeleccionarCampos.lista();
         /***/
         btnCampos.addActionListener((e) ->
         {
+            JPopupMenu popupCampos = SeleccionarCampos.lista(contenedorTabla, seleccionados);
             popupCampos.show(btnCampos, 0, btnCampos.getHeight());
         });
-        JPopupMenu popupRoles = SeleccionarCampos.lista();
+        
         btnRoles.addActionListener((e) ->
         {
+            JPopupMenu popupRoles = SeleccionarCampos.lista(contenedorTabla, seleccionados);
             popupRoles.show(btnRoles, 0, btnRoles.getHeight());
         });
-        JPopupMenu popupDepartamentos = SeleccionarCampos.lista();
+        
         btnDepartamentos.addActionListener((e) ->
         {
+            JPopupMenu popupDepartamentos = SeleccionarCampos.lista(contenedorTabla, seleccionados);
             popupDepartamentos.show(btnDepartamentos, 0, btnDepartamentos.getHeight());
         });
         /***/
@@ -137,8 +149,9 @@ public class AdminEmployees extends CardJPanel
     private void initPanelCenter()
     {
         tabla = GenerateTable.getTableEmpleados();
-        tabla.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        panelPricipal.add(tabla, BorderLayout.CENTER);
+        contenedorTabla = new JScrollPane(tabla);
+        contenedorTabla.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        panelPricipal.add(contenedorTabla, BorderLayout.CENTER);
     }
 
     @Override
