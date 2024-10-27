@@ -1,5 +1,6 @@
 package view;
 
+import controller.StaffController;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -56,9 +57,9 @@ public abstract class PlantillaPrincipal extends JFrame
      */
     protected Staff employee;
 
-    public PlantillaPrincipal(Staff employee)
+    public PlantillaPrincipal(int  id)
     {
-        this.employee = employee;
+        this.employee = StaffController.getEmployee(id);
         try
         {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
