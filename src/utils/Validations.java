@@ -76,7 +76,7 @@ public class Validations
                 && ke.getKeyCode() != 8 && ke.getKeyChar() != '-')
         {
             ke.setKeyChar((char) 8);
-        }
+        } 
     }
 
     /**
