@@ -199,7 +199,7 @@ public class GenerateTable
 //        return scrollPane;
 //    }
     
-    public static JScrollPane getTable(Object[][] data, String[] columnNames)
+    public static JTable getTable(Object[][] data, String[] columnNames)
     {
         DefaultTableModel tableModel = new DefaultTableModel(data, columnNames)
         {
@@ -246,11 +246,11 @@ public class GenerateTable
             }
         });
         
-        JScrollPane scrollPane = new JScrollPane(table);
-        return scrollPane;
+//        JScrollPane scrollPane = new JScrollPane(table);
+        return table;
     }
     
-    public static JScrollPane getTableEmpleados()
+    public static JTable getTableEmpleados()
     {
         List<Staff> empleados = StaffController.getEmployees();
         Object[][] data = new Object[empleados.size()][8];
@@ -272,5 +272,54 @@ public class GenerateTable
         };
         
         return getTable(data, columnNames);
+    }
+    
+    public static JTable getTableEmpleados(boolean[] campos)
+    {
+        int cont = 0;
+        for(int i = 0; i < campos.length; i++)
+            if (campos[i])
+                cont++;
+ 
+        int index = 0;
+        List<Staff> empleados = StaffController.getEmployees();
+        Object[][] data = new Object[empleados.size()][cont];
+        for (int i = 0; i < empleados.size(); i++)
+        {
+            if (campos[0])
+                data[i][index++] = empleados.get(i).getId();
+            if (campos[1])
+                data[i][index++] = StaffController.getEmployeeRole(empleados.get(i).getRole());
+            if (campos[2])
+                data[i][index++] = empleados.get(i).getName();
+            if (campos[3])
+                data[i][index++] = empleados.get(i).getApPaterno();
+            if (campos[4])
+                data[i][index++] = empleados.get(i).getApMaterno();
+            if (campos[5])
+                data[i][index++] = StaffController.getEmployeeDepartment(empleados.get(i).getDepartment());
+            if (campos[6])
+                data[i][index++] = empleados.get(i).getEmail();
+            if (campos[7])
+                data[i][index++] = empleados.get(i).getPhoneNumber();
+            index = 0;
+        }
+        
+        String[] columnNames =
+        {
+            "ID", "Rol", "Nombre", "Ap Paterno", "Ap Materno", "Departamento", "E-mail", "Numero Tel"
+        };
+        
+        String[] columnas = new String[cont];
+        
+        for (int i = 0, z = 0; i < campos.length; i++)
+        {
+            if (campos[i])
+            {
+                columnas[z++] = columnNames[i];
+            }
+        }
+        
+        return getTable(data, columnas);
     }
 }

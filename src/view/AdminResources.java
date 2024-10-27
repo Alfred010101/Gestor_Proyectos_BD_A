@@ -14,6 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.Border;
 import utils.Var;
 
@@ -25,7 +26,8 @@ import utils.Var;
 public class AdminResources extends CardJPanel
 {
     private final int idEmployee;
-    private JScrollPane tabla;
+    private JTable tabla;
+    private JScrollPane contenedorTabla;
             
     public AdminResources(int idEmployee)
     {
@@ -99,7 +101,8 @@ public class AdminResources extends CardJPanel
     private void initPanelCenter()
     {
         tabla = GenerateTable.getTable(ResourcesController.getResoucesData(), Var.RESOURCES_COLUMN_NAMES);
-        panelPricipal.add(tabla, BorderLayout.CENTER);
+        contenedorTabla = new JScrollPane(tabla);
+        panelPricipal.add(contenedorTabla, BorderLayout.CENTER);
     }
 
     @Override
