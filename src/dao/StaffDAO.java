@@ -18,7 +18,9 @@ public class StaffDAO
 
     public static int validateCredentials(int id, String password)
     {
-        String query = "SELECT pk_id FROM Personal WHERE pk_id = ? AND password = ?";
+        String query = "SELECT fk_rol "
+                + "FROM Personal "
+                + "WHERE pk_id = ? AND password = ?";
 
         try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query);)
         {
@@ -28,7 +30,7 @@ public class StaffDAO
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next())
             {
-                return resultSet.getInt("pk_id");
+                return resultSet.getInt("fk_rol");
             }
         } catch (SQLException ex)
         {

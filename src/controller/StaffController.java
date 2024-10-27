@@ -23,11 +23,6 @@ public class StaffController
             int session = StaffDAO.validateCredentials(Integer.parseInt(username), password);
             switch (session)
             {
-                case 0 ->
-                {
-                    //new Workspace(StaffDAO.getStaff(username, password)).setVisible(true);
-                    //default, nunca debe entrar aqui, reg > 0
-                }
                 case -1 ->
                 {
                     JOptionPane.showMessageDialog(frame, "Verifique sus credenciales y vuelva a intentar.", "Credenciales Invalidas", JOptionPane.WARNING_MESSAGE);
@@ -36,16 +31,15 @@ public class StaffController
                 {
                     JOptionPane.showMessageDialog(frame, "NO se pudo establecer conexión con la base de datos.", "Fallo en la conexión", JOptionPane.ERROR_MESSAGE);
                 }
+                case 1 ->
+                {
+                    new WorkspaceAdministrator(Integer.parseInt(username)).setVisible(true);
+                    frame.dispose();
+                    return true;
+                }
                 default ->
                 {
-                    Staff employeeStaff = StaffDAO.getStaff(session);
-                    if (employeeStaff.getRole() == 1)
-                    {
-                        new WorkspaceAdministrator(employeeStaff).setVisible(true);
-                    }else
-                    {
-                        new WorkspaceEmployee(employeeStaff).setVisible(true);
-                    }
+                    new WorkspaceEmployee(Integer.parseInt(username)).setVisible(true);
                     frame.dispose();
                     return true;
                 }

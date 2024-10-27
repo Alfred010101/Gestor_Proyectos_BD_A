@@ -12,9 +12,9 @@ import utils.Var;
 public class WorkspaceAdministrator extends PlantillaPrincipal
 {
 
-    public WorkspaceAdministrator(Staff employee)
+    public WorkspaceAdministrator(int id)
     {
-        super(employee);
+        super(id);
         initComponents();
     }
 
