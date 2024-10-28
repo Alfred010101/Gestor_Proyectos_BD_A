@@ -4,9 +4,6 @@
  */
 package view.forms;
 
-import formularios.*;
-import utils.Validations;
-
 /**
  *
  * @author Cassandra
@@ -45,21 +42,6 @@ public class VtnDepartamento extends javax.swing.JFrame
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(numTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 440, 30));
         jPanel1.add(departamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 440, 30));
-
-        jefeDepto.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jefeDeptoActionPerformed(evt);
-            }
-        });
-        jefeDepto.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyPressed(java.awt.event.KeyEvent evt)
-            {
-                jefeDeptoKeyPressed(evt);
-            }
-        });
         jPanel1.add(jefeDepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 440, 30));
 
         btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
@@ -72,7 +54,7 @@ public class VtnDepartamento extends javax.swing.JFrame
         btnRegistrar.setText("Registrar");
         jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 440, 110, 30));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/NuevoDepto.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/NuevoDepto.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -88,16 +70,6 @@ public class VtnDepartamento extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jefeDeptoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jefeDeptoActionPerformed
-    {//GEN-HEADEREND:event_jefeDeptoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jefeDeptoActionPerformed
-
-    private void jefeDeptoKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jefeDeptoKeyPressed
-    {//GEN-HEADEREND:event_jefeDeptoKeyPressed
-        Validations.enterCadenaNoVacia(this, evt, jefeDepto, departamento);
-    }//GEN-LAST:event_jefeDeptoKeyPressed
 
     /**
      * @param args the command line arguments

@@ -26,8 +26,6 @@ public class VtnRecursos extends javax.swing.JFrame
     {
 
         jPanel1 = new javax.swing.JPanel();
-        cant_disp = new javax.swing.JTextField();
-        cant_total = new javax.swing.JTextField();
         id_recursos = new javax.swing.JTextField();
         nom_recurso = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
@@ -37,8 +35,6 @@ public class VtnRecursos extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(cant_disp, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, 440, 30));
-        jPanel1.add(cant_total, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 440, 30));
 
         id_recursos.addActionListener(new java.awt.event.ActionListener()
         {
@@ -53,7 +49,7 @@ public class VtnRecursos extends javax.swing.JFrame
         btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnCancelar.setText("Cancelar");
-        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 510, 110, 30));
+        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 370, 110, 30));
 
         btnRegistrar.setBackground(new java.awt.Color(102, 255, 102));
         btnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -65,9 +61,9 @@ public class VtnRecursos extends javax.swing.JFrame
                 btnRegistrarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 510, 110, 30));
+        jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, 110, 30));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/VtnRecursos.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Recursos.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -78,7 +74,7 @@ public class VtnRecursos extends javax.swing.JFrame
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -142,8 +138,6 @@ public class VtnRecursos extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnRegistrar;
-    private javax.swing.JTextField cant_disp;
-    private javax.swing.JTextField cant_total;
     private javax.swing.JTextField id_recursos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

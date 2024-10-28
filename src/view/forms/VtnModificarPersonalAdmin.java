@@ -2,19 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package vtn;
+package view.forms;
 
 /**
  *
  * @author Cassandra
  */
-public class VtnNuevoPersonal extends javax.swing.JFrame
+public class VtnModificarPersonalAdmin extends javax.swing.JFrame
 {
 
     /**
-     * Creates new form VtnNuevoPersonal
+     * Creates new form VtnModificarPersonalAdmin
      */
-    public VtnNuevoPersonal()
+    public VtnModificarPersonalAdmin()
     {
         initComponents();
     }
@@ -30,48 +30,64 @@ public class VtnNuevoPersonal extends javax.swing.JFrame
     {
 
         jPanel1 = new javax.swing.JPanel();
+        btnRegistrar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         apellidoPat = new javax.swing.JTextField();
         apellidoMat = new javax.swing.JTextField();
         correo = new javax.swing.JTextField();
         contraseña = new javax.swing.JTextField();
-        nombre = new javax.swing.JTextField();
-        direccion = new javax.swing.JTextField();
+        confirmContra = new javax.swing.JTextField();
         telefono = new javax.swing.JTextField();
+        direccion = new javax.swing.JTextField();
+        nombre = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         comboBoxRol = new javax.swing.JComboBox<>();
         comboBoxDepto = new javax.swing.JComboBox<>();
-        btnGuardar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(apellidoPat, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 440, 30));
-        jPanel1.add(apellidoMat, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 440, 30));
-        jPanel1.add(correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, 440, 30));
 
-        contraseña.addActionListener(new java.awt.event.ActionListener()
+        btnRegistrar.setBackground(new java.awt.Color(102, 255, 102));
+        btnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                contraseñaActionPerformed(evt);
+                btnRegistrarActionPerformed(evt);
             }
         });
-        jPanel1.add(contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, 440, 30));
-        jPanel1.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 440, 30));
+        jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 920, 110, 30));
 
-        direccion.addActionListener(new java.awt.event.ActionListener()
+        btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
+        btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnCancelar.setText("Cancelar");
+        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 920, 110, 30));
+        jPanel1.add(apellidoPat, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 430, 30));
+        jPanel1.add(apellidoMat, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 430, 30));
+        jPanel1.add(correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, 430, 30));
+        jPanel1.add(contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, 430, 30));
+        jPanel1.add(confirmContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 600, 430, 30));
+
+        telefono.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                direccionActionPerformed(evt);
+                telefonoActionPerformed(evt);
             }
         });
-        jPanel1.add(direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 670, 440, 30));
-        jPanel1.add(telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 600, 440, 30));
+        jPanel1.add(telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 660, 430, 30));
+        jPanel1.add(direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 730, 430, 30));
+        jPanel1.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 430, 30));
+
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Rol.png"))); // NOI18N
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 910, 40, 10));
 
         comboBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(comboBoxRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 800, 440, 30));
+        jPanel1.add(comboBoxRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 870, 430, 30));
 
         comboBoxDepto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboBoxDepto.addActionListener(new java.awt.event.ActionListener()
@@ -81,26 +97,9 @@ public class VtnNuevoPersonal extends javax.swing.JFrame
                 comboBoxDeptoActionPerformed(evt);
             }
         });
-        jPanel1.add(comboBoxDepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 740, 440, 30));
+        jPanel1.add(comboBoxDepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 800, 430, 30));
 
-        btnGuardar.setBackground(new java.awt.Color(102, 255, 102));
-        btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                btnGuardarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 850, 110, 30));
-
-        btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
-        btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnCancelar.setText("Cancelar");
-        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 850, 110, 30));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/NuevoPersonal.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ModificarPersonalAdmin.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -117,25 +116,20 @@ public class VtnNuevoPersonal extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void contraseñaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_contraseñaActionPerformed
-    {//GEN-HEADEREND:event_contraseñaActionPerformed
+    private void telefonoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_telefonoActionPerformed
+    {//GEN-HEADEREND:event_telefonoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_contraseñaActionPerformed
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnGuardarActionPerformed
-    {//GEN-HEADEREND:event_btnGuardarActionPerformed
-
-    }//GEN-LAST:event_btnGuardarActionPerformed
+    }//GEN-LAST:event_telefonoActionPerformed
 
     private void comboBoxDeptoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_comboBoxDeptoActionPerformed
     {//GEN-HEADEREND:event_comboBoxDeptoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxDeptoActionPerformed
 
-    private void direccionActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_direccionActionPerformed
-    {//GEN-HEADEREND:event_direccionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_direccionActionPerformed
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnRegistrarActionPerformed
+    {//GEN-HEADEREND:event_btnRegistrarActionPerformed
+
+    }//GEN-LAST:event_btnRegistrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,16 +153,16 @@ public class VtnNuevoPersonal extends javax.swing.JFrame
             }
         } catch (ClassNotFoundException ex)
         {
-            java.util.logging.Logger.getLogger(VtnNuevoPersonal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VtnModificarPersonalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex)
         {
-            java.util.logging.Logger.getLogger(VtnNuevoPersonal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VtnModificarPersonalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex)
         {
-            java.util.logging.Logger.getLogger(VtnNuevoPersonal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VtnModificarPersonalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
-            java.util.logging.Logger.getLogger(VtnNuevoPersonal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VtnModificarPersonalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -177,7 +171,7 @@ public class VtnNuevoPersonal extends javax.swing.JFrame
         {
             public void run()
             {
-                new VtnNuevoPersonal().setVisible(true);
+                new VtnModificarPersonalAdmin().setVisible(true);
             }
         });
     }
@@ -186,13 +180,15 @@ public class VtnNuevoPersonal extends javax.swing.JFrame
     private javax.swing.JTextField apellidoMat;
     private javax.swing.JTextField apellidoPat;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnRegistrar;
     private javax.swing.JComboBox<String> comboBoxDepto;
     private javax.swing.JComboBox<String> comboBoxRol;
+    private javax.swing.JTextField confirmContra;
     private javax.swing.JTextField contraseña;
     private javax.swing.JTextField correo;
     private javax.swing.JTextField direccion;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField nombre;
     private javax.swing.JTextField telefono;
