@@ -15,8 +15,7 @@ src/test/
 *.class
 *.jar
 *.war
-Enterprise_Database.accdb
-src/BD/
+src/BD/Enterprise_Database.accdb
 
 # Archivos específicos del sistema operativo
 .DS_Store
