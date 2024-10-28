@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import utils.Var;
 
 /**
@@ -105,6 +107,18 @@ public class SeleccionarCampos
 
                     contenedorTabla.revalidate();
                     contenedorTabla.repaint();
+                    nuevaTabla.getSelectionModel().addListSelectionListener((ListSelectionEvent event) ->
+                    {
+                        if (!event.getValueIsAdjusting())
+                        {
+                            int filaSeleccionada = nuevaTabla.getSelectedRow();
+                            if (filaSeleccionada != -1)
+                            {
+                                Var.filaSeleccionadaPersonal = filaSeleccionada;
+                                Var.idSeleccionadaPersonal = (int) nuevaTabla.getValueAt(filaSeleccionada, 0);
+                            }
+                        }
+                    });
                 }
             }
         });
@@ -151,6 +165,18 @@ public class SeleccionarCampos
 
                     contenedorTabla.revalidate();
                     contenedorTabla.repaint();
+                    nuevaTabla.getSelectionModel().addListSelectionListener((ListSelectionEvent event) ->
+                    {
+                        if (!event.getValueIsAdjusting())
+                        {
+                            int filaSeleccionada = nuevaTabla.getSelectedRow();
+                            if (filaSeleccionada != -1)
+                            {
+                                Var.filaSeleccionadaPersonal = filaSeleccionada;
+                                Var.idSeleccionadaPersonal = (int) nuevaTabla.getValueAt(filaSeleccionada, 0);
+                            }
+                        }
+                    });
                 }
             }
         });
@@ -197,6 +223,18 @@ public class SeleccionarCampos
 
                     contenedorTabla.revalidate();
                     contenedorTabla.repaint();
+                    nuevaTabla.getSelectionModel().addListSelectionListener((ListSelectionEvent event) ->
+                    {
+                        if (!event.getValueIsAdjusting())
+                        {
+                            int filaSeleccionada = nuevaTabla.getSelectedRow();
+                            if (filaSeleccionada != -1)
+                            {
+                                Var.filaSeleccionadaPersonal = filaSeleccionada;
+                                Var.idSeleccionadaPersonal = (int) nuevaTabla.getValueAt(filaSeleccionada, 0);
+                            }
+                        }
+                    });
                 }
             }
         });

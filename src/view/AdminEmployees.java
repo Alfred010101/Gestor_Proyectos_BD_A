@@ -19,6 +19,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
 import utils.Var;
 
 /**
@@ -67,6 +68,11 @@ public class AdminEmployees extends CardJPanel
         panelInicio.add(btnVer);
         panelInicio.add(btnModificar);
         panelInicio.add(btnEliminar);
+        btnVer.addActionListener((e) ->
+        {
+            System.out.println(Var.filaSeleccionadaPersonal);
+            System.out.println(Var.idSeleccionadaPersonal);
+        });
 
         JPanel panelFiltrar = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton btnCampos = GenerateComponents.crearBotonHerramineta("Ver Campos", "filtrar_Res.png");
@@ -86,7 +92,7 @@ public class AdminEmployees extends CardJPanel
         panelFiltrar.add(btnRoles);
 
         /**
-         * 
+         *
          */
         btnCampos.addActionListener((e) ->
         {
@@ -106,7 +112,7 @@ public class AdminEmployees extends CardJPanel
             popupDepartamentos.show(btnDepartamentos, 0, btnDepartamentos.getHeight());
         });
         /**
-         * 
+         *
          */
 
         cbxOrdenar.addActionListener((ActionEvent e) ->
@@ -114,18 +120,40 @@ public class AdminEmployees extends CardJPanel
             Var.opcOrdenadoPersonal = cbxOrdenar.getSelectedIndex();
             JTable nuevaTabla = GenerateTable.getTableEmpleadosFiltros();
             contenedorTabla.setViewportView(nuevaTabla);
-
             contenedorTabla.revalidate();
             contenedorTabla.repaint();
+            nuevaTabla.getSelectionModel().addListSelectionListener((ListSelectionEvent event) ->
+            {
+                if (!event.getValueIsAdjusting())
+                {
+                    int filaSeleccionada = nuevaTabla.getSelectedRow();
+                    if (filaSeleccionada != -1)
+                    {
+                        Var.filaSeleccionadaPersonal = filaSeleccionada;
+                        Var.idSeleccionadaPersonal = (int) nuevaTabla.getValueAt(filaSeleccionada, 0);
+                    }
+                }
+            });
         });
         cbxFormasOrdenar.addActionListener((ActionEvent e) ->
         {
             Var.opcOrdenadoForPersonal = (cbxFormasOrdenar.getSelectedIndex() == 1);
             JTable nuevaTabla = GenerateTable.getTableEmpleadosFiltros();
             contenedorTabla.setViewportView(nuevaTabla);
-
             contenedorTabla.revalidate();
             contenedorTabla.repaint();
+            nuevaTabla.getSelectionModel().addListSelectionListener((ListSelectionEvent event) ->
+            {
+                if (!event.getValueIsAdjusting())
+                {
+                    int filaSeleccionada = nuevaTabla.getSelectedRow();
+                    if (filaSeleccionada != -1)
+                    {
+                        Var.filaSeleccionadaPersonal = filaSeleccionada;
+                        Var.idSeleccionadaPersonal = (int) nuevaTabla.getValueAt(filaSeleccionada, 0);
+                    }
+                }
+            });
         });
 
         JPanel panelOrdenar = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -175,6 +203,18 @@ public class AdminEmployees extends CardJPanel
     private void initPanelCenter()
     {
         tabla = GenerateTable.getTableEmpleados();
+        tabla.getSelectionModel().addListSelectionListener((ListSelectionEvent event) ->
+        {
+            if (!event.getValueIsAdjusting())
+            {
+                int filaSeleccionada = tabla.getSelectedRow();
+                if (filaSeleccionada != -1)
+                {
+                    Var.filaSeleccionadaPersonal = filaSeleccionada;
+                    Var.idSeleccionadaPersonal = (int) tabla.getValueAt(filaSeleccionada, 0);
+                }
+            }
+        });
         contenedorTabla = new JScrollPane(tabla);
         contenedorTabla.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         panelPricipal.add(contenedorTabla, BorderLayout.CENTER);

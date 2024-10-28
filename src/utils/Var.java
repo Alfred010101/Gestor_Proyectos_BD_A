@@ -100,4 +100,7 @@ public class Var
     {
         "ACENDENTE", "DECENDENTE"
     };
+    
+    public static int filaSeleccionadaPersonal = -1;
+    public static int idSeleccionadaPersonal = -1;
 }
