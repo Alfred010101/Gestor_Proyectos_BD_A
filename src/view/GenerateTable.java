@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import model.Staff;
 import model.Task;
+import utils.Var;
 
 /**
  *
@@ -199,7 +200,7 @@ public class GenerateTable
 //        return scrollPane;
 //    }
     
-    public static JTable getTable(Object[][] data, String[] columnNames)
+    public static JTable getTable(Object[][] data, Object[] columnNames)
     {
         DefaultTableModel tableModel = new DefaultTableModel(data, columnNames)
         {
@@ -282,6 +283,22 @@ public class GenerateTable
                 cont++;
  
         int index = 0;
+        int noEmpleados = 0;
+        
+        if (campos[1] && campos[5])
+        {
+            
+        }else if(campos[1])
+        {
+            
+        }else if(campos[5])
+        {
+            
+        }else
+        {
+            
+        }
+        
         List<Staff> empleados = StaffController.getEmployees();
         Object[][] data = new Object[empleados.size()][cont];
         for (int i = 0; i < empleados.size(); i++)
@@ -304,22 +321,15 @@ public class GenerateTable
                 data[i][index++] = empleados.get(i).getPhoneNumber();
             index = 0;
         }
-        
-        String[] columnNames =
-        {
-            "ID", "Rol", "Nombre", "Ap Paterno", "Ap Materno", "Departamento", "E-mail", "Numero Tel"
-        };
-        
-        String[] columnas = new String[cont];
-        
-        for (int i = 0, z = 0; i < campos.length; i++)
+
+        Var.perosonalColumnName.clear();
+        for (int i = 0; i < campos.length; i++)
         {
             if (campos[i])
             {
-                columnas[z++] = columnNames[i];
+               Var.perosonalColumnName.add(Var.PERSONAL_COLUMN_NAMES[i]);
             }
         }
-        
-        return getTable(data, columnas);
+        return getTable(data, Var.perosonalColumnName.toArray());
     }
 }

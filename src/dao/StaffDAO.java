@@ -5,7 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import model.Staff;
 import utils.ConnectionBD;
 
@@ -138,8 +140,8 @@ public class StaffDAO
 
     public static String getStaffDepartment(int id)
     {
-        String query = "SELECT Departamnetos.nombre "
-                + "FROM Departamnetos "
+        String query = "SELECT Departamentos.nombre "
+                + "FROM Departamentos "
                 + "WHERE pk_id = "
                 + "(SELECT Personal.fk_departamento "
                 + "FROM Personal "
@@ -150,7 +152,7 @@ public class StaffDAO
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next())
             {
-                return resultSet.getString("Departamnetos.nombre");
+                return resultSet.getString("Departamentos.nombre");
             }
         } catch (SQLException ex)
         {
@@ -160,5 +162,103 @@ public class StaffDAO
             System.out.println("Exception : " + e);
         }
         return "";
+    }
+
+    public static Set<String> getStaffDepartmets()
+    {
+        String query = "SELECT DISTINCT d.nombre "
+                + "FROM Personal p "
+                + "JOIN Departamentos d "
+                + "ON p.fk_departamento = d.pk_id";
+        Set<String> departamentos = new LinkedHashSet<>();
+        try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query); ResultSet resultSet = statement.executeQuery())
+        {
+            while (resultSet.next())
+            {
+                String nombre = resultSet.getString("nombre");
+                departamentos.add(nombre);
+            }
+        } catch (SQLException ex)
+        {
+            System.out.println("SQLException : " + ex);
+        } catch (Exception e)
+        {
+            System.out.println("Exception : " + e);
+        }
+        return departamentos;
+    }
+
+    public static int getStaffNoDepartmets()
+    {
+        String query = "SELECT COUNT(DISTINCT d.nombre) "
+                + "AS numero_departamentos "
+                + "FROM Personal p "
+                + "JOIN Departamentos d "
+                + "ON p.fk_departamento = d.pk_id";
+        int numDepartamentos = 0;
+        try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query); ResultSet resultSet = statement.executeQuery())
+        {
+            if (resultSet.next())
+            {
+                numDepartamentos = resultSet.getInt("numero_departamentos");
+            }
+
+        } catch (SQLException ex)
+        {
+            System.out.println("SQLException : " + ex);
+        } catch (Exception e)
+        {
+            System.out.println("Exception : " + e);
+        }
+        return numDepartamentos;
+    }
+    
+    public static Set<String> getStaffRoles()
+    {
+        String query = "SELECT DISTINCT r.nombre "
+                + "FROM Personal p "
+                + "JOIN Roles r "
+                + "ON p.fk_rol = r.pk_id";
+        Set<String> roles = new LinkedHashSet<>();
+        try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query); ResultSet resultSet = statement.executeQuery())
+        {
+            while (resultSet.next())
+            {
+                String nombre = resultSet.getString("nombre");
+                roles.add(nombre);
+            }
+        } catch (SQLException ex)
+        {
+            System.out.println("SQLException : " + ex);
+        } catch (Exception e)
+        {
+            System.out.println("Exception : " + e);
+        }
+        return roles;
+    }
+
+    public static int getStaffNoRoles()
+    {
+        String query = "SELECT COUNT(DISTINCT r.nombre) "
+                + "AS numero_roles "
+                + "FROM Personal p "
+                + "JOIN Roles r "
+                + "ON p.fk_rol = r.pk_id";
+        int numRoles = 0;
+        try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query); ResultSet resultSet = statement.executeQuery())
+        {
+            if (resultSet.next())
+            {
+                numRoles = resultSet.getInt("numero_roles");
+            }
+
+        } catch (SQLException ex)
+        {
+            System.out.println("SQLException : " + ex);
+        } catch (Exception e)
+        {
+            System.out.println("Exception : " + e);
+        }
+        return numRoles;
     }
 }

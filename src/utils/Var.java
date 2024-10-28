@@ -1,5 +1,13 @@
 package utils;
 
+import dao.StaffDAO;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
 /**
  *
  * @author Alfred
@@ -38,9 +46,30 @@ public class Var
     {
         "ID", "Nombre", "Gefe Area", "Numero Tel", "Ver", "Editar", "Eliminar"
     };
-    
+
     public static final String[] RESOURCES_COLUMN_NAMES =
     {
         "ID", "Nombre", "Total", "Disponible", "Ver", "Editar", "Eliminar"
     };
+
+    public static final String[] PERSONAL_COLUMN_NAMES =
+    {
+        "ID", "ROL", "NOMBRE", "AP PATERNO", "AP MATERNO", "DEPARTAMENTO", "EMAIL", "TELEFONO"
+    };
+    
+    public static Set<String> perosonalColumnName = 
+            new LinkedHashSet<>(Arrays.asList(PERSONAL_COLUMN_NAMES));
+    
+    public static boolean[] columnasPerosonal = 
+    {
+        true, true, true, true, true, true, true, true, true
+    };
+    
+    public static Set<String> perosonalColumnDepart = StaffDAO.getStaffDepartmets();
+    
+    public static boolean[] columnasDepartSeleccionados = new boolean[StaffDAO.getStaffNoDepartmets()];
+    
+    public static Set<String> perosonalColumnRoles = StaffDAO.getStaffRoles();
+    
+    public static boolean[] columnasRolesSeleccionados = new boolean[StaffDAO.getStaffNoRoles()];
 }

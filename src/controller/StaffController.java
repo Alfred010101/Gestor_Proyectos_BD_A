@@ -83,6 +83,6 @@ public class StaffController
     
     public static String getEmployeeDepartment(int id)
     {
-        return StaffDAO.getStaffRol(id);
+        return StaffDAO.getStaffDepartment(id);
     }
 }
