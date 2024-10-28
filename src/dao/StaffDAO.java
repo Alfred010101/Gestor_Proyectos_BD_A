@@ -113,61 +113,80 @@ public class StaffDAO
 //
 //        return empleados;
 //    }
-    public static List<Map<String, Object>> getEmployees(Set<String> campos, Set<String> roles, Set<String> departamentos) {
-    List<String> camposList = new ArrayList<>(campos);
-    String camposSeleccionados = String.join(", ", camposList);
+    public static List<Map<String, Object>> getEmployees(Set<String> campos, Set<String> roles, Set<String> departamentos)
+    {
+        List<String> camposList = new ArrayList<>(campos);
+        String camposSeleccionados = String.join(", ", camposList);
 
-    // Construir la consulta base
-    StringBuilder queryBuilder = new StringBuilder("SELECT ").append(camposSeleccionados).append(" FROM Personal p");
-    queryBuilder.append(" JOIN Roles r ON p.fk_rol = r.pk_id");
-    queryBuilder.append(" JOIN Departamentos d ON p.fk_departamento = d.pk_id");
-
-     // Construir la cláusula WHERE en función de los nombres de roles y departamentos
-    List<String> whereClauses = new ArrayList<>();
-    
-    // Agregar filtro de departamentos
-    if (!departamentos.isEmpty()) {
-        String departamentosList = departamentos.stream()
-                                                .map(departamento -> "'" + departamento + "'")
-                                                .collect(Collectors.joining(", "));
-        whereClauses.add("d.nombre IN (" + departamentosList + ")");
-    }
-    
-    // Agregar filtro de roles
-    if (!roles.isEmpty()) {
-        String rolesList = roles.stream()
-                                .map(role -> "'" + role + "'")
-                                .collect(Collectors.joining(", "));
-        whereClauses.add("r.nombre IN (" + rolesList + ")");
-    }
-
-    // Agregar las condiciones WHERE a la consulta
-    if (!whereClauses.isEmpty()) {
-        queryBuilder.append(" WHERE ").append(String.join(" AND ", whereClauses));
-    }
-
-    List<Map<String, Object>> empleados = new ArrayList<>();
-
-    // Ejecutar la consulta
-    try (Connection connection = ConnectionBD.getConnection(); 
-         PreparedStatement statement = connection.prepareStatement(queryBuilder.toString())) {
+        // Construir la consulta base
+        StringBuilder queryBuilder
+                = new StringBuilder("SELECT ").append(camposSeleccionados)
+                        .append(" FROM Personal p")
+                        .append(" JOIN Roles r ON p.fk_rol = r.pk_id")
+                        .append(" JOIN Departamentos d ON p.fk_departamento = d.pk_id");
         
-        ResultSet resultSet = statement.executeQuery();
-        while (resultSet.next()) {
-            Map<String, Object> empleado = new HashMap<>();
-            for (String campo : camposList) {
-                empleado.put(campo, resultSet.getObject(campo));
-            }
-            empleados.add(empleado);
-        }
-    } catch (SQLException ex) {
-        System.out.println("SQLException : " + ex);
-    } catch (Exception e) {
-        System.out.println("Exception : " + e);
-    }
+        String whereClause = "";
 
-    return empleados;
-}
+        // Agregar filtro de departamentos
+        if (!departamentos.isEmpty())
+        {
+            whereClause += "d.nombre IN (";
+            for (String departamento : departamentos)
+            {
+                whereClause += "'" + departamento + "', ";
+            }
+            whereClause = whereClause.substring(0, whereClause.length() - 2); // Eliminar la última coma y espacio
+            whereClause += ")";
+        }
+
+        // Agregar filtro de roles
+        if (!roles.isEmpty())
+        {
+            if (!whereClause.isEmpty())
+            {
+                whereClause += " AND ";
+            }
+            whereClause += "r.nombre IN (";
+            for (String role : roles)
+            {
+                whereClause += "'" + role + "', ";
+            }
+            whereClause = whereClause.substring(0, whereClause.length() - 2); // Eliminar la última coma y espacio
+            whereClause += ")";
+        }
+
+        // Agregar la cláusula WHERE completa a la consulta
+        if (!whereClause.isEmpty())
+        {
+            queryBuilder.append(" WHERE ").append(whereClause);
+        }
+
+        List<Map<String, Object>> empleados = new ArrayList<>();
+
+        // Ejecutar la consulta
+        try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(queryBuilder.toString()))
+        {
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next())
+            {
+                Map<String, Object> empleado = new HashMap<>();
+                for (String campo : camposList)
+                {
+                    empleado.put(campo, resultSet.getObject(campo));
+                }
+                empleados.add(empleado);
+            }
+        } catch (SQLException ex)
+        {
+            System.out.println("SQLException : " + ex);
+        } catch (Exception e)
+        {
+            System.out.println("Exception : " + e);
+        }
+
+        return empleados;
+    }
 
     public static Staff getStaff(int id)
     {

@@ -1,6 +1,8 @@
 
 package view;
 
+import controller.DepartmentController;
+import controller.RoleController;
 import controller.StaffController;
 import controller.TaskController;
 import java.awt.Color;
@@ -385,12 +387,12 @@ public class GenerateTable
             Map<String, Object> empleado = empleados.get(i);
             // Asignar los valores del mapa a las posiciones del arreglo
             if (campos[0]) data[i][index++] = empleado.get("pk_id");
-            System.out.println(empleado.get("fk_rol") + " : " + StaffController.getEmployeeRole((int)empleado.get("fk_rol")));
-            if (campos[1]) data[i][index++] = StaffController.getEmployeeRole((int)empleado.get("fk_rol"));
-            if (campos[2]) data[i][index++] = empleado.get("nombre");
-            if (campos[3]) data[i][index++] = empleado.get("ap_paterno");
-            if (campos[4]) data[i][index++] = empleado.get("ap_materno");
-            if (campos[5]) data[i][index++] = StaffController.getEmployeeDepartment((int)empleado.get("fk_departamento"));
+            if (campos[1]) data[i][index++] = empleado.get("nombre");
+            if (campos[2]) data[i][index++] = empleado.get("ap_paterno");
+            if (campos[3]) data[i][index++] = empleado.get("ap_materno");
+            if (campos[4]) data[i][index++] = DepartmentController.getDepartmentName((int)empleado.get("fk_departamento"));
+//            if (campos[4]) data[i][index++] = StaffController.getEmployeeDepartment((int)empleado.get("fk_departamento"));
+            if (campos[5]) data[i][index++] = RoleController.getRoleName((int)empleado.get("fk_rol"));
             if (campos[6]) data[i][index++] = empleado.get("email"); 
             if (campos[7]) data[i][index++] = empleado.get("telefono"); 
         }

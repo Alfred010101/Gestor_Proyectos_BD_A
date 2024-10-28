@@ -29,7 +29,7 @@ public class SeleccionarCampos
         // Crear un array para almacenar el estado de los checkboxes (seleccionados o no)
         boolean[] noDeseleccionables = new boolean[elementos.length];
         noDeseleccionables[0] = true;
-        noDeseleccionables[2] = true;
+        noDeseleccionables[1] = true;
 
         JList<String> lista = new JList<>(elementos);
 
@@ -60,20 +60,20 @@ public class SeleccionarCampos
                 if (index != -1 && !noDeseleccionables[index])
                 {  // Solo cambiar si no es deseleccionable
                     Var.columnasPerosonalSeleccionados[index] = !Var.columnasPerosonalSeleccionados[index];
-                    btnRoles.setVisible(Var.columnasPerosonalSeleccionados[1]);
-                    btnDepart.setVisible(Var.columnasPerosonalSeleccionados[5]);
-                    if (!Var.columnasPerosonalSeleccionados[1])
-                    {
-                        for (int i = 0; i < Var.columnasRolesSeleccionados.length; i++)
-                        {
-                            Var.columnasRolesSeleccionados[i] = true;
-                        }
-                    }
-                    if (!Var.columnasPerosonalSeleccionados[5])
+                    btnDepart.setVisible(Var.columnasPerosonalSeleccionados[4]);
+                    btnRoles.setVisible(Var.columnasPerosonalSeleccionados[5]);                    
+                    if (!Var.columnasPerosonalSeleccionados[4])
                     {
                         for (int i = 0; i < Var.columnasDepartSeleccionados.length; i++)
                         {
                             Var.columnasDepartSeleccionados[i] = true;
+                        }
+                    }
+                    if (!Var.columnasPerosonalSeleccionados[5])
+                    {
+                        for (int i = 0; i < Var.columnasRolesSeleccionados.length; i++)
+                        {
+                            Var.columnasRolesSeleccionados[i] = true;
                         }
                     }
                     lista.repaint();
@@ -125,8 +125,7 @@ public class SeleccionarCampos
                 {
                     Var.columnasRolesSeleccionados[index] = !Var.columnasRolesSeleccionados[index];
                     lista.repaint();
-                    boolean[] arr = new boolean[elementos.length - 1];
-                    System.arraycopy(Var.columnasRolesSeleccionados, 1, arr, 0, arr.length);
+                    
                     JTable nuevaTabla = GenerateTable.getTableEmpleadosFiltros();
                     contenedorTabla.setViewportView(nuevaTabla);
 
@@ -172,8 +171,7 @@ public class SeleccionarCampos
                 {
                     Var.columnasDepartSeleccionados[index] = !Var.columnasDepartSeleccionados[index];
                     lista.repaint();
-                    boolean[] arr = new boolean[elementos.length - 1];
-                    System.arraycopy(Var.columnasDepartSeleccionados, 1, arr, 0, arr.length);
+                    
                     JTable nuevaTabla = GenerateTable.getTableEmpleadosFiltros();
                     contenedorTabla.setViewportView(nuevaTabla);
 

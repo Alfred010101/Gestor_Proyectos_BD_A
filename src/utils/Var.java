@@ -54,11 +54,11 @@ public class Var
 
     public static final String[] PERSONAL_COLUMN_NAMES =
     {
-        "ID", "ROL", "NOMBRE", "AP PATERNO", "AP MATERNO", "DEPARTAMENTO", "EMAIL", "TELEFONO"
+        "ID", "NOMBRE", "AP PATERNO", "AP MATERNO", "DEPARTAMENTO", "ROL", "EMAIL", "TELEFONO"
     };
     public static final String[] PERSONAL_CAMPOS =
     {
-        "pk_id", "fk_rol", "fk_departamento", "nombre", "ap_paterno", "ap_materno", "email", "telefono"
+        "pk_id", "nombre", "ap_paterno", "ap_materno", "fk_departamento", "fk_rol", "email", "telefono"
     };
     
     public static Set<String> perosonalColumnName = 
