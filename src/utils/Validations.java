@@ -337,11 +337,11 @@ public class Validations
      *
      * @param jf Nombre del frame donde se esta haciendo la acción
      * @param ke Variable evt del método KeyPress
-     * @param cj  recibe la caja de texto actual que se esta validando
+     * @param cj recibe la caja de texto actual que se esta validando
      * @param obj Objeto al que se desea pasar al momento de dar enter
-     
+     *
      */
-    public static void enterCadenaNoVacia(JFrame jf, KeyEvent ke,  JTextField cj,Object obj)
+    public static void enterCadenaNoVacia(JFrame jf, KeyEvent ke, JTextField cj, Object obj)
     {
         if (ke.getKeyChar() == '\n')
         {
@@ -357,6 +357,29 @@ public class Validations
                 cj.requestFocus();
             }
 
+        }
+    }
+
+    public static void enterCadenaNumTelefono(JFrame jf, KeyEvent ke, JTextField cj, Object obj)
+    {
+        char c = ke.getKeyChar();
+
+        if (!Character.isDigit(c) && c != '\n')
+        {
+            ke.consume();
+            return;
+        }
+
+        if (c == '\n')
+        {
+            if (cj.getText().isEmpty())
+            {
+                Mensajes.error(jf, "La caja no puede estar vacía");
+                cj.requestFocus();
+            } else if (obj != null)
+            {
+                CtrlInterfaz.cambia(obj);
+            }
         }
     }
 
