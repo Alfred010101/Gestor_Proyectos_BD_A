@@ -16,6 +16,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
+import utils.Var;
 
 /**
  *
@@ -27,15 +28,18 @@ public class AdminEmployees extends CardJPanel
     private final int idEmployee;
     private JTable tabla;
     private JScrollPane contenedorTabla;
-    boolean[] seleccionados;
+    
                 
     public AdminEmployees(int idEmployee)
     {
         this.idEmployee = idEmployee;
-        seleccionados = new boolean[9];
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < Var.columnasDepartSeleccionados.length; i++)
         {
-            seleccionados[i] = true;
+            Var.columnasDepartSeleccionados[i] = true;
+        }
+        for (int i = 0; i < Var.columnasRolesSeleccionados.length; i++)
+        {
+            Var.columnasRolesSeleccionados[i] = true;
         }
         initComponets();
     }
@@ -79,25 +83,25 @@ public class AdminEmployees extends CardJPanel
         JComboBox<String> cbxOrdenar = new JComboBox<>(opcionesOrdenar);
         JComboBox<String> cbxFormasOrdenar = new JComboBox<>(formasOrdenar);
         panelFiltrar.add(btnCampos);
-        panelFiltrar.add(btnRoles);
         panelFiltrar.add(btnDepartamentos);
+        panelFiltrar.add(btnRoles);        
         
         /***/
         btnCampos.addActionListener((e) ->
         {
-            JPopupMenu popupCampos = SeleccionarCampos.lista(contenedorTabla, seleccionados);
+            JPopupMenu popupCampos = SeleccionarCampos.listaCampos(contenedorTabla, btnRoles, btnDepartamentos);
             popupCampos.show(btnCampos, 0, btnCampos.getHeight());
         });
         
         btnRoles.addActionListener((e) ->
         {
-            JPopupMenu popupRoles = SeleccionarCampos.lista(contenedorTabla, seleccionados);
+            JPopupMenu popupRoles = SeleccionarCampos.listaRoles(contenedorTabla);
             popupRoles.show(btnRoles, 0, btnRoles.getHeight());
         });
         
         btnDepartamentos.addActionListener((e) ->
         {
-            JPopupMenu popupDepartamentos = SeleccionarCampos.lista(contenedorTabla, seleccionados);
+            JPopupMenu popupDepartamentos = SeleccionarCampos.listaDepartamentos(contenedorTabla);
             popupDepartamentos.show(btnDepartamentos, 0, btnDepartamentos.getHeight());
         });
         /***/
