@@ -6,8 +6,10 @@ import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -22,7 +24,7 @@ import utils.Var;
 public class SeleccionarCampos
 {
 
-    public static JPopupMenu listaCampos(JScrollPane contenedorTabla, JButton btnRoles, JButton btnDepart)
+    public static JPopupMenu listaCampos(JScrollPane contenedorTabla, JButton btnRoles, JButton btnDepart, DefaultComboBoxModel campOrdenar)
     {
         String[] elementos = Var.PERSONAL_COLUMN_NAMES;
 
@@ -61,7 +63,7 @@ public class SeleccionarCampos
                 {  // Solo cambiar si no es deseleccionable
                     Var.columnasPerosonalSeleccionados[index] = !Var.columnasPerosonalSeleccionados[index];
                     btnDepart.setVisible(Var.columnasPerosonalSeleccionados[4]);
-                    btnRoles.setVisible(Var.columnasPerosonalSeleccionados[5]);                    
+                    btnRoles.setVisible(Var.columnasPerosonalSeleccionados[5]);
                     if (!Var.columnasPerosonalSeleccionados[4])
                     {
                         for (int i = 0; i < Var.columnasDepartSeleccionados.length; i++)
@@ -76,6 +78,24 @@ public class SeleccionarCampos
                             Var.columnasRolesSeleccionados[i] = true;
                         }
                     }
+                    Var.ordenarPersonasPor.clear();
+                    Var.ordenarPersonasPor.add(Var.CAMPOS_ORDENAR_PEROSNAL[0]);
+                    Var.ordenarPersonasPor.add(Var.CAMPOS_ORDENAR_PEROSNAL[1]);
+                    if (Var.columnasPerosonalSeleccionados[2])
+                    {
+                        Var.ordenarPersonasPor.add(Var.CAMPOS_ORDENAR_PEROSNAL[2]);
+                    }
+                    if (Var.columnasPerosonalSeleccionados[3])
+                    {
+                        Var.ordenarPersonasPor.add(Var.CAMPOS_ORDENAR_PEROSNAL[3]);
+                    }
+                    campOrdenar.removeAllElements();
+                    for (String elemento : Var.ordenarPersonasPor)
+                    {
+                        campOrdenar.addElement(elemento);
+                    }
+//                    Var.opcOrdenadoPersonal = 0;
+//                    campOrdenar = new JComboBox<>(Var.ordenarPersonasPor.toArray(String[]::new));
                     lista.repaint();
 
 //                    boolean[] arr = new boolean[elementos.length];
@@ -125,7 +145,7 @@ public class SeleccionarCampos
                 {
                     Var.columnasRolesSeleccionados[index] = !Var.columnasRolesSeleccionados[index];
                     lista.repaint();
-                    
+
                     JTable nuevaTabla = GenerateTable.getTableEmpleadosFiltros();
                     contenedorTabla.setViewportView(nuevaTabla);
 
@@ -171,7 +191,7 @@ public class SeleccionarCampos
                 {
                     Var.columnasDepartSeleccionados[index] = !Var.columnasDepartSeleccionados[index];
                     lista.repaint();
-                    
+
                     JTable nuevaTabla = GenerateTable.getTableEmpleadosFiltros();
                     contenedorTabla.setViewportView(nuevaTabla);
 

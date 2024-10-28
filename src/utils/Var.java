@@ -80,4 +80,24 @@ public class Var
     public static Set<String> perosonalCampoConsulta = new LinkedHashSet<>();
     public static Set<String> perosonalRolesConsulta = new LinkedHashSet<>();
     public static Set<String> perosonalDepartamtosConsulta = new LinkedHashSet<>();
+
+    public static final String[] CAMPOS_ORDENAR_PEROSNAL = 
+    {
+        "ID", "NOMBRE", "AP PATERNO", "AP MATERNO"
+    };
+    
+    public static final String[] CAMPOS_ORDENAR_PEROSNAL_CONSULTA = 
+    {
+        "pk_id", "nombre", "ap_paterno", "ap_materno"
+    };
+    
+    public static int opcOrdenadoPersonal = 0;
+    public static boolean opcOrdenadoForPersonal = false;
+    
+    public static List<String> ordenarPersonasPor = new ArrayList<>(Arrays.asList(CAMPOS_ORDENAR_PEROSNAL));
+    
+    public static final String[] CAMPOS_ORDENAR_PRIORIDAD_PEROSNAL = 
+    {
+        "ACENDENTE", "DECENDENTE"
+    };
 }
