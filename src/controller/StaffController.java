@@ -2,6 +2,8 @@ package controller;
 
 import dao.StaffDAO;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Staff;
@@ -52,6 +54,10 @@ public class StaffController
     {
         //Aqui deben ir validaciones
         return StaffDAO.getEmployees();
+    }
+    public static List<Map<String, Object>> getEmployees(Set<String> campos, Set<String> roles, Set<String> departamentos)
+    {
+        return StaffDAO.getEmployees(campos, roles, departamentos);
     }
 
     public static Staff getEmployee(int pkId)

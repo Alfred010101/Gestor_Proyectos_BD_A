@@ -5,9 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 import model.Staff;
 import utils.ConnectionBD;
 
@@ -76,6 +79,95 @@ public class StaffDAO
         }
         return staffList;
     }
+
+//    public static List<Map<String, Object>> getEmployees(Set<String> campos, Set<String> roles, Set<String> departamentos)
+//    {
+//        List<String> camposList = new ArrayList<>(campos);
+//        String camposSeleccionados = String.join(", ", camposList);
+//
+//        String query = "SELECT " + camposSeleccionados
+//                + " FROM Personal";
+//        
+//        List<Map<String, Object>> empleados = new ArrayList<>();
+//
+//        try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query))
+//        {
+//            ResultSet resultSet = statement.executeQuery();
+//            while (resultSet.next())
+//            {
+//                Map<String, Object> empleado = new HashMap<>();
+//                for (String campo : camposList)
+//                {
+//                    empleado.put(campo, resultSet.getObject(campo)); // Almacenamos el valor del campo en un mapa
+//                }
+//                empleados.add(empleado); // Agregamos el mapa a la lista
+//            }
+//
+//        } catch (SQLException ex)
+//        {
+//            System.out.println("SQLException : " + ex);
+//        } catch (Exception e)
+//        {
+//            System.out.println("Exception : " + e);
+//        }
+//
+//        return empleados;
+//    }
+    public static List<Map<String, Object>> getEmployees(Set<String> campos, Set<String> roles, Set<String> departamentos) {
+    List<String> camposList = new ArrayList<>(campos);
+    String camposSeleccionados = String.join(", ", camposList);
+
+    // Construir la consulta base
+    StringBuilder queryBuilder = new StringBuilder("SELECT ").append(camposSeleccionados).append(" FROM Personal p");
+    queryBuilder.append(" JOIN Roles r ON p.fk_rol = r.pk_id");
+    queryBuilder.append(" JOIN Departamentos d ON p.fk_departamento = d.pk_id");
+
+     // Construir la cláusula WHERE en función de los nombres de roles y departamentos
+    List<String> whereClauses = new ArrayList<>();
+    
+    // Agregar filtro de departamentos
+    if (!departamentos.isEmpty()) {
+        String departamentosList = departamentos.stream()
+                                                .map(departamento -> "'" + departamento + "'")
+                                                .collect(Collectors.joining(", "));
+        whereClauses.add("d.nombre IN (" + departamentosList + ")");
+    }
+    
+    // Agregar filtro de roles
+    if (!roles.isEmpty()) {
+        String rolesList = roles.stream()
+                                .map(role -> "'" + role + "'")
+                                .collect(Collectors.joining(", "));
+        whereClauses.add("r.nombre IN (" + rolesList + ")");
+    }
+
+    // Agregar las condiciones WHERE a la consulta
+    if (!whereClauses.isEmpty()) {
+        queryBuilder.append(" WHERE ").append(String.join(" AND ", whereClauses));
+    }
+
+    List<Map<String, Object>> empleados = new ArrayList<>();
+
+    // Ejecutar la consulta
+    try (Connection connection = ConnectionBD.getConnection(); 
+         PreparedStatement statement = connection.prepareStatement(queryBuilder.toString())) {
+        
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+            Map<String, Object> empleado = new HashMap<>();
+            for (String campo : camposList) {
+                empleado.put(campo, resultSet.getObject(campo));
+            }
+            empleados.add(empleado);
+        }
+    } catch (SQLException ex) {
+        System.out.println("SQLException : " + ex);
+    } catch (Exception e) {
+        System.out.println("Exception : " + e);
+    }
+
+    return empleados;
+}
 
     public static Staff getStaff(int id)
     {
@@ -212,7 +304,7 @@ public class StaffDAO
         }
         return numDepartamentos;
     }
-    
+
     public static Set<String> getStaffRoles()
     {
         String query = "SELECT DISTINCT r.nombre "

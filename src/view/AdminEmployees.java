@@ -83,8 +83,8 @@ public class AdminEmployees extends CardJPanel
         JComboBox<String> cbxOrdenar = new JComboBox<>(opcionesOrdenar);
         JComboBox<String> cbxFormasOrdenar = new JComboBox<>(formasOrdenar);
         panelFiltrar.add(btnCampos);
-        panelFiltrar.add(btnRoles);
         panelFiltrar.add(btnDepartamentos);
+        panelFiltrar.add(btnRoles);        
         
         /***/
         btnCampos.addActionListener((e) ->

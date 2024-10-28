@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -346,7 +347,7 @@ public class GenerateTable
             if (campos[i])
                 cont++;
  
-        int index = 0;
+        int index;
         
         Var.perosonalCampoConsulta.clear();
         for (int i = 0; i < campos.length; i++)
@@ -377,31 +378,21 @@ public class GenerateTable
             }
         }
         
-        System.out.println(Var.perosonalCampoConsulta);
-        System.out.println(Var.perosonalRolesConsulta);
-        System.out.println(Var.perosonalDepartamtosConsulta);
-        
-        List<Staff> empleados = StaffController.getEmployees();
+        List<Map<String, Object>> empleados = StaffController.getEmployees(Var.perosonalCampoConsulta, Var.perosonalRolesConsulta, Var.perosonalDepartamtosConsulta);
         Object[][] data = new Object[empleados.size()][cont];
-        for (int i = 0; i < empleados.size(); i++)
-        {
-            if (campos[0])
-                data[i][index++] = empleados.get(i).getId();
-            if (campos[1])
-                data[i][index++] = StaffController.getEmployeeRole(empleados.get(i).getRole());
-            if (campos[2])
-                data[i][index++] = empleados.get(i).getName();
-            if (campos[3])
-                data[i][index++] = empleados.get(i).getApPaterno();
-            if (campos[4])
-                data[i][index++] = empleados.get(i).getApMaterno();
-            if (campos[5])
-                data[i][index++] = StaffController.getEmployeeDepartment(empleados.get(i).getDepartment());
-            if (campos[6])
-                data[i][index++] = empleados.get(i).getEmail();
-            if (campos[7])
-                data[i][index++] = empleados.get(i).getPhoneNumber();
+        for (int i = 0; i < empleados.size(); i++) {
             index = 0;
+            Map<String, Object> empleado = empleados.get(i);
+            // Asignar los valores del mapa a las posiciones del arreglo
+            if (campos[0]) data[i][index++] = empleado.get("pk_id");
+            System.out.println(empleado.get("fk_rol") + " : " + StaffController.getEmployeeRole((int)empleado.get("fk_rol")));
+            if (campos[1]) data[i][index++] = StaffController.getEmployeeRole((int)empleado.get("fk_rol"));
+            if (campos[2]) data[i][index++] = empleado.get("nombre");
+            if (campos[3]) data[i][index++] = empleado.get("ap_paterno");
+            if (campos[4]) data[i][index++] = empleado.get("ap_materno");
+            if (campos[5]) data[i][index++] = StaffController.getEmployeeDepartment((int)empleado.get("fk_departamento"));
+            if (campos[6]) data[i][index++] = empleado.get("email"); 
+            if (campos[7]) data[i][index++] = empleado.get("telefono"); 
         }
 
         Var.perosonalColumnName.clear();

@@ -90,7 +90,7 @@ public class SeleccionarCampos
         });
 
         JScrollPane scrollPane = new JScrollPane(lista);
-        scrollPane.setPreferredSize(new Dimension(140, 220));
+        scrollPane.setPreferredSize(new Dimension(140, 200));
 
         JPopupMenu popupMenu = new JPopupMenu();
         popupMenu.setLayout(new BorderLayout());
@@ -137,7 +137,7 @@ public class SeleccionarCampos
         });
 
         JScrollPane scrollPane = new JScrollPane(lista);
-        scrollPane.setPreferredSize(new Dimension(180, 130));
+        scrollPane.setPreferredSize(new Dimension(200, 160));
 
         JPopupMenu popupMenu = new JPopupMenu();
         popupMenu.setLayout(new BorderLayout());
