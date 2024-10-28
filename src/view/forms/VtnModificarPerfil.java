@@ -31,7 +31,7 @@ public class VtnModificarPerfil extends javax.swing.JFrame
 
         jPanel1 = new javax.swing.JPanel();
         contraseña = new javax.swing.JTextField();
-        concontraseña = new javax.swing.JTextField();
+        confirContra = new javax.swing.JTextField();
         direccion = new javax.swing.JTextField();
         telefono = new javax.swing.JTextField();
         correo = new javax.swing.JTextField();
@@ -43,7 +43,7 @@ public class VtnModificarPerfil extends javax.swing.JFrame
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 440, 30));
-        jPanel1.add(concontraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 440, 30));
+        jPanel1.add(confirContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 440, 30));
         jPanel1.add(direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, 440, 30));
         jPanel1.add(telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, 440, 30));
         jPanel1.add(correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 440, 30));
@@ -65,7 +65,7 @@ public class VtnModificarPerfil extends javax.swing.JFrame
         });
         jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 590, 110, 30));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Modificar datos.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ModificarPersonal.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -135,7 +135,7 @@ public class VtnModificarPerfil extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JTextField concontraseña;
+    private javax.swing.JTextField confirContra;
     private javax.swing.JTextField contraseña;
     private javax.swing.JTextField correo;
     private javax.swing.JTextField direccion;

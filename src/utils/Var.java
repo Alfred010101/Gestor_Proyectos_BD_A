@@ -1,5 +1,13 @@
 package utils;
 
+import dao.StaffDAO;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
 /**
  *
  * @author Alfred
@@ -38,9 +46,38 @@ public class Var
     {
         "ID", "Nombre", "Gefe Area", "Numero Tel", "Ver", "Editar", "Eliminar"
     };
-    
+
     public static final String[] RESOURCES_COLUMN_NAMES =
     {
         "ID", "Nombre", "Total", "Disponible", "Ver", "Editar", "Eliminar"
     };
+
+    public static final String[] PERSONAL_COLUMN_NAMES =
+    {
+        "ID", "NOMBRE", "AP PATERNO", "AP MATERNO", "DEPARTAMENTO", "ROL", "EMAIL", "TELEFONO"
+    };
+    public static final String[] PERSONAL_CAMPOS =
+    {
+        "pk_id", "nombre", "ap_paterno", "ap_materno", "fk_departamento", "fk_rol", "email", "telefono"
+    };
+    
+    public static Set<String> perosonalColumnName = 
+            new LinkedHashSet<>(Arrays.asList(PERSONAL_COLUMN_NAMES));
+    
+    public static boolean[] columnasPerosonalSeleccionados = 
+    {
+        true, true, true, true, true, true, true, true
+    };
+    
+    public static Set<String> perosonalColumnDeparts = StaffDAO.getStaffDepartmets();
+    
+    public static boolean[] columnasDepartSeleccionados = new boolean[StaffDAO.getStaffNoDepartmets()];
+    
+    public static Set<String> perosonalColumnRoles = StaffDAO.getStaffRoles();
+    
+    public static boolean[] columnasRolesSeleccionados = new boolean[StaffDAO.getStaffNoRoles()];
+
+    public static Set<String> perosonalCampoConsulta = new LinkedHashSet<>();
+    public static Set<String> perosonalRolesConsulta = new LinkedHashSet<>();
+    public static Set<String> perosonalDepartamtosConsulta = new LinkedHashSet<>();
 }

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package vtn;
+package view.forms;
 
 /**
  *
@@ -30,23 +30,25 @@ public class VtnNuevoProyecto extends javax.swing.JFrame
     {
 
         jPanel1 = new javax.swing.JPanel();
-        estado = new javax.swing.JTextField();
         descripcion = new javax.swing.JTextField();
         nombrePro = new javax.swing.JTextField();
         fechaInicio = new com.toedter.calendar.JDateChooser();
         fechaFinal = new com.toedter.calendar.JDateChooser();
+        comboBoxEstado = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 440, 30));
         jPanel1.add(descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 440, 120));
         jPanel1.add(nombrePro, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 440, 30));
         jPanel1.add(fechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 160, 30));
         jPanel1.add(fechaFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 390, 160, 30));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/NuevoProyecto.png"))); // NOI18N
+        comboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(comboBoxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 440, 30));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/NuevoProyecto.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -109,8 +111,8 @@ public class VtnNuevoProyecto extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> comboBoxEstado;
     private javax.swing.JTextField descripcion;
-    private javax.swing.JTextField estado;
     private com.toedter.calendar.JDateChooser fechaFinal;
     private com.toedter.calendar.JDateChooser fechaInicio;
     private javax.swing.JLabel jLabel1;
