@@ -56,20 +56,28 @@ public class Var
     {
         "ID", "ROL", "NOMBRE", "AP PATERNO", "AP MATERNO", "DEPARTAMENTO", "EMAIL", "TELEFONO"
     };
+    public static final String[] PERSONAL_CAMPOS =
+    {
+        "pk_id", "fk_rol", "fk_departamento", "nombre", "ap_paterno", "ap_materno", "email", "telefono"
+    };
     
     public static Set<String> perosonalColumnName = 
             new LinkedHashSet<>(Arrays.asList(PERSONAL_COLUMN_NAMES));
     
-    public static boolean[] columnasPerosonal = 
+    public static boolean[] columnasPerosonalSeleccionados = 
     {
-        true, true, true, true, true, true, true, true, true
+        true, true, true, true, true, true, true, true
     };
     
-    public static Set<String> perosonalColumnDepart = StaffDAO.getStaffDepartmets();
+    public static Set<String> perosonalColumnDeparts = StaffDAO.getStaffDepartmets();
     
     public static boolean[] columnasDepartSeleccionados = new boolean[StaffDAO.getStaffNoDepartmets()];
     
     public static Set<String> perosonalColumnRoles = StaffDAO.getStaffRoles();
     
     public static boolean[] columnasRolesSeleccionados = new boolean[StaffDAO.getStaffNoRoles()];
+
+    public static Set<String> perosonalCampoConsulta = new LinkedHashSet<>();
+    public static Set<String> perosonalRolesConsulta = new LinkedHashSet<>();
+    public static Set<String> perosonalDepartamtosConsulta = new LinkedHashSet<>();
 }

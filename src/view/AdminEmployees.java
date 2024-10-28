@@ -89,19 +89,19 @@ public class AdminEmployees extends CardJPanel
         /***/
         btnCampos.addActionListener((e) ->
         {
-            JPopupMenu popupCampos = SeleccionarCampos.listaCampos(contenedorTabla, Var.columnasPerosonal, btnRoles, btnDepartamentos);
+            JPopupMenu popupCampos = SeleccionarCampos.listaCampos(contenedorTabla, btnRoles, btnDepartamentos);
             popupCampos.show(btnCampos, 0, btnCampos.getHeight());
         });
         
         btnRoles.addActionListener((e) ->
         {
-            JPopupMenu popupRoles = SeleccionarCampos.listaRoles(contenedorTabla, Var.columnasRolesSeleccionados);
+            JPopupMenu popupRoles = SeleccionarCampos.listaRoles(contenedorTabla);
             popupRoles.show(btnRoles, 0, btnRoles.getHeight());
         });
         
         btnDepartamentos.addActionListener((e) ->
         {
-            JPopupMenu popupDepartamentos = SeleccionarCampos.listaDepartamentos(contenedorTabla, Var.columnasDepartSeleccionados);
+            JPopupMenu popupDepartamentos = SeleccionarCampos.listaDepartamentos(contenedorTabla);
             popupDepartamentos.show(btnDepartamentos, 0, btnDepartamentos.getHeight());
         });
         /***/

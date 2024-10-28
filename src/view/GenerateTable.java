@@ -8,6 +8,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -298,6 +300,86 @@ public class GenerateTable
         {
             
         }
+        
+        List<Staff> empleados = StaffController.getEmployees();
+        Object[][] data = new Object[empleados.size()][cont];
+        for (int i = 0; i < empleados.size(); i++)
+        {
+            if (campos[0])
+                data[i][index++] = empleados.get(i).getId();
+            if (campos[1])
+                data[i][index++] = StaffController.getEmployeeRole(empleados.get(i).getRole());
+            if (campos[2])
+                data[i][index++] = empleados.get(i).getName();
+            if (campos[3])
+                data[i][index++] = empleados.get(i).getApPaterno();
+            if (campos[4])
+                data[i][index++] = empleados.get(i).getApMaterno();
+            if (campos[5])
+                data[i][index++] = StaffController.getEmployeeDepartment(empleados.get(i).getDepartment());
+            if (campos[6])
+                data[i][index++] = empleados.get(i).getEmail();
+            if (campos[7])
+                data[i][index++] = empleados.get(i).getPhoneNumber();
+            index = 0;
+        }
+
+        Var.perosonalColumnName.clear();
+        for (int i = 0; i < campos.length; i++)
+        {
+            if (campos[i])
+            {
+               Var.perosonalColumnName.add(Var.PERSONAL_COLUMN_NAMES[i]);
+            }
+        }
+        return getTable(data, Var.perosonalColumnName.toArray());
+    }
+    
+    public static JTable getTableEmpleadosFiltros()
+    {
+        boolean[] campos = Var.columnasPerosonalSeleccionados;
+        boolean[] roles = Var.columnasRolesSeleccionados;
+        boolean[] departamentos = Var.columnasDepartSeleccionados;
+        
+        int cont = 0;
+        for(int i = 0; i < campos.length; i++)
+            if (campos[i])
+                cont++;
+ 
+        int index = 0;
+        
+        Var.perosonalCampoConsulta.clear();
+        for (int i = 0; i < campos.length; i++)
+        {
+            if (campos[i])
+            {
+                Var.perosonalCampoConsulta.add(Var.PERSONAL_CAMPOS[i]);
+            }
+        }
+        
+        List<String> rolesName = new ArrayList<>(Var.perosonalColumnRoles);
+        Var.perosonalRolesConsulta.clear();
+        for (int i = 0; i < roles.length; i++)
+        {
+            if (roles[i])
+            {
+                Var.perosonalRolesConsulta.add(rolesName.get(i));
+            }
+        }
+        
+        List<String> departamentosName = new ArrayList<>(Var.perosonalColumnDeparts);
+        Var.perosonalDepartamtosConsulta.clear();
+        for (int i = 0; i < departamentos.length; i++)
+        {
+            if (departamentos[i])
+            {
+                Var.perosonalDepartamtosConsulta.add(departamentosName.get(i));
+            }
+        }
+        
+        System.out.println(Var.perosonalCampoConsulta);
+        System.out.println(Var.perosonalRolesConsulta);
+        System.out.println(Var.perosonalDepartamtosConsulta);
         
         List<Staff> empleados = StaffController.getEmployees();
         Object[][] data = new Object[empleados.size()][cont];

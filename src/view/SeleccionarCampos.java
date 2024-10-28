@@ -22,17 +22,14 @@ import utils.Var;
 public class SeleccionarCampos
 {
 
-    public static JPopupMenu listaCampos(JScrollPane contenedorTabla, boolean[] seleccionados, JButton btnRoles, JButton btnDepart)
+    public static JPopupMenu listaCampos(JScrollPane contenedorTabla, JButton btnRoles, JButton btnDepart)
     {
-        String[] elementos =
-        {
-            "<<TODOS>>", "ID", "ROL", "NOMBRE", "AP PATERNO", "AP MATERNO", "DEPARTAMENTO", "EMAIL", "TELEFONO"
-        };
+        String[] elementos = Var.PERSONAL_COLUMN_NAMES;
 
         // Crear un array para almacenar el estado de los checkboxes (seleccionados o no)
         boolean[] noDeseleccionables = new boolean[elementos.length];
-        noDeseleccionables[1] = true;
-        noDeseleccionables[3] = true;
+        noDeseleccionables[0] = true;
+        noDeseleccionables[2] = true;
 
         JList<String> lista = new JList<>(elementos);
 
@@ -43,7 +40,7 @@ public class SeleccionarCampos
             JCheckBox checkBox = new JCheckBox(value);
 
             // Establecer el estado del checkbox y deshabilitar si es no deselectable
-            checkBox.setSelected(seleccionados[index]);
+            checkBox.setSelected(Var.columnasPerosonalSeleccionados[index]);
             if (noDeseleccionables[index])
             {
                 checkBox.setEnabled(false);  // Deshabilitar la opción para que no se pueda cambiar
@@ -62,39 +59,28 @@ public class SeleccionarCampos
                 int index = lista.locationToIndex(e.getPoint());
                 if (index != -1 && !noDeseleccionables[index])
                 {  // Solo cambiar si no es deseleccionable
-                    if (index == 0)
+                    Var.columnasPerosonalSeleccionados[index] = !Var.columnasPerosonalSeleccionados[index];
+                    btnRoles.setVisible(Var.columnasPerosonalSeleccionados[1]);
+                    btnDepart.setVisible(Var.columnasPerosonalSeleccionados[5]);
+                    if (!Var.columnasPerosonalSeleccionados[1])
                     {
-                        for (int i = 0; i < seleccionados.length; i++)
+                        for (int i = 0; i < Var.columnasRolesSeleccionados.length; i++)
                         {
-                            seleccionados[i] = true;
+                            Var.columnasRolesSeleccionados[i] = true;
                         }
-                        btnRoles.setVisible(true);
-                        btnDepart.setVisible(true);
-                    } else
+                    }
+                    if (!Var.columnasPerosonalSeleccionados[5])
                     {
-                        seleccionados[0] = false;
-                        seleccionados[index] = !seleccionados[index];
-                        if (!seleccionados[2])
+                        for (int i = 0; i < Var.columnasDepartSeleccionados.length; i++)
                         {
-                            btnRoles.setVisible(false);
-                        } else
-                        {
-                            btnRoles.setVisible(true);
+                            Var.columnasDepartSeleccionados[i] = true;
                         }
-                        if (!seleccionados[6])
-                        {
-                            btnDepart.setVisible(false);
-                        } else
-                        {
-                            btnDepart.setVisible(true);
-                        }
-
                     }
                     lista.repaint();
 
-                    boolean[] arr = new boolean[elementos.length - 1];
-                    System.arraycopy(seleccionados, 1, arr, 0, arr.length);
-                    JTable nuevaTabla = GenerateTable.getTableEmpleados(arr);
+//                    boolean[] arr = new boolean[elementos.length];
+//                    System.arraycopy(Var.columnasPerosonalSeleccionados, 0, arr, 0, arr.length);
+                    JTable nuevaTabla = GenerateTable.getTableEmpleadosFiltros();
                     contenedorTabla.setViewportView(nuevaTabla);
 
                     contenedorTabla.revalidate();
@@ -112,7 +98,7 @@ public class SeleccionarCampos
         return popupMenu;
     }
 
-    public static JPopupMenu listaRoles(JScrollPane contenedorTabla, boolean[] seleccionados)
+    public static JPopupMenu listaRoles(JScrollPane contenedorTabla)
     {
         String[] elementos = Var.perosonalColumnRoles.toArray(String[]::new);
 
@@ -123,7 +109,7 @@ public class SeleccionarCampos
         {
             JPanel panel = new JPanel(new BorderLayout());
             JCheckBox checkBox = new JCheckBox(value);
-            checkBox.setSelected(seleccionados[index]);
+            checkBox.setSelected(Var.columnasRolesSeleccionados[index]);
             panel.add(checkBox, BorderLayout.WEST);
 
             return panel;
@@ -137,15 +123,15 @@ public class SeleccionarCampos
                 int index = lista.locationToIndex(e.getPoint());
                 if (index != -1)
                 {
-                    seleccionados[index] = !seleccionados[index];
+                    Var.columnasRolesSeleccionados[index] = !Var.columnasRolesSeleccionados[index];
                     lista.repaint();
                     boolean[] arr = new boolean[elementos.length - 1];
-                    System.arraycopy(seleccionados, 1, arr, 0, arr.length);
-//                    JTable nuevaTabla = GenerateTable.getTableEmpleados(arr);
-//                    contenedorTabla.setViewportView(nuevaTabla);
-//
-//                    contenedorTabla.revalidate();
-//                    contenedorTabla.repaint();
+                    System.arraycopy(Var.columnasRolesSeleccionados, 1, arr, 0, arr.length);
+                    JTable nuevaTabla = GenerateTable.getTableEmpleadosFiltros();
+                    contenedorTabla.setViewportView(nuevaTabla);
+
+                    contenedorTabla.revalidate();
+                    contenedorTabla.repaint();
                 }
             }
         });
@@ -158,10 +144,10 @@ public class SeleccionarCampos
         popupMenu.add(scrollPane, BorderLayout.CENTER);
         return popupMenu;
     }
-    
-    public static JPopupMenu listaDepartamentos(JScrollPane contenedorTabla, boolean[] seleccionados)
+
+    public static JPopupMenu listaDepartamentos(JScrollPane contenedorTabla)
     {
-        String[] elementos = Var.perosonalColumnDepart.toArray(String[]::new);
+        String[] elementos = Var.perosonalColumnDeparts.toArray(String[]::new);
 
         JList<String> lista = new JList<>(elementos);
 
@@ -170,7 +156,7 @@ public class SeleccionarCampos
         {
             JPanel panel = new JPanel(new BorderLayout());
             JCheckBox checkBox = new JCheckBox(value);
-            checkBox.setSelected(seleccionados[index]);
+            checkBox.setSelected(Var.columnasDepartSeleccionados[index]);
             panel.add(checkBox, BorderLayout.WEST);
 
             return panel;
@@ -184,15 +170,15 @@ public class SeleccionarCampos
                 int index = lista.locationToIndex(e.getPoint());
                 if (index != -1)
                 {
-                    seleccionados[index] = !seleccionados[index];
+                    Var.columnasDepartSeleccionados[index] = !Var.columnasDepartSeleccionados[index];
                     lista.repaint();
                     boolean[] arr = new boolean[elementos.length - 1];
-                    System.arraycopy(seleccionados, 1, arr, 0, arr.length);
-//                    JTable nuevaTabla = GenerateTable.getTableEmpleados(arr);
-//                    contenedorTabla.setViewportView(nuevaTabla);
-//
-//                    contenedorTabla.revalidate();
-//                    contenedorTabla.repaint();
+                    System.arraycopy(Var.columnasDepartSeleccionados, 1, arr, 0, arr.length);
+                    JTable nuevaTabla = GenerateTable.getTableEmpleadosFiltros();
+                    contenedorTabla.setViewportView(nuevaTabla);
+
+                    contenedorTabla.revalidate();
+                    contenedorTabla.repaint();
                 }
             }
         });
