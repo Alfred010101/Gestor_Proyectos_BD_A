@@ -44,7 +44,7 @@ public class Var
 
     public static final String[] DEPARTMENT_COLUMN_NAMES =
     {
-        "ID", "Nombre", "Gefe Area", "Numero Tel", "Ver", "Editar", "Eliminar"
+        "ID", "Nombre", "Gefe Area", "Numero Tel"
     };
 
     public static final String[] RESOURCES_COLUMN_NAMES =

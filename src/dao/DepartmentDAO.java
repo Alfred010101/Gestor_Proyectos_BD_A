@@ -68,4 +68,27 @@ public class DepartmentDAO
         }
         return null;
     }
+    
+    public static String getDepartmentGerente(int id)
+    {
+        String query = "SELECT nombre, ap_paterno, ap_materno "
+                + "FROM Personal "
+                + "WHERE pk_id =  ?";
+        try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query);)
+        {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next())
+            {
+                return resultSet.getString("nombre") + " " + resultSet.getString("ap_paterno")  + " " + resultSet.getString("ap_materno");
+            }
+        } catch (SQLException ex)
+        {
+            System.out.println("SQLException : " + ex);
+        } catch (Exception e)
+        {
+            System.out.println("Exception : " + e);
+        }
+        return "";
+    }
 }
