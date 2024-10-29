@@ -105,10 +105,10 @@ public class AdminResources extends CardJPanel
             btnEliminarAddActionListener();
         });
 
-        JPanel panelFiltrar = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JButton btnCampos = GenerateComponents.crearBotonHerramineta("Ver Campos", "filtrar_Res2.png");
-        JButton btnRoles = GenerateComponents.crearBotonHerramineta("Roles", "filtrar_Res2.png");
-        JButton btnDepartamentos = GenerateComponents.crearBotonHerramineta("Departamentos", "filtrar_Res2.png");
+//        JPanel panelFiltrar = new JPanel(new FlowLayout(FlowLayout.LEFT));
+//        JButton btnCampos = GenerateComponents.crearBotonHerramineta("Ver Campos", "filtrar_Res2.png");
+//        JButton btnRoles = GenerateComponents.crearBotonHerramineta("Roles", "filtrar_Res2.png");
+//        JButton btnDepartamentos = GenerateComponents.crearBotonHerramineta("Departamentos", "filtrar_Res2.png");
 
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
         model.addElement(Var.CAMPOS_ORDENAR_PEROSNAL[0]);
@@ -118,30 +118,30 @@ public class AdminResources extends CardJPanel
         // Crear el JComboBox con las opciones
         JComboBox<String> cbxOrdenar = new JComboBox<>(model);
         JComboBox<String> cbxFormasOrdenar = new JComboBox<>(Var.CAMPOS_ORDENAR_PRIORIDAD_PEROSNAL);
-        panelFiltrar.add(btnCampos);
-        panelFiltrar.add(btnDepartamentos);
-        panelFiltrar.add(btnRoles);
-
-        /**
-         *
-         */
-        btnCampos.addActionListener((e) ->
-        {
-            JPopupMenu popupCampos = SeleccionarCampos.listaCampos(contenedorTabla, btnRoles, btnDepartamentos, model);
-            popupCampos.show(btnCampos, 0, btnCampos.getHeight());
-        });
-
-        btnRoles.addActionListener((e) ->
-        {
-            JPopupMenu popupRoles = SeleccionarCampos.listaRoles(contenedorTabla);
-            popupRoles.show(btnRoles, 0, btnRoles.getHeight());
-        });
-
-        btnDepartamentos.addActionListener((e) ->
-        {
-            JPopupMenu popupDepartamentos = SeleccionarCampos.listaDepartamentos(contenedorTabla);
-            popupDepartamentos.show(btnDepartamentos, 0, btnDepartamentos.getHeight());
-        });
+//        panelFiltrar.add(btnCampos);
+//        panelFiltrar.add(btnDepartamentos);
+//        panelFiltrar.add(btnRoles);
+//
+//        /**
+//         *
+//         */
+//        btnCampos.addActionListener((e) ->
+//        {
+//            JPopupMenu popupCampos = SeleccionarCampos.listaCampos(contenedorTabla, btnRoles, btnDepartamentos, model);
+//            popupCampos.show(btnCampos, 0, btnCampos.getHeight());
+//        });
+//
+//        btnRoles.addActionListener((e) ->
+//        {
+//            JPopupMenu popupRoles = SeleccionarCampos.listaRoles(contenedorTabla);
+//            popupRoles.show(btnRoles, 0, btnRoles.getHeight());
+//        });
+//
+//        btnDepartamentos.addActionListener((e) ->
+//        {
+//            JPopupMenu popupDepartamentos = SeleccionarCampos.listaDepartamentos(contenedorTabla);
+//            popupDepartamentos.show(btnDepartamentos, 0, btnDepartamentos.getHeight());
+//        });
         /**
          *
          */
@@ -197,7 +197,7 @@ public class AdminResources extends CardJPanel
 
         tabbedPane.addTab("Inicio", panelInicio);
 //        tabbedPane.addTab("Buscar", panelBuscar);
-        tabbedPane.addTab("Filtrar", panelFiltrar);
+//        tabbedPane.addTab("Filtrar", panelFiltrar);
         tabbedPane.addTab("Ordenar", panelOrdenar);
 //        panelHerramientas.setBackground(Color.decode("#7f8c8d"));
 
@@ -233,7 +233,7 @@ public class AdminResources extends CardJPanel
 
     private void initPanelCenter()
     {
-        tabla = GenerateTable.getTableEmpleados();
+        tabla = GenerateTable.getTableRecursos();
         tabla.getSelectionModel().addListSelectionListener((ListSelectionEvent event) ->
         {
             if (!event.getValueIsAdjusting())

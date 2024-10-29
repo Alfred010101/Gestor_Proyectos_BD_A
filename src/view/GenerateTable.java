@@ -2,6 +2,7 @@
 package view;
 
 import controller.DepartmentController;
+import controller.ResourcesController;
 import controller.RoleController;
 import controller.StaffController;
 import controller.TaskController;
@@ -20,6 +21,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import model.Department;
+import model.Resources;
 import model.Staff;
 import model.Task;
 import utils.Var;
@@ -36,7 +38,7 @@ public class GenerateTable
         Object[][] data = new Object[tareas.size()][7];
         for (int i = 0; i < tareas.size(); i++)
         {
-//            data[i][0] = departamentos.get(i).getResponsible();
+//            data[i][0] = recursos.get(i).getResponsible();
             data[i][0] = tareas.get(i).getState();
             data[i][1] = tareas.get(i).getStartDate();
             data[i][2] = tareas.get(i).getEndDate();
@@ -133,16 +135,16 @@ public class GenerateTable
     
 //    public static JScrollPane getTableEmpleados()
 //    {
-//        List<Staff> departamentos = StaffController.getEmployees();
-//        Object[][] data = new Object[departamentos.size()][9];
-//        for (int i = 0; i < departamentos.size(); i++)
+//        List<Staff> recursos = StaffController.getEmployees();
+//        Object[][] data = new Object[recursos.size()][9];
+//        for (int i = 0; i < recursos.size(); i++)
 //        {
-//            data[i][0] = departamentos.get(i).getId();
-//            data[i][1] = RoleController.getRole(departamentos.get(i).getId());
-//            data[i][2] = departamentos.get(i).getName();
-//            data[i][3] = DepartmentController.getDepartmentName(departamentos.get(i).getDepartment());
-//            data[i][4] = departamentos.get(i).getEmail();
-//            data[i][5] = departamentos.get(i).getPhoneNumber();
+//            data[i][0] = recursos.get(i).getId();
+//            data[i][1] = RoleController.getRole(recursos.get(i).getId());
+//            data[i][2] = recursos.get(i).getName();
+//            data[i][3] = DepartmentController.getDepartmentName(recursos.get(i).getDepartment());
+//            data[i][4] = recursos.get(i).getEmail();
+//            data[i][5] = recursos.get(i).getPhoneNumber();
 //            data[i][6] = null;
 //            data[i][7] = null;
 //            data[i][8] = null;
@@ -288,13 +290,28 @@ public class GenerateTable
         for (int i = 0; i < departamentos.size(); i++)
         {
             data[i][0] = departamentos.get(i).getId();
-//            System.out.println(DepartmentController.getDepartmentGerente(departamentos.get(i).getManager()));
+//            System.out.println(DepartmentController.getDepartmentGerente(recursos.get(i).getManager()));
             data[i][1] = DepartmentController.getDepartmentGerente(departamentos.get(i).getManager());
             data[i][2] = departamentos.get(i).getName();
             data[i][3] = departamentos.get(i).getPhoneNumber();
         }
         
         return getTable(data, Var.DEPARTMENT_COLUMN_NAMES);
+    }
+    
+    public static JTable getTableRecursos()
+    {
+        List<Resources> recursos = ResourcesController.getResources();
+        Object[][] data = new Object[recursos.size()][4];
+        for (int i = 0; i < recursos.size(); i++)
+        {
+            data[i][0] = recursos.get(i).getId();
+            data[i][1] = recursos.get(i).getName();
+            data[i][2] = recursos.get(i).getTotalAmount();
+            data[i][3] = recursos.get(i).getQuantityAvailable();
+        }
+        
+        return getTable(data, Var.RESOURCES_COLUMN_NAMES);
     }
     
     public static JTable getTableEmpleados(boolean[] campos)

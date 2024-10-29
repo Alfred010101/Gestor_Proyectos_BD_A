@@ -49,7 +49,7 @@ public class Var
 
     public static final String[] RESOURCES_COLUMN_NAMES =
     {
-        "ID", "Nombre", "Total", "Disponible", "Ver", "Editar", "Eliminar"
+        "ID", "Nombre", "Total", "Disponible"
     };
 
     public static final String[] PERSONAL_COLUMN_NAMES =
