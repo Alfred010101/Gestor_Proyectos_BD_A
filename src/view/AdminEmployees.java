@@ -10,6 +10,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -21,6 +22,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import utils.Var;
+import view.forms.VtnModificarPersonalAdmin;
+import view.forms.VtnNuevoPersonal;
 
 /**
  *
@@ -59,25 +62,50 @@ public class AdminEmployees extends CardJPanel
         tabbedPane.setBorder(new EmptyBorder(0, 0, 10, 0));
 
         JPanel panelInicio = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panelInicio.setBackground(Color.LIGHT_GRAY);
-        JButton btnAgregar = GenerateComponents.crearBotonHerramineta("", "nuevo_Res.png");
-        JButton btnVer = GenerateComponents.crearBotonHerramineta("", "expediente_Res.png");
-        JButton btnModificar = GenerateComponents.crearBotonHerramineta("", "boton-editar_Res.png");
-        JButton btnEliminar = GenerateComponents.crearBotonHerramineta("", "borrar_Res.png");
+        panelInicio.setBackground(Color.decode("#ECEFF1"));
+        JButton btnAgregar = GenerateComponents.crearBotonHerramineta("Agregar", "nuevo_Res2.png");
+        JButton btnBuscar = GenerateComponents.crearBotonHerramineta("Buscar", "buscar_Res2.png");
+        JButton btnForm = GenerateComponents.crearBotonHerramineta("Ver Form", "coleccion_Res2.png");
+        JButton btnVer = GenerateComponents.crearBotonHerramineta("Detalles", "expediente_Res2.png");
+        JButton btnModificar = GenerateComponents.crearBotonHerramineta("Actualizar", "editar_Res2.png");
+        JButton btnEliminar = GenerateComponents.crearBotonHerramineta("Eliminar", "borrar_Res2.png");
+
         panelInicio.add(btnAgregar);
+        panelInicio.add(btnBuscar);
+        panelInicio.add(btnForm);
         panelInicio.add(btnVer);
         panelInicio.add(btnModificar);
         panelInicio.add(btnEliminar);
+
+        btnAgregar.addActionListener((e) ->
+        {
+            btnAgregarAddActionListener();
+        });
+        btnBuscar.addActionListener((e) ->
+        {
+            btnBuscarAddActionListener();
+        });
+        btnForm.addActionListener((e) ->
+        {
+            btnFormAddActionListener();
+        });
         btnVer.addActionListener((e) ->
         {
-            System.out.println(Var.filaSeleccionadaPersonal);
-            System.out.println(Var.idSeleccionadaPersonal);
+            btnVerAddActionListener();
+        });
+        btnModificar.addActionListener((e) ->
+        {
+            btnModificarAddActionListener();
+        });
+        btnEliminar.addActionListener((e) ->
+        {
+            btnEliminarAddActionListener();
         });
 
         JPanel panelFiltrar = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JButton btnCampos = GenerateComponents.crearBotonHerramineta("Ver Campos", "filtrar_Res.png");
-        JButton btnRoles = GenerateComponents.crearBotonHerramineta("Roles", "filtrar_Res.png");
-        JButton btnDepartamentos = GenerateComponents.crearBotonHerramineta("Departamentos", "filtrar_Res.png");
+        JButton btnCampos = GenerateComponents.crearBotonHerramineta("Ver Campos", "filtrar_Res2.png");
+        JButton btnRoles = GenerateComponents.crearBotonHerramineta("Roles", "filtrar_Res2.png");
+        JButton btnDepartamentos = GenerateComponents.crearBotonHerramineta("Departamentos", "filtrar_Res2.png");
 
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
         model.addElement(Var.CAMPOS_ORDENAR_PEROSNAL[0]);
@@ -224,5 +252,35 @@ public class AdminEmployees extends CardJPanel
     protected void reset()
     {
 
+    }
+
+    private void btnAgregarAddActionListener()
+    {
+        new VtnNuevoPersonal().setVisible(true);
+    }
+
+    private void btnBuscarAddActionListener()
+    {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void btnFormAddActionListener()
+    {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void btnVerAddActionListener()
+    {
+        new VtnModificarPersonalAdmin().setVisible(true);
+    }
+
+    private void btnModificarAddActionListener()
+    {
+        new VtnModificarPersonalAdmin().setVisible(true);
+    }
+
+    private void btnEliminarAddActionListener()
+    {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
