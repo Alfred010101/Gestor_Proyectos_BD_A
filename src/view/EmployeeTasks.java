@@ -1,17 +1,13 @@
 
 package view;
 
-import controller.ResourcesController;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,7 +17,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import utils.Var;
@@ -32,14 +27,14 @@ import view.forms.VtnNuevoPersonal;
  *
  * @author Alfred
  */
-
-public class AdminResources extends CardJPanel
+public class EmployeeTasks extends CardJPanel
 {
+
     private final int idEmployee;
     private JTable tabla;
     private JScrollPane contenedorTabla;
 
-    public AdminResources(int idEmployee)
+    public EmployeeTasks(int idEmployee)
     {
         this.idEmployee = idEmployee;
         for (int i = 0; i < Var.columnasDepartSeleccionados.length; i++)
@@ -66,16 +61,12 @@ public class AdminResources extends CardJPanel
 
         JPanel panelInicio = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelInicio.setBackground(Color.decode("#ECEFF1"));
-        JButton btnAgregar = GenerateComponents.crearBotonHerramineta("Agregar", "add_recurso_Res2.png");
-        JButton btnBuscar = GenerateComponents.crearBotonHerramineta("Buscar", "buscar_Res2.png");
-        JButton btnForm = GenerateComponents.crearBotonHerramineta("Ver Form", "coleccion_Res2.png");
+        JButton btnAgregar = GenerateComponents.crearBotonHerramineta("Agregar", "nuevo_Res2.png");
         JButton btnVer = GenerateComponents.crearBotonHerramineta("Detalles", "expediente_Res2.png");
         JButton btnModificar = GenerateComponents.crearBotonHerramineta("Actualizar", "editar_Res2.png");
         JButton btnEliminar = GenerateComponents.crearBotonHerramineta("Eliminar", "borrar_Res2.png");
 
         panelInicio.add(btnAgregar);
-        panelInicio.add(btnBuscar);
-        panelInicio.add(btnForm);
         panelInicio.add(btnVer);
         panelInicio.add(btnModificar);
         panelInicio.add(btnEliminar);
@@ -83,14 +74,6 @@ public class AdminResources extends CardJPanel
         btnAgregar.addActionListener((e) ->
         {
             btnAgregarAddActionListener();
-        });
-        btnBuscar.addActionListener((e) ->
-        {
-            btnBuscarAddActionListener();
-        });
-        btnForm.addActionListener((e) ->
-        {
-            btnFormAddActionListener();
         });
         btnVer.addActionListener((e) ->
         {
@@ -105,10 +88,10 @@ public class AdminResources extends CardJPanel
             btnEliminarAddActionListener();
         });
 
-//        JPanel panelFiltrar = new JPanel(new FlowLayout(FlowLayout.LEFT));
-//        JButton btnCampos = GenerateComponents.crearBotonHerramineta("Ver Campos", "filtrar_Res2.png");
-//        JButton btnRoles = GenerateComponents.crearBotonHerramineta("Roles", "filtrar_Res2.png");
-//        JButton btnDepartamentos = GenerateComponents.crearBotonHerramineta("Departamentos", "filtrar_Res2.png");
+        JPanel panelFiltrar = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JButton btnCampos = GenerateComponents.crearBotonHerramineta("Ver Campos", "filtrar_Res2.png");
+        JButton btnRoles = GenerateComponents.crearBotonHerramineta("Roles", "filtrar_Res2.png");
+        JButton btnDepartamentos = GenerateComponents.crearBotonHerramineta("Departamentos", "filtrar_Res2.png");
 
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
         model.addElement(Var.CAMPOS_ORDENAR_PEROSNAL[0]);
@@ -118,30 +101,30 @@ public class AdminResources extends CardJPanel
         // Crear el JComboBox con las opciones
         JComboBox<String> cbxOrdenar = new JComboBox<>(model);
         JComboBox<String> cbxFormasOrdenar = new JComboBox<>(Var.CAMPOS_ORDENAR_PRIORIDAD_PEROSNAL);
-//        panelFiltrar.add(btnCampos);
-//        panelFiltrar.add(btnDepartamentos);
-//        panelFiltrar.add(btnRoles);
-//
-//        /**
-//         *
-//         */
-//        btnCampos.addActionListener((e) ->
-//        {
-//            JPopupMenu popupCampos = SeleccionarCampos.listaCampos(contenedorTabla, btnRoles, btnDepartamentos, model);
-//            popupCampos.show(btnCampos, 0, btnCampos.getHeight());
-//        });
-//
-//        btnRoles.addActionListener((e) ->
-//        {
-//            JPopupMenu popupRoles = SeleccionarCampos.listaRoles(contenedorTabla);
-//            popupRoles.show(btnRoles, 0, btnRoles.getHeight());
-//        });
-//
-//        btnDepartamentos.addActionListener((e) ->
-//        {
-//            JPopupMenu popupDepartamentos = SeleccionarCampos.listaDepartamentos(contenedorTabla);
-//            popupDepartamentos.show(btnDepartamentos, 0, btnDepartamentos.getHeight());
-//        });
+        panelFiltrar.add(btnCampos);
+        panelFiltrar.add(btnDepartamentos);
+        panelFiltrar.add(btnRoles);
+
+        /**
+         *
+         */
+        btnCampos.addActionListener((e) ->
+        {
+            JPopupMenu popupCampos = SeleccionarCampos.listaCampos(contenedorTabla, btnRoles, btnDepartamentos, model);
+            popupCampos.show(btnCampos, 0, btnCampos.getHeight());
+        });
+
+        btnRoles.addActionListener((e) ->
+        {
+            JPopupMenu popupRoles = SeleccionarCampos.listaRoles(contenedorTabla);
+            popupRoles.show(btnRoles, 0, btnRoles.getHeight());
+        });
+
+        btnDepartamentos.addActionListener((e) ->
+        {
+            JPopupMenu popupDepartamentos = SeleccionarCampos.listaDepartamentos(contenedorTabla);
+            popupDepartamentos.show(btnDepartamentos, 0, btnDepartamentos.getHeight());
+        });
         /**
          *
          */
@@ -197,7 +180,7 @@ public class AdminResources extends CardJPanel
 
         tabbedPane.addTab("Inicio", panelInicio);
 //        tabbedPane.addTab("Buscar", panelBuscar);
-//        tabbedPane.addTab("Filtrar", panelFiltrar);
+        tabbedPane.addTab("Filtrar", panelFiltrar);
         tabbedPane.addTab("Ordenar", panelOrdenar);
 //        panelHerramientas.setBackground(Color.decode("#7f8c8d"));
 
@@ -233,7 +216,7 @@ public class AdminResources extends CardJPanel
 
     private void initPanelCenter()
     {
-        tabla = GenerateTable.getTableRecursos();
+        tabla = GenerateTable.getTableTareas(idEmployee);
         tabla.getSelectionModel().addListSelectionListener((ListSelectionEvent event) ->
         {
             if (!event.getValueIsAdjusting())
@@ -260,16 +243,6 @@ public class AdminResources extends CardJPanel
     private void btnAgregarAddActionListener()
     {
         new VtnNuevoPersonal().setVisible(true);
-    }
-
-    private void btnBuscarAddActionListener()
-    {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private void btnFormAddActionListener()
-    {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     private void btnVerAddActionListener()

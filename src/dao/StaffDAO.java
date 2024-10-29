@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import model.Staff;
 import utils.ConnectionBD;
+import utils.Var;
 
 /**
  *
@@ -124,7 +125,7 @@ public class StaffDAO
                         .append(" FROM Personal p")
                         .append(" JOIN Roles r ON p.fk_rol = r.pk_id")
                         .append(" JOIN Departamentos d ON p.fk_departamento = d.pk_id");
-        
+
         String whereClause = "";
 
         // Agregar filtro de departamentos
@@ -159,6 +160,12 @@ public class StaffDAO
         if (!whereClause.isEmpty())
         {
             queryBuilder.append(" WHERE ").append(whereClause);
+        }
+
+        // Agregar cláusula ORDER BY
+        if (Var.opcOrdenadoPersonal > -1 && Var.CAMPOS_ORDENAR_PEROSNAL_CONSULTA[Var.opcOrdenadoPersonal] != null && !Var.CAMPOS_ORDENAR_PEROSNAL_CONSULTA[Var.opcOrdenadoPersonal].isEmpty())
+        {
+            queryBuilder.append(" ORDER BY ").append(Var.CAMPOS_ORDENAR_PEROSNAL_CONSULTA[Var.opcOrdenadoPersonal]).append(" ").append((Var.opcOrdenadoForPersonal) ?  "DESC" : "ASC");
         }
 
         List<Map<String, Object>> empleados = new ArrayList<>();

@@ -115,7 +115,7 @@ public abstract class PlantillaPrincipal extends JFrame
          */
         JPanel panelPerfil = GenerateComponents.crearPanelTransparente(new FlowLayout(FlowLayout.LEFT));
         JToggleButton btnMostrarMenu = GenerateComponents.crearBotonONOFF(panelWest, "Ocultar Menú", "Mostrar Menú", "dep_lis.png", "dep_lis_Res.png");
-        JButton btnPerfil = GenerateButton.crearBotonBarra("Mi Perfil", "avatar_final.png", Var.COLORES_BOTONES_NORTH);
+        JButton btnPerfil = GenerateComponents.crearBotonHerramineta("", "cuenta_Res2.png");
         JLabel lblUsuario = new JLabel(employee.getName());
         lblUsuario.setFont(new Font("Arial", Font.BOLD, 14));
         lblUsuario.setForeground(Color.WHITE);
@@ -131,9 +131,9 @@ public abstract class PlantillaPrincipal extends JFrame
         JPanel panelIconos = GenerateComponents.crearPanelTransparente(null);
         panelIconos.setLayout(new BoxLayout(panelIconos, BoxLayout.X_AXIS));
 
-        JButton btnAyuda = GenerateButton.crearBotonBarra("Ayuda", "ayudar_Res.png", Var.COLORES_BOTONES_NORTH);
-        JButton btnNotificaciones = GenerateButton.crearBotonBarra("Notificaciones", "boton-de-notificaciones_Res.png", Var.COLORES_BOTONES_NORTH);
-        JButton btnSalir = GenerateButton.crearBotonBarra("Cerrar Sesión", "cerrar-sesion_Res.png", Var.COLORES_BOTONES_NORTH);
+        JButton btnAyuda = GenerateComponents.crearBotonHerramineta("Ayuda", "soporte_Res2.png");
+        JButton btnNotificaciones = GenerateComponents.crearBotonHerramineta("Notificaciones", "notificaciones_Res2.png");
+        JButton btnSalir = GenerateComponents.crearBotonHerramineta("Cerrar Sesión", "logout_Res2.png");
         btnSalir.addActionListener((e) ->
         {
             btnSalirActionListener();

@@ -29,7 +29,7 @@ public class ResourcesDAO
                 int cantidadTotal = resultSet.getInt("total");
                 int cantidadDisponible = resultSet.getInt("disponible");
 
-                resourcesList.add(new Resources(pkId, name, cantidadDisponible, cantidadTotal));
+                resourcesList.add(new Resources(pkId, name, cantidadTotal, cantidadDisponible));
 
             }
         } catch (SQLException ex)

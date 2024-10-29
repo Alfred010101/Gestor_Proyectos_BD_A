@@ -28,11 +28,11 @@ public class WorkspaceAdministrator extends PlantillaPrincipal
     @Override
     protected void initMenu()
     {
-        JButton btnPersonal = GenerateButton.crearBotonConIcono("Personal", "jefe-de-equipo_Res.png", 0);
+        JButton btnPersonal = GenerateButton.crearBotonConIcono("Personal", "personas_Res2.png", 0);
         
-        JButton btnDepartamentos = GenerateButton.crearBotonConIcono("Departamentos", "departamento-de-la-compania_Res.png", 1);
+        JButton btnDepartamentos = GenerateButton.crearBotonConIcono("Departamentos", "departametos_Res2.png", 1);
 
-        JButton btnRecursos = GenerateButton.crearBotonConIcono("Recursos", "en-stock_Res.png", 2);
+        JButton btnRecursos = GenerateButton.crearBotonConIcono("Recursos", "inventario_Res2.png", 2);
 
 
         btnPersonal.addActionListener((e) ->
