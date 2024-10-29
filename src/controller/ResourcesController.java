@@ -28,4 +28,9 @@ public class ResourcesController
         }
         return data;
     }
+    
+    public static List<Resources> getResources()
+    {
+        return ResourcesDAO.getResources();
+    }
 }
