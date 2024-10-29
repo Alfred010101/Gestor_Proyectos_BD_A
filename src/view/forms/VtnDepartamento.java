@@ -4,6 +4,8 @@
  */
 package view.forms;
 
+import utils.Validations;
+
 /**
  *
  * @author Cassandra
@@ -40,8 +42,43 @@ public class VtnDepartamento extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        numTelefono.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                numTelefonoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                numTelefonoKeyTyped(evt);
+            }
+        });
         jPanel1.add(numTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 440, 30));
+
+        departamento.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                departamentoKeyPressed(evt);
+            }
+        });
         jPanel1.add(departamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 440, 30));
+
+        jefeDepto.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jefeDeptoActionPerformed(evt);
+            }
+        });
+        jefeDepto.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                jefeDeptoKeyPressed(evt);
+            }
+        });
         jPanel1.add(jefeDepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 440, 30));
 
         btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
@@ -52,6 +89,13 @@ public class VtnDepartamento extends javax.swing.JFrame
         btnRegistrar.setBackground(new java.awt.Color(102, 255, 102));
         btnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 440, 110, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/NuevoDepto.png"))); // NOI18N
@@ -70,6 +114,37 @@ public class VtnDepartamento extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jefeDeptoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jefeDeptoActionPerformed
+    {//GEN-HEADEREND:event_jefeDeptoActionPerformed
+        
+    }//GEN-LAST:event_jefeDeptoActionPerformed
+
+    private void jefeDeptoKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jefeDeptoKeyPressed
+    {//GEN-HEADEREND:event_jefeDeptoKeyPressed
+        Validations.enterEntero(this, evt, jefeDepto, departamento);
+    }//GEN-LAST:event_jefeDeptoKeyPressed
+
+    private void departamentoKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_departamentoKeyPressed
+    {//GEN-HEADEREND:event_departamentoKeyPressed
+        Validations.enterCadenaNoVacia(this, evt, departamento, numTelefono);
+    }//GEN-LAST:event_departamentoKeyPressed
+
+    private void numTelefonoKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_numTelefonoKeyPressed
+    {//GEN-HEADEREND:event_numTelefonoKeyPressed
+        
+        
+    }//GEN-LAST:event_numTelefonoKeyPressed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnRegistrarActionPerformed
+    {//GEN-HEADEREND:event_btnRegistrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void numTelefonoKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_numTelefonoKeyTyped
+    {//GEN-HEADEREND:event_numTelefonoKeyTyped
+        Validations.enterCadenaNumTelefono(this, evt, numTelefono, btnRegistrar);
+    }//GEN-LAST:event_numTelefonoKeyTyped
 
     /**
      * @param args the command line arguments
