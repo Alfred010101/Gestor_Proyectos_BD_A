@@ -60,47 +60,52 @@ public class Var
     {
         "pk_id", "nombre", "ap_paterno", "ap_materno", "fk_departamento", "fk_rol", "email", "telefono"
     };
-    
-    public static Set<String> perosonalColumnName = 
-            new LinkedHashSet<>(Arrays.asList(PERSONAL_COLUMN_NAMES));
-    
-    public static boolean[] columnasPerosonalSeleccionados = 
+
+    public static Set<String> perosonalColumnName
+            = new LinkedHashSet<>(Arrays.asList(PERSONAL_COLUMN_NAMES));
+
+    public static boolean[] columnasPerosonalSeleccionados =
     {
         true, true, true, true, true, true, true, true
     };
-    
+
     public static Set<String> perosonalColumnDeparts = StaffDAO.getStaffDepartmets();
-    
+
     public static boolean[] columnasDepartSeleccionados = new boolean[StaffDAO.getStaffNoDepartmets()];
-    
+
     public static Set<String> perosonalColumnRoles = StaffDAO.getStaffRoles();
-    
+
     public static boolean[] columnasRolesSeleccionados = new boolean[StaffDAO.getStaffNoRoles()];
 
     public static Set<String> perosonalCampoConsulta = new LinkedHashSet<>();
     public static Set<String> perosonalRolesConsulta = new LinkedHashSet<>();
     public static Set<String> perosonalDepartamtosConsulta = new LinkedHashSet<>();
 
-    public static final String[] CAMPOS_ORDENAR_PEROSNAL = 
+    public static final String[] CAMPOS_ORDENAR_PEROSNAL =
     {
         "ID", "NOMBRE", "AP PATERNO", "AP MATERNO"
     };
-    
-    public static final String[] CAMPOS_ORDENAR_PEROSNAL_CONSULTA = 
+
+    public static final String[] CAMPOS_ORDENAR_PEROSNAL_CONSULTA =
     {
         "pk_id", "nombre", "ap_paterno", "ap_materno"
     };
-    
+
     public static int opcOrdenadoPersonal = 0;
     public static boolean opcOrdenadoForPersonal = false;
-    
+
     public static List<String> ordenarPersonasPor = new ArrayList<>(Arrays.asList(CAMPOS_ORDENAR_PEROSNAL));
-    
-    public static final String[] CAMPOS_ORDENAR_PRIORIDAD_PEROSNAL = 
+
+    public static final String[] CAMPOS_ORDENAR_PRIORIDAD_PEROSNAL =
     {
         "ACENDENTE", "DECENDENTE"
     };
-    
+
     public static int filaSeleccionadaPersonal = -1;
     public static int idSeleccionadaPersonal = -1;
+
+    public static final String[] TASKS_COLUMN_NAMES =
+    {
+        "Proyecto", "Titulo", "Estado", "Fecha de Inicio", "Fecha de Termino", "Fecha Marcada"
+    };
 }

@@ -36,393 +36,460 @@ import utils.Var;
  *
  * @author Alfred
  */
-public class WorkspaceEmployee extends JFrame
+public class WorkspaceEmployee extends PlantillaPrincipal
 {
-
-    private JPanel space;
-    private JPanel panelNorth;
-    private JPanel panelWest;
-    private JPanel panelCenter;
-    private Staff employee;
-
-    private JToggleButton btnMostrarMenu;
-
-    private JButton btnTareas;
-    private JButton btnProyectos;
-    private JButton btnColaboraciones;
-    private JButton btnNuevoProyecto;
-
-    private CardLayout cardWork;
-    private JPanel cardPanelTareas;
-    private JPanel cardPanelProyectos;
-    private JPanel cardPanelColaboraciones;
-    private JPanel cardPanelNvProyecto;
 
     public WorkspaceEmployee(int id)
     {
-        this.employee = StaffController.getEmployee(id);
-        setTitle("Workspace");
-        setSize(900, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        space = new JPanel(new BorderLayout());
+        super(id);
         initComponents();
-        add(space);
     }
 
     private void initComponents()
     {
-        try
-        {
-            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException e)
-        {
-        }
-        initPanelWest();
-        initPanelNorth();
-        initPanelCenter();
-        space.add(panelNorth, BorderLayout.NORTH);
-        space.add(panelWest, BorderLayout.WEST);
-        space.add(panelCenter, BorderLayout.CENTER);
+        initMenu();
+        initWorckspace();
+        pack();
     }
 
-    /**
-     * Gestiona la interfaz en el panel de la parte superior Revision : OK
-     */
-    private void initPanelNorth()
+    @Override
+    protected void initMenu()
     {
-//        panelNorth = GenerateComponents.crearPanelDegradado(new BorderLayout(), "#0277BD", "#0277BD");
-        panelNorth = new JPanel(new BorderLayout());
-        panelNorth.setBackground(Color.decode("#0277BD"));
-        panelNorth.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+        JButton btnTareas = GenerateButton.crearBotonConIcono("Tareas", "tareas_Res2.png", 0);
+        
+        JButton btnProyectos = GenerateButton.crearBotonConIcono("Proyectos", "proyectos_Res2.png", 1);
 
-        /**
-         * Panel que contiene el avatar y el nombre del personal
-         */
-        JPanel panelPerfil = GenerateComponents.crearPanelTransparente(new FlowLayout(FlowLayout.LEFT));
-        btnMostrarMenu = GenerateComponents.crearBotonONOFF(panelWest, "Ocultar Menú", "Mostrar Menú", "dep_lis.png", "dep_lis_Res.png");
-        //btnMostrarMenu = GenerateComponents.crearBotonConIcono("Mostrar menú", "avatar_final.png","#0277BD", "#01579B");
-        JButton btnPerfil = GenerateComponents.crearBotonConIcono("Mi Perfil", "avatar_final.png", "#0277BD", "#01579B");
-        JLabel lblUsuario = new JLabel(employee.getName());
-        lblUsuario.setFont(new Font("Arial", Font.BOLD, 14));
-        lblUsuario.setForeground(Color.WHITE);
+        JButton btnColaboraciones = GenerateButton.crearBotonConIcono("Colaboraciones", "colaboraciones_Res2.png", 2);
 
-//        intiActionButtonNorth();
-        panelPerfil.add(btnMostrarMenu);
-        panelPerfil.add(btnPerfil);
-        panelPerfil.add(lblUsuario);
 
-        /**
-         * Panel que contiene las opciones del "menu" puerior izquierdo
-         */
-        JPanel panelIconos = GenerateComponents.crearPanelTransparente(null);
-        panelIconos.setLayout(new BoxLayout(panelIconos, BoxLayout.X_AXIS));
-
-        JButton btnAyuda = GenerateComponents.crearBotonConIcono("Ayuda", "avatar_final.png", "#0277BD", "#556080");
-        JButton btnNotificaciones = GenerateComponents.crearBotonConIcono("Notificaciones", "boton-de-notificaciones_Res.png", "#0277BD", "#556080");
-        JButton btnSalir = GenerateComponents.crearBotonConIcono("Cerrar Sesión", "cerrar-sesion_Res.png", "#0277BD", "#556080");
-        panelIconos.add(btnAyuda);
-        panelIconos.add(btnNotificaciones);
-        panelIconos.add(btnSalir);
-
-        panelNorth.add(panelPerfil, BorderLayout.WEST);
-        panelNorth.add(panelIconos, BorderLayout.EAST);
-    }
-
-//     private void intiActionButtonNorth()
-//     {
-//         btnMostrarMenu.addActionListener((e) ->
-//         {
-//            panelWest.setVisible(!panelWest.isVisible());
-//         });
-//     }
-    /**
-     * Gestiona la interfaz en el panel de la izquieda Revision : EN PROGRESO
-     */
-    private void initPanelWest()
-    {
-        panelWest = new JPanel();
-        panelWest.setLayout(new BoxLayout(panelWest, BoxLayout.Y_AXIS));
-        panelWest.setBackground(Color.decode("#FFFFFF"));
-
-        // Creación de los botones con iconos para el menú
-        btnTareas = GenerateComponents.crearBotonConIcono("Tareas", "avatar_final.png");
-        btnProyectos = GenerateComponents.crearBotonConIcono("Proyectos", "avatar_final.png");
-        btnColaboraciones = GenerateComponents.crearBotonConIcono("Colaboraciones", "avatar_final.png");
-        btnNuevoProyecto = GenerateComponents.crearBotonConIcono("Nuevo Proyecto", "avatar_final.png");
-
-        intiActionButtonWest();
-
-        // Añadir botones al menú lateral
-        panelWest.add(btnTareas);
-        panelWest.add(btnProyectos);
-        panelWest.add(btnColaboraciones);
-        panelWest.add(btnNuevoProyecto);
-    }
-
-    private void intiActionButtonWest()
-    {
         btnTareas.addActionListener((e) ->
         {
-            cardWork.show(panelCenter, "Card Tareas");
+            if (Var.OPCION_ACT != 0)
+            {
+                setBackgroundMenusAdmin(0, btnTareas, btnProyectos, btnColaboraciones);
+                cardWork.show(panelCenter, "Card Tareas");
+            }
         });
 
         btnProyectos.addActionListener((e) ->
         {
-            cardWork.show(panelCenter, "Card Proyectos");
+            if (Var.OPCION_ACT != 1)
+            {
+                setBackgroundMenusAdmin(1, btnTareas, btnProyectos, btnColaboraciones);
+                cardWork.show(panelCenter, "Card Proyectos");
+            }
         });
 
         btnColaboraciones.addActionListener((e) ->
         {
-            cardWork.show(panelCenter, "Card Colaboraciones");
-        });
-
-        btnNuevoProyecto.addActionListener((e) ->
-        {
-            cardWork.show(panelCenter, "Card Nuevo");
-        });
-    }
-
-    /**
-     * Gestiona la interfaz en el panel central Revision : EN ESPERA
-     */
-    private void initPanelCenter()
-    {
-        panelCenter = new JPanel();
-        panelCenter.setBackground(Color.decode("#D7DBDD"));
-        cardWork = new CardLayout();
-        panelCenter.setLayout(cardWork);
-
-        initCardPanelTareas();
-        initCardPanelProyectos();
-        initCardPanelColaboraciones();
-        initCardPanelNvProyecto();
-
-        panelCenter.add(cardPanelTareas, "Card Tareas");
-        panelCenter.add(cardPanelProyectos, "Card Proyectos");
-        panelCenter.add(cardPanelColaboraciones, "Card Colaboraciones");
-        panelCenter.add(cardPanelNvProyecto, "Card Nuevo");
-    }
-
-    private void initCardPanelTareas()
-    {
-        cardPanelTareas = new JPanel();
-        cardPanelTareas.setLayout(new BoxLayout(cardPanelTareas, BoxLayout.Y_AXIS));
-        cardPanelTareas.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
-        cardPanelTareas.setBackground(Color.decode("#ccd1d1"));
-        
-        JPanel panelHerraminetas = new JPanel();
-        panelHerraminetas.setBackground(Color.decode("#7f8c8d"));
-
-        JButton btnNvTarea = GenerateComponents.crearBotonHerramineta("Nueva Tarea", "agregar-tarea_Res.png");
-        JPanel checkboxPanel = new JPanel();
-//        checkboxPanel.setBackground(Color.decode("#7f8c8d"));
-        checkboxPanel.setLayout(new BoxLayout(checkboxPanel, BoxLayout.X_AXIS)); // Organizar verticalmente
-        Border border = BorderFactory.createLineBorder(Color.decode("#e5e7e9"), 1); // Color y grosor del borde
-        checkboxPanel.setBorder(border);
-        // Crear los checkboxes
-        JCheckBox checkbox1 = new JCheckBox("Por Hacer");
-        JCheckBox checkbox2 = new JCheckBox("Haciendo");
-        JCheckBox checkbox3 = new JCheckBox("Revicion");
-        JCheckBox checkbox4 = new JCheckBox("Hecho");
-        JCheckBox checkbox5 = new JCheckBox("Detenido");
-        checkbox1.setBackground(Color.decode("#7f8c8d"));
-        checkbox2.setBackground(Color.decode("#7f8c8d"));
-        checkbox3.setBackground(Color.decode("#7f8c8d"));
-        checkbox4.setBackground(Color.decode("#7f8c8d"));
-        checkbox5.setBackground(Color.decode("#7f8c8d"));
-        // Agregar los checkboxes al panel
-//        JLabel lblTxt = new JLabel(" Filtrar " );
-//        lblTxt.setBackground(Color.decode("#7f8c8d"));
-        checkboxPanel.add(new JLabel(new ImageIcon(Var.PATHASSETS + "filtrar_Res.png")));
-        checkboxPanel.add(checkbox1);
-        checkboxPanel.add(checkbox2);
-        checkboxPanel.add(checkbox3);
-        checkboxPanel.add(checkbox4);
-        checkboxPanel.add(checkbox5);
-
-        JPanel panelOrdenar = new JPanel();
-        panelOrdenar.setLayout(new BoxLayout(panelOrdenar, BoxLayout.X_AXIS)); // Organizar verticalmente
-        Border border2 = BorderFactory.createLineBorder(Color.decode("#e5e7e9"), 1); // Color y grosor del borde
-        panelOrdenar.setBorder(border2);
-        String[] options =
-        {
-            "Default", "Mayor Prioridad", "Menor Prioridad", "Mayor Tiempo", "Mayor tiempo"
-        };
-
-        // Crear el JComboBox con las opciones
-        JComboBox<String> comboBox = new JComboBox<>(options);
-        panelOrdenar.add(new JLabel(new ImageIcon(Var.PATHASSETS + "ordenar_Res.png")));
-        panelOrdenar.add(comboBox);
-        panelHerraminetas.add(btnNvTarea);
-        panelHerraminetas.add(checkboxPanel);
-        panelHerraminetas.add(panelOrdenar);
-
-        JPanel panelBtnHoy = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panelBtnHoy.setBackground(Color.decode("#ccd1d1"));
-        JPanel panelTabHoy = new JPanel();
-        panelTabHoy.setLayout(new BoxLayout(panelTabHoy, BoxLayout.Y_AXIS));
-        panelTabHoy.add(initTableHoy());
-        JToggleButton btnHoy = GenerateComponents.crearBotonONOFF(panelTabHoy, "Ocultar Tareas de Hoy", "Mostrar Tareas de Hoy", "dep_lis.png", "dep_lis_Res.png");
-
-        panelBtnHoy.add(btnHoy);
-
-        JPanel panelBtnSemana = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panelBtnSemana.setBackground(Color.decode("#ccd1d1"));
-        JPanel panelTabSemana = new JPanel();
-//        panelTabSemana.setLayout(new BoxLayout(panelTabSemana, BoxLayout.Y_AXIS));
-        panelTabSemana.setLayout(new BoxLayout(panelTabSemana, BoxLayout.Y_AXIS));
-        panelTabSemana.add(initTableHoy());
-        JToggleButton btnSemana = GenerateComponents.crearBotonONOFF(panelTabSemana, "Ocultar Tareas de la Semana", "Mostrar Tareas de la Semana", "dep_lis.png", "dep_lis_Res.png");
-
-        panelBtnSemana.add(btnSemana);
-
-        JPanel panelBtnMes = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panelBtnMes.setBackground(Color.decode("#ccd1d1"));
-        JPanel panelTabMes = new JPanel();
-        panelTabMes.setLayout(new BoxLayout(panelTabMes, BoxLayout.Y_AXIS));
-        panelTabMes.add(initTableHoy());
-        JToggleButton btnMes = GenerateComponents.crearBotonONOFF(panelTabMes, "Ocultar Tareas del Mes", "Mostrar Tareas del Mes", "dep_lis.png", "dep_lis_Res.png");
-
-        panelBtnMes.add(btnMes);
-        
-        cardPanelTareas.add(panelHerraminetas);
-        cardPanelTareas.add(panelBtnHoy);
-        cardPanelTareas.add(panelTabHoy);
-        cardPanelTareas.add(panelBtnSemana);
-        cardPanelTareas.add(panelTabSemana);
-        cardPanelTareas.add(panelBtnMes);
-        cardPanelTareas.add(panelTabMes);
-    }
-
-    private JScrollPane initTableHoy()
-    {
-        List<Task> tareas = TaskController.getMisTareas(employee.getId());
-        Object[][] data = new Object[tareas.size()][7];
-        for (int i = 0; i < tareas.size(); i++)
-        {
-//            data[i][0] = tareas.get(i).getResponsible();
-            data[i][0] = tareas.get(i).getState();
-            data[i][1] = tareas.get(i).getStartDate();
-            data[i][2] = tareas.get(i).getEndDate();
-            data[i][3] = tareas.get(i).getExpectedDate();
-            data[i][4] = null;
-            data[i][5] = null;
-            data[i][6] = null;
-        }
-        String[] columnNames =
-        {
-            "Estado", "Fecha de Inicio", "Fecha de Termino", "Fecha Marcada", "Ver", "Editar", "Eliminar"
-        };
-//        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
-        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames)
-        {
-            @Override
-            public boolean isCellEditable(int row, int column)
+            if (Var.OPCION_ACT != 2)
             {
-                return column >= 4; // Solo la columna de botones es editable
-            }
-        };
-
-        // Crear la JTable con el modelo de datos personalizado
-        JTable table = new JTable(tableModel);
-
-//        // Estilizar la cabecera de la tabla
-        JTableHeader header = table.getTableHeader();
-        header.setBackground(new Color(51, 153, 255));
-        header.setForeground(Color.WHITE);
-        header.setFont(new Font("Segoe UI", Font.BOLD, 14));
-//        header.setPreferredSize(new Dimension(100, 40)); // Altura de la cabecera
-
-        // Estilizar las filas
-        table.setRowHeight(30); // Altura de las filas
-        table.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-
-        // Estilizar la selección de filas
-        table.setSelectionForeground(Color.WHITE);
-//        table.setFillsViewportHeight(true);       
-
-        // Crear un renderizador personalizado para la tabla
-        TableCellRenderer cellRenderer = new TableCellRenderer();
-        for (int i = 0; i < table.getColumnCount(); i++)
-        {
-            table.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
-        }
-
-        // Agregar un detector de mouse para el efecto hover
-        table.addMouseMotionListener(new MouseAdapter()
-        {
-            @Override
-            public void mouseMoved(MouseEvent e)
-            {
-                int row = table.rowAtPoint(e.getPoint());
-                cellRenderer.setHoverRow(row);  // Establecer la fila que tiene hover
-                table.repaint();
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e)
-            {
-                cellRenderer.setHoverRow(-1); // Elimina hover
-                table.repaint();
+                setBackgroundMenusAdmin(2, btnTareas, btnProyectos, btnColaboraciones);
+                cardWork.show(panelCenter, "Card Colaboraciones");
             }
         });
 
-        // Renderizador para botones
-//        table.getColumn("Ver").setCellRenderer(new ButtonRenderer("expediente_Res.png"));
-//        table.getColumn("Ver").setCellEditor(new ButtonEditor(new JCheckBox(), "expediente_Res.png"));
-//        table.getColumn("Editar").setCellRenderer(new ButtonRenderer("boton-editar_Res.png"));
-//        table.getColumn("Editar").setCellEditor(new ButtonEditor(new JCheckBox(), "boton-editar_Res.png"));
-//        table.getColumn("Eliminar").setCellRenderer(new ButtonRenderer("borrar_Res.png"));
-//        table.getColumn("Eliminar").setCellEditor(new ButtonEditor(new JCheckBox(), "borrar_Res.png"));
-        
-        // Agregar la tabla a un JScrollPane para hacerla desplazable
-        JScrollPane scrollPane = new JScrollPane(table);
-//        scrollPane.setBorder(BorderFactory.createEmptyBorder());
-        scrollPane.setBackground(Color.WHITE);
-//        JViewport viewport = scrollPane.getViewport();
-//        viewport.setBackground(Color.RED);
+        panelWest.add(btnTareas);
+        panelWest.add(btnProyectos);
+        panelWest.add(btnColaboraciones);
+    }    
 
-//        // Establecer el comportamiento de desplazamiento horizontal
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-//        
-//        // Permitir que la tabla no ajuste automáticamente el ancho
-//        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
-        // Ajustar el tamaño de las columnas manualmente
-        table.getColumnModel().getColumn(0).setPreferredWidth(100);
-        table.getColumnModel().getColumn(1).setPreferredWidth(250);
-        table.getColumnModel().getColumn(2).setPreferredWidth(250);
-        table.getColumnModel().getColumn(3).setPreferredWidth(250);
-        table.getColumnModel().getColumn(4).setPreferredWidth(100);
-        table.getColumnModel().getColumn(5).setPreferredWidth(100);
-        table.getColumnModel().getColumn(6).setPreferredWidth(100);
-        //table.getColumnModel().getColumn(4).setPreferredWidth(120);
-
-        Dimension tableSize = table.getPreferredSize();
-        scrollPane.setPreferredSize(new Dimension(tableSize.width, table.getRowHeight() * table.getRowCount()));
-        return scrollPane;
-    }
-
-    private void initCardPanelProyectos()
+    @Override
+    protected void initWorckspace()
     {
-        EmployeeProjects prb= new EmployeeProjects(employee.getId());
-        cardPanelProyectos = prb.panel;
-//        cardPanelProyectos.add(new JLabel("Tarjeta 2"));
-//        cardPanelProyectos.setBackground(Color.GREEN);
-    }
-
-    private void initCardPanelColaboraciones()
-    {
-        cardPanelColaboraciones = new JPanel();
-        cardPanelColaboraciones.add(new JLabel("Tarjeta 3"));
-        cardPanelColaboraciones.setBackground(Color.YELLOW);
-    }
-
-    private void initCardPanelNvProyecto()
-    {
-        cardPanelNvProyecto = new JPanel();
-        cardPanelNvProyecto.add(new JLabel("Tarjeta 4"));
-        cardPanelNvProyecto.setBackground(Color.RED);
+//        panelCenter.add(new JPanel(), "null");
+        panelCenter.add(new EmployeeTasks(employee.getId()).panelPricipal, "Card Tareas");
+        panelCenter.add(new AdminDepartments(employee.getId()).panelPricipal, "Card Proyectos");
+        panelCenter.add(new AdminResources(employee.getId()).panelPricipal, "Card Colaboraciones");
     }
 }
+//        extends JFrame
+//{
+//
+//    private JPanel space;
+//    private JPanel panelNorth;
+//    private JPanel panelWest;
+//    private JPanel panelCenter;
+//    private Staff employee;
+//
+//    private JToggleButton btnMostrarMenu;
+//
+//    private JButton btnTareas;
+//    private JButton btnProyectos;
+//    private JButton btnColaboraciones;
+//    private JButton btnNuevoProyecto;
+//
+//    private CardLayout cardWork;
+//    private JPanel cardPanelTareas;
+//    private JPanel cardPanelProyectos;
+//    private JPanel cardPanelColaboraciones;
+//    private JPanel cardPanelNvProyecto;
+//
+//    public WorkspaceEmployee(int id)
+//    {
+//        this.employee = StaffController.getEmployee(id);
+//        setTitle("Workspace");
+//        setSize(900, 600);
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        setLocationRelativeTo(null);
+//        space = new JPanel(new BorderLayout());
+//        initComponents();
+//        add(space);
+//    }
+//
+//    private void initComponents()
+//    {
+//        try
+//        {
+//            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+//        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException e)
+//        {
+//        }
+//        initPanelWest();
+//        initPanelNorth();
+//        initPanelCenter();
+//        space.add(panelNorth, BorderLayout.NORTH);
+//        space.add(panelWest, BorderLayout.WEST);
+//        space.add(panelCenter, BorderLayout.CENTER);
+//    }
+//
+//    /**
+//     * Gestiona la interfaz en el panel de la parte superior Revision : OK
+//     */
+//    private void initPanelNorth()
+//    {
+////        panelNorth = GenerateComponents.crearPanelDegradado(new BorderLayout(), "#0277BD", "#0277BD");
+//        panelNorth = new JPanel(new BorderLayout());
+//        panelNorth.setBackground(Color.decode("#0277BD"));
+//        panelNorth.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+//
+//        /**
+//         * Panel que contiene el avatar y el nombre del personal
+//         */
+//        JPanel panelPerfil = GenerateComponents.crearPanelTransparente(new FlowLayout(FlowLayout.LEFT));
+//        btnMostrarMenu = GenerateComponents.crearBotonONOFF(panelWest, "Ocultar Menú", "Mostrar Menú", "dep_lis.png", "dep_lis_Res.png");
+//        //btnMostrarMenu = GenerateComponents.crearBotonConIcono("Mostrar menú", "avatar_final.png","#0277BD", "#01579B");
+//        JButton btnPerfil = GenerateComponents.crearBotonConIcono("Mi Perfil", "avatar_final.png", "#0277BD", "#01579B");
+//        JLabel lblUsuario = new JLabel(employee.getName());
+//        lblUsuario.setFont(new Font("Arial", Font.BOLD, 14));
+//        lblUsuario.setForeground(Color.WHITE);
+//
+////        intiActionButtonNorth();
+//        panelPerfil.add(btnMostrarMenu);
+//        panelPerfil.add(btnPerfil);
+//        panelPerfil.add(lblUsuario);
+//
+//        /**
+//         * Panel que contiene las opciones del "menu" puerior izquierdo
+//         */
+//        JPanel panelIconos = GenerateComponents.crearPanelTransparente(null);
+//        panelIconos.setLayout(new BoxLayout(panelIconos, BoxLayout.X_AXIS));
+//
+//        JButton btnAyuda = GenerateComponents.crearBotonConIcono("Ayuda", "avatar_final.png", "#0277BD", "#556080");
+//        JButton btnNotificaciones = GenerateComponents.crearBotonConIcono("Notificaciones", "boton-de-notificaciones_Res.png", "#0277BD", "#556080");
+//        JButton btnSalir = GenerateComponents.crearBotonConIcono("Cerrar Sesión", "cerrar-sesion_Res.png", "#0277BD", "#556080");
+//        panelIconos.add(btnAyuda);
+//        panelIconos.add(btnNotificaciones);
+//        panelIconos.add(btnSalir);
+//
+//        panelNorth.add(panelPerfil, BorderLayout.WEST);
+//        panelNorth.add(panelIconos, BorderLayout.EAST);
+//    }
+//
+////     private void intiActionButtonNorth()
+////     {
+////         btnMostrarMenu.addActionListener((e) ->
+////         {
+////            panelWest.setVisible(!panelWest.isVisible());
+////         });
+////     }
+//    /**
+//     * Gestiona la interfaz en el panel de la izquieda Revision : EN PROGRESO
+//     */
+//    private void initPanelWest()
+//    {
+//        panelWest = new JPanel();
+//        panelWest.setLayout(new BoxLayout(panelWest, BoxLayout.Y_AXIS));
+//        panelWest.setBackground(Color.decode("#FFFFFF"));
+//
+//        // Creación de los botones con iconos para el menú
+//        btnTareas = GenerateComponents.crearBotonConIcono("Tareas", "avatar_final.png");
+//        btnProyectos = GenerateComponents.crearBotonConIcono("Proyectos", "avatar_final.png");
+//        btnColaboraciones = GenerateComponents.crearBotonConIcono("Colaboraciones", "avatar_final.png");
+//        btnNuevoProyecto = GenerateComponents.crearBotonConIcono("Nuevo Proyecto", "avatar_final.png");
+//
+//        intiActionButtonWest();
+//
+//        // Añadir botones al menú lateral
+//        panelWest.add(btnTareas);
+//        panelWest.add(btnProyectos);
+//        panelWest.add(btnColaboraciones);
+//        panelWest.add(btnNuevoProyecto);
+//    }
+//
+//    private void intiActionButtonWest()
+//    {
+//        btnTareas.addActionListener((e) ->
+//        {
+//            cardWork.show(panelCenter, "Card Tareas");
+//        });
+//
+//        btnProyectos.addActionListener((e) ->
+//        {
+//            cardWork.show(panelCenter, "Card Proyectos");
+//        });
+//
+//        btnColaboraciones.addActionListener((e) ->
+//        {
+//            cardWork.show(panelCenter, "Card Colaboraciones");
+//        });
+//
+//        btnNuevoProyecto.addActionListener((e) ->
+//        {
+//            cardWork.show(panelCenter, "Card Nuevo");
+//        });
+//    }
+//
+//    /**
+//     * Gestiona la interfaz en el panel central Revision : EN ESPERA
+//     */
+//    private void initPanelCenter()
+//    {
+//        panelCenter = new JPanel();
+//        panelCenter.setBackground(Color.decode("#D7DBDD"));
+//        cardWork = new CardLayout();
+//        panelCenter.setLayout(cardWork);
+//
+//        initCardPanelTareas();
+//        initCardPanelProyectos();
+//        initCardPanelColaboraciones();
+//        initCardPanelNvProyecto();
+//
+//        panelCenter.add(cardPanelTareas, "Card Tareas");
+//        panelCenter.add(cardPanelProyectos, "Card Proyectos");
+//        panelCenter.add(cardPanelColaboraciones, "Card Colaboraciones");
+//        panelCenter.add(cardPanelNvProyecto, "Card Nuevo");
+//    }
+//
+//    private void initCardPanelTareas()
+//    {
+//        cardPanelTareas = new JPanel();
+//        cardPanelTareas.setLayout(new BoxLayout(cardPanelTareas, BoxLayout.Y_AXIS));
+//        cardPanelTareas.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+//        cardPanelTareas.setBackground(Color.decode("#ccd1d1"));
+//        
+//        JPanel panelHerraminetas = new JPanel();
+//        panelHerraminetas.setBackground(Color.decode("#7f8c8d"));
+//
+//        JButton btnNvTarea = GenerateComponents.crearBotonHerramineta("Nueva Tarea", "agregar-tarea_Res.png");
+//        JPanel checkboxPanel = new JPanel();
+////        checkboxPanel.setBackground(Color.decode("#7f8c8d"));
+//        checkboxPanel.setLayout(new BoxLayout(checkboxPanel, BoxLayout.X_AXIS)); // Organizar verticalmente
+//        Border border = BorderFactory.createLineBorder(Color.decode("#e5e7e9"), 1); // Color y grosor del borde
+//        checkboxPanel.setBorder(border);
+//        // Crear los checkboxes
+//        JCheckBox checkbox1 = new JCheckBox("Por Hacer");
+//        JCheckBox checkbox2 = new JCheckBox("Haciendo");
+//        JCheckBox checkbox3 = new JCheckBox("Revicion");
+//        JCheckBox checkbox4 = new JCheckBox("Hecho");
+//        JCheckBox checkbox5 = new JCheckBox("Detenido");
+//        checkbox1.setBackground(Color.decode("#7f8c8d"));
+//        checkbox2.setBackground(Color.decode("#7f8c8d"));
+//        checkbox3.setBackground(Color.decode("#7f8c8d"));
+//        checkbox4.setBackground(Color.decode("#7f8c8d"));
+//        checkbox5.setBackground(Color.decode("#7f8c8d"));
+//        // Agregar los checkboxes al panel
+////        JLabel lblTxt = new JLabel(" Filtrar " );
+////        lblTxt.setBackground(Color.decode("#7f8c8d"));
+//        checkboxPanel.add(new JLabel(new ImageIcon(Var.PATHASSETS + "filtrar_Res.png")));
+//        checkboxPanel.add(checkbox1);
+//        checkboxPanel.add(checkbox2);
+//        checkboxPanel.add(checkbox3);
+//        checkboxPanel.add(checkbox4);
+//        checkboxPanel.add(checkbox5);
+//
+//        JPanel panelOrdenar = new JPanel();
+//        panelOrdenar.setLayout(new BoxLayout(panelOrdenar, BoxLayout.X_AXIS)); // Organizar verticalmente
+//        Border border2 = BorderFactory.createLineBorder(Color.decode("#e5e7e9"), 1); // Color y grosor del borde
+//        panelOrdenar.setBorder(border2);
+//        String[] options =
+//        {
+//            "Default", "Mayor Prioridad", "Menor Prioridad", "Mayor Tiempo", "Mayor tiempo"
+//        };
+//
+//        // Crear el JComboBox con las opciones
+//        JComboBox<String> comboBox = new JComboBox<>(options);
+//        panelOrdenar.add(new JLabel(new ImageIcon(Var.PATHASSETS + "ordenar_Res.png")));
+//        panelOrdenar.add(comboBox);
+//        panelHerraminetas.add(btnNvTarea);
+//        panelHerraminetas.add(checkboxPanel);
+//        panelHerraminetas.add(panelOrdenar);
+//
+//        JPanel panelBtnHoy = new JPanel(new FlowLayout(FlowLayout.LEFT));
+//        panelBtnHoy.setBackground(Color.decode("#ccd1d1"));
+//        JPanel panelTabHoy = new JPanel();
+//        panelTabHoy.setLayout(new BoxLayout(panelTabHoy, BoxLayout.Y_AXIS));
+//        panelTabHoy.add(initTableHoy());
+//        JToggleButton btnHoy = GenerateComponents.crearBotonONOFF(panelTabHoy, "Ocultar Tareas de Hoy", "Mostrar Tareas de Hoy", "dep_lis.png", "dep_lis_Res.png");
+//
+//        panelBtnHoy.add(btnHoy);
+//
+//        JPanel panelBtnSemana = new JPanel(new FlowLayout(FlowLayout.LEFT));
+//        panelBtnSemana.setBackground(Color.decode("#ccd1d1"));
+//        JPanel panelTabSemana = new JPanel();
+////        panelTabSemana.setLayout(new BoxLayout(panelTabSemana, BoxLayout.Y_AXIS));
+//        panelTabSemana.setLayout(new BoxLayout(panelTabSemana, BoxLayout.Y_AXIS));
+//        panelTabSemana.add(initTableHoy());
+//        JToggleButton btnSemana = GenerateComponents.crearBotonONOFF(panelTabSemana, "Ocultar Tareas de la Semana", "Mostrar Tareas de la Semana", "dep_lis.png", "dep_lis_Res.png");
+//
+//        panelBtnSemana.add(btnSemana);
+//
+//        JPanel panelBtnMes = new JPanel(new FlowLayout(FlowLayout.LEFT));
+//        panelBtnMes.setBackground(Color.decode("#ccd1d1"));
+//        JPanel panelTabMes = new JPanel();
+//        panelTabMes.setLayout(new BoxLayout(panelTabMes, BoxLayout.Y_AXIS));
+//        panelTabMes.add(initTableHoy());
+//        JToggleButton btnMes = GenerateComponents.crearBotonONOFF(panelTabMes, "Ocultar Tareas del Mes", "Mostrar Tareas del Mes", "dep_lis.png", "dep_lis_Res.png");
+//
+//        panelBtnMes.add(btnMes);
+//        
+//        cardPanelTareas.add(panelHerraminetas);
+//        cardPanelTareas.add(panelBtnHoy);
+//        cardPanelTareas.add(panelTabHoy);
+//        cardPanelTareas.add(panelBtnSemana);
+//        cardPanelTareas.add(panelTabSemana);
+//        cardPanelTareas.add(panelBtnMes);
+//        cardPanelTareas.add(panelTabMes);
+//    }
+//
+//    private JScrollPane initTableHoy()
+//    {
+//        List<Task> tareas = TaskController.getMisTareas(employee.getId());
+//        Object[][] data = new Object[tareas.size()][7];
+//        for (int i = 0; i < tareas.size(); i++)
+//        {
+////            data[i][0] = tareas.get(i).getResponsible();
+//            data[i][0] = tareas.get(i).getState();
+//            data[i][1] = tareas.get(i).getStartDate();
+//            data[i][2] = tareas.get(i).getEndDate();
+//            data[i][3] = tareas.get(i).getExpectedDate();
+//            data[i][4] = null;
+//            data[i][5] = null;
+//            data[i][6] = null;
+//        }
+//        String[] columnNames =
+//        {
+//            "Estado", "Fecha de Inicio", "Fecha de Termino", "Fecha Marcada", "Ver", "Editar", "Eliminar"
+//        };
+////        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
+//        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames)
+//        {
+//            @Override
+//            public boolean isCellEditable(int row, int column)
+//            {
+//                return column >= 4; // Solo la columna de botones es editable
+//            }
+//        };
+//
+//        // Crear la JTable con el modelo de datos personalizado
+//        JTable table = new JTable(tableModel);
+//
+////        // Estilizar la cabecera de la tabla
+//        JTableHeader header = table.getTableHeader();
+//        header.setBackground(new Color(51, 153, 255));
+//        header.setForeground(Color.WHITE);
+//        header.setFont(new Font("Segoe UI", Font.BOLD, 14));
+////        header.setPreferredSize(new Dimension(100, 40)); // Altura de la cabecera
+//
+//        // Estilizar las filas
+//        table.setRowHeight(30); // Altura de las filas
+//        table.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+//
+//        // Estilizar la selección de filas
+//        table.setSelectionForeground(Color.WHITE);
+////        table.setFillsViewportHeight(true);       
+//
+//        // Crear un renderizador personalizado para la tabla
+//        TableCellRenderer cellRenderer = new TableCellRenderer();
+//        for (int i = 0; i < table.getColumnCount(); i++)
+//        {
+//            table.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+//        }
+//
+//        // Agregar un detector de mouse para el efecto hover
+//        table.addMouseMotionListener(new MouseAdapter()
+//        {
+//            @Override
+//            public void mouseMoved(MouseEvent e)
+//            {
+//                int row = table.rowAtPoint(e.getPoint());
+//                cellRenderer.setHoverRow(row);  // Establecer la fila que tiene hover
+//                table.repaint();
+//            }
+//
+//            @Override
+//            public void mouseExited(MouseEvent e)
+//            {
+//                cellRenderer.setHoverRow(-1); // Elimina hover
+//                table.repaint();
+//            }
+//        });
+//
+//        // Renderizador para botones
+////        table.getColumn("Ver").setCellRenderer(new ButtonRenderer("expediente_Res.png"));
+////        table.getColumn("Ver").setCellEditor(new ButtonEditor(new JCheckBox(), "expediente_Res.png"));
+////        table.getColumn("Editar").setCellRenderer(new ButtonRenderer("boton-editar_Res.png"));
+////        table.getColumn("Editar").setCellEditor(new ButtonEditor(new JCheckBox(), "boton-editar_Res.png"));
+////        table.getColumn("Eliminar").setCellRenderer(new ButtonRenderer("borrar_Res.png"));
+////        table.getColumn("Eliminar").setCellEditor(new ButtonEditor(new JCheckBox(), "borrar_Res.png"));
+//        
+//        // Agregar la tabla a un JScrollPane para hacerla desplazable
+//        JScrollPane scrollPane = new JScrollPane(table);
+////        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+//        scrollPane.setBackground(Color.WHITE);
+////        JViewport viewport = scrollPane.getViewport();
+////        viewport.setBackground(Color.RED);
+//
+////        // Establecer el comportamiento de desplazamiento horizontal
+//        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+////        
+////        // Permitir que la tabla no ajuste automáticamente el ancho
+////        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+//
+//        // Ajustar el tamaño de las columnas manualmente
+//        table.getColumnModel().getColumn(0).setPreferredWidth(100);
+//        table.getColumnModel().getColumn(1).setPreferredWidth(250);
+//        table.getColumnModel().getColumn(2).setPreferredWidth(250);
+//        table.getColumnModel().getColumn(3).setPreferredWidth(250);
+//        table.getColumnModel().getColumn(4).setPreferredWidth(100);
+//        table.getColumnModel().getColumn(5).setPreferredWidth(100);
+//        table.getColumnModel().getColumn(6).setPreferredWidth(100);
+//        //table.getColumnModel().getColumn(4).setPreferredWidth(120);
+//
+//        Dimension tableSize = table.getPreferredSize();
+//        scrollPane.setPreferredSize(new Dimension(tableSize.width, table.getRowHeight() * table.getRowCount()));
+//        return scrollPane;
+//    }
+//
+//    private void initCardPanelProyectos()
+//    {
+//        EmployeeProjects prb= new EmployeeProjects(employee.getId());
+//        cardPanelProyectos = prb.panel;
+////        cardPanelProyectos.add(new JLabel("Tarjeta 2"));
+////        cardPanelProyectos.setBackground(Color.GREEN);
+//    }
+//
+//    private void initCardPanelColaboraciones()
+//    {
+//        cardPanelColaboraciones = new JPanel();
+//        cardPanelColaboraciones.add(new JLabel("Tarjeta 3"));
+//        cardPanelColaboraciones.setBackground(Color.YELLOW);
+//    }
+//
+//    private void initCardPanelNvProyecto()
+//    {
+//        cardPanelNvProyecto = new JPanel();
+//        cardPanelNvProyecto.add(new JLabel("Tarjeta 4"));
+//        cardPanelNvProyecto.setBackground(Color.RED);
+//    }
+//}

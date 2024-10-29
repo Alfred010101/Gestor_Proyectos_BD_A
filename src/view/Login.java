@@ -127,8 +127,8 @@ public class Login extends javax.swing.JFrame
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStartActionPerformed
     {//GEN-HEADEREND:event_btnStartActionPerformed
 //        StaffController.login(Login.this, txtName.getText(), String.valueOf(txtPassword.getPassword()));      
-        StaffController.login(Login.this, "36", "pass123");      
-//        StaffController.login(Login.this, "7", "pass123");      
+//        StaffController.login(Login.this, "36", "pass123");      
+        StaffController.login(Login.this, "7", "pass123");      
     }//GEN-LAST:event_btnStartActionPerformed
 
     /**
