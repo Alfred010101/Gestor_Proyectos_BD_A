@@ -4,6 +4,7 @@
  */
 package view.forms;
 
+import cjb.ci.CtrlInterfaz;
 import utils.Validations;
 
 /**
@@ -43,6 +44,7 @@ public class VtnDepartamento extends javax.swing.JFrame
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        numTelefono.setEnabled(false);
         numTelefono.addKeyListener(new java.awt.event.KeyAdapter()
         {
             public void keyPressed(java.awt.event.KeyEvent evt)
@@ -56,11 +58,16 @@ public class VtnDepartamento extends javax.swing.JFrame
         });
         jPanel1.add(numTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 440, 30));
 
+        departamento.setEnabled(false);
         departamento.addKeyListener(new java.awt.event.KeyAdapter()
         {
             public void keyPressed(java.awt.event.KeyEvent evt)
             {
                 departamentoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                departamentoKeyTyped(evt);
             }
         });
         jPanel1.add(departamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 440, 30));
@@ -78,22 +85,41 @@ public class VtnDepartamento extends javax.swing.JFrame
             {
                 jefeDeptoKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                jefeDeptoKeyTyped(evt);
+            }
         });
         jPanel1.add(jefeDepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 440, 30));
 
         btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnCancelarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 440, 110, 30));
 
         btnRegistrar.setBackground(new java.awt.Color(102, 255, 102));
         btnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnRegistrar.setText("Registrar");
+        btnRegistrar.setEnabled(false);
         btnRegistrar.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
                 btnRegistrarActionPerformed(evt);
+            }
+        });
+        btnRegistrar.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                btnRegistrarKeyPressed(evt);
             }
         });
         jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 440, 110, 30));
@@ -144,7 +170,34 @@ public class VtnDepartamento extends javax.swing.JFrame
     private void numTelefonoKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_numTelefonoKeyTyped
     {//GEN-HEADEREND:event_numTelefonoKeyTyped
         Validations.enterCadenaNumTelefono(this, evt, numTelefono, btnRegistrar);
+        Validations.validaEntero(evt, 10, numTelefono.getText());
     }//GEN-LAST:event_numTelefonoKeyTyped
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelarActionPerformed
+    {//GEN-HEADEREND:event_btnCancelarActionPerformed
+        CtrlInterfaz.limpia(jefeDepto,departamento,numTelefono);
+        CtrlInterfaz.habilita(false, departamento,numTelefono,btnRegistrar);
+        CtrlInterfaz.selecciona(jefeDepto);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnRegistrarKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_btnRegistrarKeyPressed
+    {//GEN-HEADEREND:event_btnRegistrarKeyPressed
+        if (evt.getKeyChar()== '\n')
+        {
+            btnRegistrarActionPerformed(null);
+        }
+    }//GEN-LAST:event_btnRegistrarKeyPressed
+
+    private void jefeDeptoKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jefeDeptoKeyTyped
+    {//GEN-HEADEREND:event_jefeDeptoKeyTyped
+        Validations.validaEntero(evt, 10, jefeDepto.getText());
+        Validations.validaCopyPaste(evt, this, jefeDepto);
+    }//GEN-LAST:event_jefeDeptoKeyTyped
+
+    private void departamentoKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_departamentoKeyTyped
+    {//GEN-HEADEREND:event_departamentoKeyTyped
+        Validations.validaAlfanumerico(evt, 30, departamento.getText());
+    }//GEN-LAST:event_departamentoKeyTyped
 
     /**
      * @param args the command line arguments

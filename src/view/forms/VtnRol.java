@@ -4,6 +4,10 @@
  */
 package vtn;
 
+import cjb.ci.CtrlInterfaz;
+import cjb.ci.Mensajes;
+import utils.Validations;
+
 /**
  *
  * @author Cassandra
@@ -38,16 +42,36 @@ public class VtnRol extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        nombreRol.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                nombreRolKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                nombreRolKeyTyped(evt);
+            }
+        });
         jPanel1.add(nombreRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 440, 30));
 
         btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnCancelarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, 110, 30));
 
         btnGuardar.setBackground(new java.awt.Color(102, 255, 102));
         btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnGuardar.setText("Guardar");
+        btnGuardar.setEnabled(false);
         btnGuardar.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -76,8 +100,25 @@ public class VtnRol extends javax.swing.JFrame
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnGuardarActionPerformed
     {//GEN-HEADEREND:event_btnGuardarActionPerformed
-
+        Mensajes.exito(this, "Rol asignado");
+        btnCancelarActionPerformed(evt);
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void nombreRolKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_nombreRolKeyPressed
+    {//GEN-HEADEREND:event_nombreRolKeyPressed
+        Validations.enterCadenaNoVacia(this, evt, nombreRol, btnGuardar);
+    }//GEN-LAST:event_nombreRolKeyPressed
+
+    private void nombreRolKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_nombreRolKeyTyped
+    {//GEN-HEADEREND:event_nombreRolKeyTyped
+        Validations.validaAlfanumerico(evt, 15, nombreRol.getText());
+    }//GEN-LAST:event_nombreRolKeyTyped
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelarActionPerformed
+    {//GEN-HEADEREND:event_btnCancelarActionPerformed
+        CtrlInterfaz.limpia(nombreRol);
+        CtrlInterfaz.selecciona(nombreRol);
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments

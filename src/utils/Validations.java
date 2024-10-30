@@ -268,6 +268,37 @@ public class Validations
         }
     }
 
+    public static void validaCorreo(JFrame jf,KeyEvent ke, int len, String s)
+    {
+        String regex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
+        char c = ke.getKeyChar();
+        if (s.length() >= len)
+        {
+            ke.consume();
+            return;
+        }
+        if (!Character.isLetterOrDigit(c) && c != '@' && c != '.')
+        {
+            ke.consume();
+            return;
+        }
+        if (c == '@' && s.contains("@"))
+        {
+            ke.consume();
+            return;
+        }
+        if (c == '.' && s.contains("@") && s.lastIndexOf(".") > s.indexOf("@"))
+        {
+            ke.consume();
+            return;
+        }
+
+        if (c == '\n' && !s.matches(regex))
+        {
+            Mensajes.error(jf,"Correo no válido");
+        }
+    }
+
     /**
      * Método que se coloca en el evento KeyPress de una caja de texto con el
      * fin de verificar si el contenido de la misma es entero
@@ -372,16 +403,20 @@ public class Validations
 
         if (c == '\n')
         {
-            if (cj.getText().isEmpty())
+            if (!cj.getText().isEmpty())
+            {
+                if (obj != null)
+                {
+                    CtrlInterfaz.cambia(obj);
+                }
+            } else
             {
                 Mensajes.error(jf, "La caja no puede estar vacía");
                 cj.requestFocus();
-            } else if (obj != null)
-            {
-                CtrlInterfaz.cambia(obj);
             }
         }
     }
+
 
     /**
      * Método que se coloca en el evento KeyPress de una caja de texto con el

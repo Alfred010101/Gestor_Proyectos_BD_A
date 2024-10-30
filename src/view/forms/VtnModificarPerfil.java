@@ -4,6 +4,9 @@
  */
 package vtn;
 
+import cjb.ci.CtrlInterfaz;
+import utils.Validations;
+
 /**
  *
  * @author Cassandra
@@ -42,25 +45,111 @@ public class VtnModificarPerfil extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        contraseña.setEnabled(false);
+        contraseña.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                contraseñaKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                contraseñaKeyTyped(evt);
+            }
+        });
         jPanel1.add(contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 440, 30));
+
+        confirContra.setEnabled(false);
+        confirContra.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                confirContraKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                confirContraKeyTyped(evt);
+            }
+        });
         jPanel1.add(confirContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 440, 30));
-        jPanel1.add(direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, 440, 30));
-        jPanel1.add(telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, 440, 30));
+
+        direccion.setEnabled(false);
+        direccion.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                direccionKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                direccionKeyTyped(evt);
+            }
+        });
+        jPanel1.add(direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 540, 440, 30));
+
+        telefono.setEnabled(false);
+        telefono.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                telefonoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                telefonoKeyTyped(evt);
+            }
+        });
+        jPanel1.add(telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, 440, 30));
+
+        correo.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                correoActionPerformed(evt);
+            }
+        });
+        correo.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                correoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                correoKeyTyped(evt);
+            }
+        });
         jPanel1.add(correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 440, 30));
 
         btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnCancelarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 590, 110, 30));
 
         btnGuardar.setBackground(new java.awt.Color(102, 255, 102));
         btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnGuardar.setText("Guardar");
+        btnGuardar.setEnabled(false);
         btnGuardar.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
                 btnGuardarActionPerformed(evt);
+            }
+        });
+        btnGuardar.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                btnGuardarKeyPressed(evt);
             }
         });
         jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 590, 110, 30));
@@ -86,6 +175,77 @@ public class VtnModificarPerfil extends javax.swing.JFrame
     {//GEN-HEADEREND:event_btnGuardarActionPerformed
 
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void correoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_correoActionPerformed
+    {//GEN-HEADEREND:event_correoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_correoActionPerformed
+
+    private void correoKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_correoKeyPressed
+    {//GEN-HEADEREND:event_correoKeyPressed
+        Validations.enterCadenaNoVacia( this, evt, correo, contraseña);
+    }//GEN-LAST:event_correoKeyPressed
+
+    private void contraseñaKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_contraseñaKeyPressed
+    {//GEN-HEADEREND:event_contraseñaKeyPressed
+        Validations.enterCadenaNoVacia(this, evt, contraseña, confirContra);
+    }//GEN-LAST:event_contraseñaKeyPressed
+
+    private void confirContraKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_confirContraKeyPressed
+    {//GEN-HEADEREND:event_confirContraKeyPressed
+        Validations.enterCadenaNoVacia(this, evt, confirContra, telefono);
+    }//GEN-LAST:event_confirContraKeyPressed
+
+    private void direccionKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_direccionKeyPressed
+    {//GEN-HEADEREND:event_direccionKeyPressed
+        Validations.enterCadenaNoVacia(this, evt, direccion, btnGuardar);
+    }//GEN-LAST:event_direccionKeyPressed
+
+    private void telefonoKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_telefonoKeyPressed
+    {//GEN-HEADEREND:event_telefonoKeyPressed
+        Validations.enterCadenaNumTelefono(this, evt, telefono, direccion);
+    }//GEN-LAST:event_telefonoKeyPressed
+
+    private void btnGuardarKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_btnGuardarKeyPressed
+    {//GEN-HEADEREND:event_btnGuardarKeyPressed
+        if (evt.getKeyChar()=='\n')
+        {
+            btnGuardarActionPerformed(null);
+        }
+    }//GEN-LAST:event_btnGuardarKeyPressed
+
+    private void correoKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_correoKeyTyped
+    {//GEN-HEADEREND:event_correoKeyTyped
+        Validations.validaCorreo(this,evt, 40, correo.getText());
+    }//GEN-LAST:event_correoKeyTyped
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelarActionPerformed
+    {//GEN-HEADEREND:event_btnCancelarActionPerformed
+        CtrlInterfaz.limpia(correo, contraseña, confirContra, telefono, direccion);
+        CtrlInterfaz.habilita(false, contraseña, confirContra, telefono, direccion);
+        CtrlInterfaz.selecciona(correo);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void contraseñaKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_contraseñaKeyTyped
+    {//GEN-HEADEREND:event_contraseñaKeyTyped
+        Validations.validaAlfanumerico(evt, 15, contraseña.getText());
+        Validations.validaCopyPaste(evt, this, contraseña);
+    }//GEN-LAST:event_contraseñaKeyTyped
+
+    private void confirContraKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_confirContraKeyTyped
+    {//GEN-HEADEREND:event_confirContraKeyTyped
+        Validations.validaAlfanumerico(evt, 15, confirContra.getText());
+    }//GEN-LAST:event_confirContraKeyTyped
+
+    private void direccionKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_direccionKeyTyped
+    {//GEN-HEADEREND:event_direccionKeyTyped
+        Validations.validaAlfanumerico(evt, 30, direccion.getText());
+    }//GEN-LAST:event_direccionKeyTyped
+
+    private void telefonoKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_telefonoKeyTyped
+    {//GEN-HEADEREND:event_telefonoKeyTyped
+        Validations.validaEntero(evt, 10, telefono.getText());
+    }//GEN-LAST:event_telefonoKeyTyped
 
     /**
      * @param args the command line arguments

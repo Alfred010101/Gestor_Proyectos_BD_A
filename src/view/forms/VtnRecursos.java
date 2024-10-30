@@ -1,5 +1,9 @@
 package vtn;
 
+import cjb.ci.CtrlInterfaz;
+import cjb.ci.Mensajes;
+import utils.Validations;
+
 /**
  *
  * @author Cassandra
@@ -26,7 +30,7 @@ public class VtnRecursos extends javax.swing.JFrame
     {
 
         jPanel1 = new javax.swing.JPanel();
-        id_recursos = new javax.swing.JTextField();
+        cantidad = new javax.swing.JTextField();
         nom_recurso = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
@@ -36,24 +40,56 @@ public class VtnRecursos extends javax.swing.JFrame
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        id_recursos.addActionListener(new java.awt.event.ActionListener()
+        cantidad.setEnabled(false);
+        cantidad.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                id_recursosActionPerformed(evt);
+                cantidadActionPerformed(evt);
             }
         });
-        jPanel1.add(id_recursos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 440, 30));
-        jPanel1.add(nom_recurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 440, 30));
+        cantidad.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                cantidadKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                cantidadKeyTyped(evt);
+            }
+        });
+        jPanel1.add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 440, 30));
+
+        nom_recurso.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                nom_recursoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                nom_recursoKeyTyped(evt);
+            }
+        });
+        jPanel1.add(nom_recurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 440, 30));
 
         btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnCancelarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 370, 110, 30));
 
         btnRegistrar.setBackground(new java.awt.Color(102, 255, 102));
         btnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnRegistrar.setText("Registrar");
+        btnRegistrar.setEnabled(false);
         btnRegistrar.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -80,15 +116,43 @@ public class VtnRecursos extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void id_recursosActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_id_recursosActionPerformed
-    {//GEN-HEADEREND:event_id_recursosActionPerformed
+    private void cantidadActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cantidadActionPerformed
+    {//GEN-HEADEREND:event_cantidadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_id_recursosActionPerformed
+    }//GEN-LAST:event_cantidadActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnRegistrarActionPerformed
     {//GEN-HEADEREND:event_btnRegistrarActionPerformed
-        
+        Mensajes.exito(this, "Registro agregado");
+        btnCancelarActionPerformed(evt);
     }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelarActionPerformed
+    {//GEN-HEADEREND:event_btnCancelarActionPerformed
+        CtrlInterfaz.limpia(cantidad, nom_recurso);
+        CtrlInterfaz.habilita(false, cantidad);
+        CtrlInterfaz.selecciona(nom_recurso);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void cantidadKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_cantidadKeyPressed
+    {//GEN-HEADEREND:event_cantidadKeyPressed
+        Validations.enterCadenaNoVacia(this, evt, cantidad, btnRegistrar);
+    }//GEN-LAST:event_cantidadKeyPressed
+
+    private void nom_recursoKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_nom_recursoKeyPressed
+    {//GEN-HEADEREND:event_nom_recursoKeyPressed
+        Validations.enterCadenaNoVacia(this, evt, nom_recurso, cantidad);
+    }//GEN-LAST:event_nom_recursoKeyPressed
+
+    private void cantidadKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_cantidadKeyTyped
+    {//GEN-HEADEREND:event_cantidadKeyTyped
+        Validations.validaEntero(evt, 10, cantidad.getText());
+    }//GEN-LAST:event_cantidadKeyTyped
+
+    private void nom_recursoKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_nom_recursoKeyTyped
+    {//GEN-HEADEREND:event_nom_recursoKeyTyped
+        Validations.validaAlfanumerico(evt, 20, nom_recurso.getText());
+    }//GEN-LAST:event_nom_recursoKeyTyped
 
     /**
      * @param args the command line arguments
@@ -138,7 +202,7 @@ public class VtnRecursos extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnRegistrar;
-    private javax.swing.JTextField id_recursos;
+    private javax.swing.JTextField cantidad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField nom_recurso;
