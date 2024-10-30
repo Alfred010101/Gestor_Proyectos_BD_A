@@ -13,6 +13,11 @@ import model.Department;
 
 public class DepartmentController
 {
+    public static List<Department> getDepartments()
+    {
+        return DepartmentDAO.getDepartments();
+    }
+    
     public static String getDepartmentName(int id)
     {
         return DepartmentDAO.getDepartment(id).getName();
@@ -41,5 +46,10 @@ public class DepartmentController
     public static String getDepartmentJefe(int id)
     {
         return StaffDAO.getStaff(DepartmentDAO.getDepartment(id).getManager()).getName();
+    }
+    
+    public static String getDepartmentGerente(int id)
+    {
+        return DepartmentDAO.getDepartmentGerente(id);
     }
 }

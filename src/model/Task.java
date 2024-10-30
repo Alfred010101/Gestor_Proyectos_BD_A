@@ -13,17 +13,19 @@ public class Task
     private final int project;
     private int responsible;
     private int state;
+    private String titulo;
     private String description;
     private Date startDate;
     private Date endDate;
     private Date expectedDate;
 
-    public Task(int id, int project, int responsible, int state, String description, Date startDate, Date endDate, Date expectedDate)
+    public Task(int id, int project, int responsible, int state, String titulo, String description, Date startDate, Date endDate, Date expectedDate)
     {
         this.id = id;
         this.project = project;
         this.responsible = responsible;
         this.state = state;
+        this.titulo = titulo;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -141,4 +143,22 @@ public class Task
     {
         this.expectedDate = expectedDate;
     }
+
+    /**
+     * @return the titulo
+     */
+    public String getTitulo()
+    {
+        return titulo;
+    }
+
+    /**
+     * @param titulo the titulo to set
+     */
+    public void setTitulo(String titulo)
+    {
+        this.titulo = titulo;
+    }
+    
+    
 }
