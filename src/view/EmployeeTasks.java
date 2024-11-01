@@ -48,16 +48,16 @@ public class EmployeeTasks extends CardJPanel
     private String elementoSeleccionadoTitulo = "";
 
     private final List<String> susProyectos;
-    private final boolean[] susProyectosFiltrados;    
+    private final boolean[] susProyectosFiltrados;
     private final String[] estados;
     private final boolean[] estadosFiltrados;
     private String campoOrdenar = "fecha_programada_termino";
     private String formaOrdenar = "ASC";
-    
+
     public EmployeeTasks(int idEmployee)
     {
         this.idEmployee = idEmployee;
-        
+
         estados = new String[]
         {
             "Pendiente",
@@ -81,7 +81,7 @@ public class EmployeeTasks extends CardJPanel
     private void initComponets()
     {
         initPanelCenter();
-        initPanelNorth();        
+        initPanelNorth();
     }
 
     private void initPanelNorth()
@@ -133,20 +133,26 @@ public class EmployeeTasks extends CardJPanel
 
         btnProyectos.addActionListener((e) ->
         {
-            JPopupMenu popupProyectos = SeleccionarCampos.fitrarTareas(idEmployee, susProyectos, susProyectosFiltrados, estados, estadosFiltrados,true, campoOrdenar, formaOrdenar, 200, 160, (DefaultTableModel)tabla.getModel());
+            JPopupMenu popupProyectos = SeleccionarCampos.fitrarTareas(idEmployee, susProyectos, susProyectosFiltrados, estados, estadosFiltrados, true, campoOrdenar, formaOrdenar, 200, 160, (DefaultTableModel) tabla.getModel());
             popupProyectos.show(btnProyectos, 0, btnProyectos.getHeight());
         });
 
         btnEstados.addActionListener((e) ->
         {
-            JPopupMenu popupEstados = SeleccionarCampos.fitrarTareas(idEmployee, susProyectos, susProyectosFiltrados, estados, estadosFiltrados,false, campoOrdenar, formaOrdenar, 120, 150, (DefaultTableModel)tabla.getModel());
+            JPopupMenu popupEstados = SeleccionarCampos.fitrarTareas(idEmployee, susProyectos, susProyectosFiltrados, estados, estadosFiltrados, false, campoOrdenar, formaOrdenar, 120, 150, (DefaultTableModel) tabla.getModel());
             popupEstados.show(btnEstados, 0, btnEstados.getHeight());
-            
+
         });
-        
-        JComboBox<String> cbxOrdenar = new JComboBox<>(new String[] {"Fecha Marcada", "Fecha de Inicio"});
-        JComboBox<String> cbxFormasOrdenar = new JComboBox<>(new String[] {"Ascendente", "Descendente"});
-        
+
+        JComboBox<String> cbxOrdenar = new JComboBox<>(new String[]
+        {
+            "Fecha Marcada", "Fecha de Inicio"
+        });
+        JComboBox<String> cbxFormasOrdenar = new JComboBox<>(new String[]
+        {
+            "Ascendente", "Descendente"
+        });
+
         panelFiltrar.add(btnProyectos);
         panelFiltrar.add(btnEstados);
         panelFiltrar.add(new JLabel(new ImageIcon("src/assets/separador_Res.png")));
@@ -154,33 +160,33 @@ public class EmployeeTasks extends CardJPanel
         panelFiltrar.add(cbxOrdenar);
         panelFiltrar.add(new JLabel("Forma"));
         panelFiltrar.add(cbxFormasOrdenar);
-        
+
         cbxOrdenar.addActionListener((ActionEvent e) ->
         {
             campoOrdenar = switch (cbxOrdenar.getSelectedIndex())
             {
-                case 1->
+                case 1 ->
                     "fecha_inicio";
-                default->
+                default ->
                     "fecha_programada_termino";
-            };          
-            SeleccionarCampos.filtrarTareas(idEmployee, susProyectos, susProyectosFiltrados, estados, estadosFiltrados, campoOrdenar, formaOrdenar, (DefaultTableModel)tabla.getModel());
+            };
+            SeleccionarCampos.filtrarTareas(idEmployee, susProyectos, susProyectosFiltrados, estados, estadosFiltrados, campoOrdenar, formaOrdenar, (DefaultTableModel) tabla.getModel());
         });
         cbxFormasOrdenar.addActionListener((ActionEvent e) ->
         {
             formaOrdenar = switch (cbxFormasOrdenar.getSelectedIndex())
             {
-                case 1->
+                case 1 ->
                     "DESC";
-                default->
+                default ->
                     "ASC";
-            };   
-            SeleccionarCampos.filtrarTareas(idEmployee, susProyectos, susProyectosFiltrados, estados, estadosFiltrados, campoOrdenar, formaOrdenar, (DefaultTableModel)tabla.getModel());
+            };
+            SeleccionarCampos.filtrarTareas(idEmployee, susProyectos, susProyectosFiltrados, estados, estadosFiltrados, campoOrdenar, formaOrdenar, (DefaultTableModel) tabla.getModel());
         });
 
         tabbedPane.addTab("Inicio", panelInicio);
         tabbedPane.addTab("Filtrar & Ordenar", panelFiltrar);
-   
+
         add(tabbedPane, BorderLayout.NORTH);
     }
 
@@ -223,11 +229,19 @@ public class EmployeeTasks extends CardJPanel
         {
             if (!event.getValueIsAdjusting())
             {
-                int fila = tabla.getSelectedRow();
-                if (fila != -1)
+                int filaSeleccionada = tabla.getSelectedRow();
+                if (filaSeleccionada != -1)
                 {
-                    elementoSeleccionadoProyecto = (String) tabla.getValueAt(fila, 0);
-                    elementoSeleccionadoTitulo = (String) tabla.getValueAt(fila, 1);
+                    int columnaNombre = getColumnIndexByName(tabla, "Proyecto");
+                    if (columnaNombre != -1)
+                    {
+                        elementoSeleccionadoProyecto = (String) tabla.getValueAt(filaSeleccionada, columnaNombre);
+                    }
+                    columnaNombre = getColumnIndexByName(tabla, "Titulo");
+                    if (columnaNombre != -1)
+                    {
+                        elementoSeleccionadoTitulo = (String) tabla.getValueAt(filaSeleccionada, columnaNombre);
+                    }
                 }
             }
         });
