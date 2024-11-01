@@ -157,6 +157,56 @@ public class TaskDAO
         }
         return tareas;
     }
+    
+    public static List<Task> getTareas(int id_empleado, String nombreProyecto)
+    {
+        List<Task> tareas = new ArrayList();
+        String query = "SELECT * "
+                + "FROM Tareas "
+                + "WHERE fk_proyecto = (SELECT pk_id FROM Proyectos WHERE nombre = ? AND fk_lider = ?)";
+
+        try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query);)
+        {
+            statement.setString(1, nombreProyecto);
+            statement.setInt(2, id_empleado);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next())
+            {
+                int pkId = resultSet.getInt("pk_id");
+                String proyecto = ProjectController.obtenerNombre(resultSet.getInt("fk_proyecto"));
+                String responsable = StaffController.obtenerNombre(resultSet.getInt("fk_responsable"));
+                String titulo = resultSet.getString("titulo");
+                String descripcion = resultSet.getString("descripcion");
+                String estado = switch (resultSet.getInt("estado"))
+                {
+                    case 1 ->
+                        "En Progreso";
+                    case 2 ->
+                        "Detenida";
+                    case 3 ->
+                        "En Revicion";
+                    case 4 ->
+                        "Completada";
+                    case 5 ->
+                        "Atrasada";
+                    default ->
+                        "Pendiente";
+                };
+                Date fechaInicio = resultSet.getDate("fecha_inicio");
+                Date fechaTermino = resultSet.getDate("fecha_termino");
+                Date fechaprogramadaTermino = resultSet.getDate("fecha_programada_termino");
+                tareas.add(new Task(pkId, proyecto, responsable, estado, titulo, descripcion, fechaInicio, fechaTermino, fechaprogramadaTermino));
+            }
+        } catch (SQLException ex)
+        {
+            System.out.println("SQLException : " + ex);
+        } catch (Exception e)
+        {
+            System.out.println("Exception : " + e);
+        }
+        return tareas;
+    }
 
     public static  List<Task> getSusTareasFiltradas(int id_empleado, Set<String> proyectos, Set<String> estados, String ordenarPor, String forma)
     {

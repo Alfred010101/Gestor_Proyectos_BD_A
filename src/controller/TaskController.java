@@ -23,4 +23,9 @@ public class TaskController
     {
         return TaskDAO.getSusTareasFiltradas(id_empleado, proyectos, estados,ordenarPor, forma);
     }
+    
+    public static List<Task> getTareasProyecto(int id_empleado, String nombreProyecto)
+    {
+        return TaskDAO.getTareas(id_empleado, nombreProyecto);
+    }
 }
