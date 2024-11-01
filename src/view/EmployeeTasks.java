@@ -1,7 +1,6 @@
 package view;
 
 import controller.CollaboratorController;
-import controller.ProjectController;
 import controller.TaskController;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -9,9 +8,9 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -26,7 +25,6 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import model.Task;
 import utils.Var;
 import view.forms.VtnModificarPersonalAdmin;
@@ -53,7 +51,9 @@ public class EmployeeTasks extends CardJPanel
     private final boolean[] susProyectosFiltrados;    
     private final String[] estados;
     private final boolean[] estadosFiltrados;
-
+    private String campoOrdenar = "fecha_programada_termino";
+    private String formaOrdenar = "ASC";
+    
     public EmployeeTasks(int idEmployee)
     {
         this.idEmployee = idEmployee;
@@ -64,11 +64,12 @@ public class EmployeeTasks extends CardJPanel
             "En Progreso",
             "Detenida",
             "En Revicion",
-            "Completada"
+            "Completada",
+            "Atrasada"
         };
         estadosFiltrados = new boolean[]
         {
-            true, true, true, true, true
+            true, true, true, true, true, true
         };
         susProyectos = CollaboratorController.getSusProyectos(idEmployee);
         susProyectosFiltrados = new boolean[susProyectos.size()];
@@ -130,118 +131,57 @@ public class EmployeeTasks extends CardJPanel
         JButton btnProyectos = GenerateComponents.crearBotonHerramineta("Proyectos", "filtrar_Res2.png");
         JButton btnEstados = GenerateComponents.crearBotonHerramineta("Estado", "filtrar_Res2.png");
 
-        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
-        model.addElement(Var.CAMPOS_ORDENAR_PEROSNAL[0]);
-        model.addElement(Var.CAMPOS_ORDENAR_PEROSNAL[1]);
-        model.addElement(Var.CAMPOS_ORDENAR_PEROSNAL[2]);
-        model.addElement(Var.CAMPOS_ORDENAR_PEROSNAL[3]);
-        // Crear el JComboBox con las opciones
-        JComboBox<String> cbxOrdenar = new JComboBox<>(model);
-        JComboBox<String> cbxFormasOrdenar = new JComboBox<>(Var.CAMPOS_ORDENAR_PRIORIDAD_PEROSNAL);
-        panelFiltrar.add(btnProyectos);
-        panelFiltrar.add(btnEstados);
-
-        /**
-         *
-         */
         btnProyectos.addActionListener((e) ->
         {
-            JPopupMenu popupProyectos = SeleccionarCampos.fitrarTareasPorProyectos(idEmployee, susProyectos, susProyectosFiltrados, estados, estadosFiltrados,true, 200, 160, (DefaultTableModel)tabla.getModel());
+            JPopupMenu popupProyectos = SeleccionarCampos.fitrarTareas(idEmployee, susProyectos, susProyectosFiltrados, estados, estadosFiltrados,true, campoOrdenar, formaOrdenar, 200, 160, (DefaultTableModel)tabla.getModel());
             popupProyectos.show(btnProyectos, 0, btnProyectos.getHeight());
         });
 
         btnEstados.addActionListener((e) ->
         {
-            JPopupMenu popupEstados = SeleccionarCampos.fitrarTareasPorProyectos(idEmployee, susProyectos, susProyectosFiltrados, estados, estadosFiltrados,false, 110, 125, (DefaultTableModel)tabla.getModel());
+            JPopupMenu popupEstados = SeleccionarCampos.fitrarTareas(idEmployee, susProyectos, susProyectosFiltrados, estados, estadosFiltrados,false, campoOrdenar, formaOrdenar, 120, 150, (DefaultTableModel)tabla.getModel());
             popupEstados.show(btnEstados, 0, btnEstados.getHeight());
             
         });
-        /**
-         *
-         */
-
+        
+        JComboBox<String> cbxOrdenar = new JComboBox<>(new String[] {"Fecha Marcada", "Fecha de Inicio"});
+        JComboBox<String> cbxFormasOrdenar = new JComboBox<>(new String[] {"Ascendente", "Descendente"});
+        
+        panelFiltrar.add(btnProyectos);
+        panelFiltrar.add(btnEstados);
+        panelFiltrar.add(new JLabel(new ImageIcon("src/assets/separador_Res.png")));
+        panelFiltrar.add(new JLabel("Ordenar por campo"));
+        panelFiltrar.add(cbxOrdenar);
+        panelFiltrar.add(new JLabel("Forma"));
+        panelFiltrar.add(cbxFormasOrdenar);
+        
         cbxOrdenar.addActionListener((ActionEvent e) ->
         {
-            Var.opcOrdenadoPersonal = cbxOrdenar.getSelectedIndex();
-            JTable nuevaTabla = GenerateTable.getTableEmpleadosFiltros();
-            contenedorTabla.setViewportView(nuevaTabla);
-            contenedorTabla.revalidate();
-            contenedorTabla.repaint();
-            nuevaTabla.getSelectionModel().addListSelectionListener((ListSelectionEvent event) ->
+            campoOrdenar = switch (cbxOrdenar.getSelectedIndex())
             {
-                if (!event.getValueIsAdjusting())
-                {
-                    int filaSeleccionada = nuevaTabla.getSelectedRow();
-                    if (filaSeleccionada != -1)
-                    {
-                        Var.filaSeleccionadaPersonal = filaSeleccionada;
-                        Var.idSeleccionadaPersonal = (int) nuevaTabla.getValueAt(filaSeleccionada, 0);
-                    }
-                }
-            });
+                case 1->
+                    "fecha_inicio";
+                default->
+                    "fecha_programada_termino";
+            };          
+            SeleccionarCampos.filtrarTareas(idEmployee, susProyectos, susProyectosFiltrados, estados, estadosFiltrados, campoOrdenar, formaOrdenar, (DefaultTableModel)tabla.getModel());
         });
         cbxFormasOrdenar.addActionListener((ActionEvent e) ->
         {
-            Var.opcOrdenadoForPersonal = (cbxFormasOrdenar.getSelectedIndex() == 1);
-            JTable nuevaTabla = GenerateTable.getTableEmpleadosFiltros();
-            contenedorTabla.setViewportView(nuevaTabla);
-            contenedorTabla.revalidate();
-            contenedorTabla.repaint();
-            nuevaTabla.getSelectionModel().addListSelectionListener((ListSelectionEvent event) ->
+            formaOrdenar = switch (cbxFormasOrdenar.getSelectedIndex())
             {
-                if (!event.getValueIsAdjusting())
-                {
-                    int fila = nuevaTabla.getSelectedRow();
-                    if (fila != -1)
-                    {
-//                        elementoSeleccionado = (int) nuevaTabla.getValueAt(fila, 0);
-                    }
-                }
-            });
+                case 1->
+                    "DESC";
+                default->
+                    "ASC";
+            };   
+            SeleccionarCampos.filtrarTareas(idEmployee, susProyectos, susProyectosFiltrados, estados, estadosFiltrados, campoOrdenar, formaOrdenar, (DefaultTableModel)tabla.getModel());
         });
 
-        JPanel panelOrdenar = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panelOrdenar.add(new JLabel("Ordenar por campo"));
-        panelOrdenar.add(cbxOrdenar);
-        panelOrdenar.add(new JLabel("Forma"));
-        panelOrdenar.add(cbxFormasOrdenar);
-
-        JPanel panelBuscar = new JPanel(new BorderLayout());
-
         tabbedPane.addTab("Inicio", panelInicio);
-//        tabbedPane.addTab("Buscar", panelBuscar);
-        tabbedPane.addTab("Filtrar", panelFiltrar);
-        tabbedPane.addTab("Ordenar", panelOrdenar);
-//        panelHerramientas.setBackground(Color.decode("#7f8c8d"));
-
-        JPanel panelArriba = new JPanel();
-        JPanel panelCentro = new JPanel();
-        JPanel panelAbajo = new JPanel();
-//        JPanel panelBuscar = new JPanel();
-//        JButton btnEstados = GenerateComponents.crearBotonHerramineta("Roles", "agregar-tarea_Res.png");
-//        panelBuscar.add(btnEstados);
-        panelArriba.add(new JLabel("Id"));
-        JTextField filtarId = new JTextField(10);
-        panelArriba.add(filtarId);
-        panelArriba.add(new JButton("Buscar"));
-
-        panelCentro.add(new JLabel("Nombre"));
-        JTextField filtarNombre = new JTextField(15);
-        panelCentro.add(filtarNombre);
-        panelCentro.add(new JLabel("Apellido Paterno"));
-        JTextField filtarApPaterno = new JTextField(15);
-        panelCentro.add(filtarApPaterno);
-        panelCentro.add(new JLabel("Apellido Materno"));
-        JTextField filtarApMaterno = new JTextField(15);
-        panelCentro.add(filtarApMaterno);
-
-        panelAbajo.add(new JButton("Buscar"));
-        panelBuscar.add(panelArriba, BorderLayout.NORTH);
-        panelBuscar.add(panelCentro, BorderLayout.CENTER);
-        panelBuscar.add(panelAbajo, BorderLayout.SOUTH);
-
+        tabbedPane.addTab("Filtrar & Ordenar", panelFiltrar);
+   
         add(tabbedPane, BorderLayout.NORTH);
-
     }
 
     private void initPanelCenter()

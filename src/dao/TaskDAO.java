@@ -2,7 +2,6 @@ package dao;
 
 import controller.ProjectController;
 import controller.StaffController;
-import controller.TaskController;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -44,6 +43,8 @@ public class TaskDAO
                         "En Revicion";
                     case 4 ->
                         "Completada";
+                    case 5 ->
+                        "Atrasada";
                     default ->
                         "Pendiente";
                 };
@@ -88,6 +89,8 @@ public class TaskDAO
                         "En Revicion";
                     case 4 ->
                         "Completada";
+                    case 5 ->
+                        "Atrasada";
                     default ->
                         "Pendiente";
                 };
@@ -135,6 +138,8 @@ public class TaskDAO
                         "En Revicion";
                     case 4 ->
                         "Completada";
+                    case 5 ->
+                        "Atrasada";
                     default ->
                         "Pendiente";
                 };
@@ -153,7 +158,7 @@ public class TaskDAO
         return tareas;
     }
 
-    public static  List<Task> getSusTareasFiltradas(int id_empleado, Set<String> proyectos, Set<String> estados)
+    public static  List<Task> getSusTareasFiltradas(int id_empleado, Set<String> proyectos, Set<String> estados, String ordenarPor, String forma)
     {
         // Construir la consulta base
         StringBuilder queryBuilder
@@ -193,6 +198,7 @@ public class TaskDAO
             queryBuilder.append(" WHERE fk_responsable = ").append(id_empleado);
         }
         
+        queryBuilder.append(" ORDER BY ").append(ordenarPor).append(" ").append(forma);
         List<Task> tareas = new ArrayList();
         try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(queryBuilder.toString());)
         {
@@ -215,6 +221,8 @@ public class TaskDAO
                         "En Revicion";
                     case 4 ->
                         "Completada";
+                    case 5 ->
+                        "Atrasada";
                     default ->
                         "Pendiente";
                 };

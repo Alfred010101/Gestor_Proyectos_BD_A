@@ -19,7 +19,6 @@ public class ProjectController
     public static String obtenerNombre(int id)
     {
         return ProjectDAO.obtenerCampo(id,"nombre");
-
     }
     public static String obtenerCampo(String campo, String campoWhere, String valor)
     {

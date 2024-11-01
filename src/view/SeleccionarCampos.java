@@ -197,17 +197,16 @@ public class SeleccionarCampos
         return popupMenu;
     }
 
-    public static JPopupMenu fitrarTareasPorProyectos(int idEmpleado, List<String> proyectosLista, boolean[] proyectosSeleccionados, String[] estadosLista, boolean[] estadosSeleccionados, boolean sonProyectos, int width, int height,DefaultTableModel model)
+    public static JPopupMenu fitrarTareas(int idEmpleado, List<String> proyectosLista, boolean[] proyectosSeleccionados, String[] estadosLista, boolean[] estadosSeleccionados, boolean sonProyectos, String ordenarPor, String forma, int width, int height, DefaultTableModel model)
     {
         String[] elements;
         if (sonProyectos)
         {
             elements = proyectosLista.toArray(String[]::new);
-        }else
+        } else
         {
             elements = estadosLista;
         }
-        
 
         JList<String> lista = new JList<>(elements);
 
@@ -219,7 +218,7 @@ public class SeleccionarCampos
             if (sonProyectos)
             {
                 checkBox.setSelected(proyectosSeleccionados[index]);
-            }else
+            } else
             {
                 checkBox.setSelected(estadosSeleccionados[index]);
             }
@@ -238,45 +237,45 @@ public class SeleccionarCampos
                     if (sonProyectos)
                     {
                         proyectosSeleccionados[index] = !proyectosSeleccionados[index];
-                    
-                    }else
+
+                    } else
                     {
                         estadosSeleccionados[index] = !estadosSeleccionados[index];
                     }
                     lista.repaint();
-                    
-                    Set<String> proyectos = new HashSet<>();
-                    for (int i = 0; i < proyectosSeleccionados.length; i++)
-                    {
-                        if (proyectosSeleccionados[i])
-                        {
-                            proyectos.add(ProjectController.obtenerCampo("pk_id", "nombre", proyectosLista.get(i)));
-                        }
-                    }
-                    
-                    Set<String> estados = new HashSet<>();
-                    for (int i = 0; i < estadosSeleccionados.length; i++)
-                    {
-                        if (estadosSeleccionados[i])
-                        {
-                            estados.add(String.valueOf(i));
-                        }
-                    }
-                    
-                    List<Task> tareas = TaskController.getSusTareasFiltradas(idEmpleado, proyectos, estados);
-                    model.setRowCount(0);
-                    for (Task tarea : tareas)
-                    {
-                        model.addRow(new Object[]
-                        {
-                            tarea.getProject(),
-                            tarea.getTitulo(),
-                            tarea.getState(),
-                            tarea.getStartDate(),
-                            tarea.getEndDate(),
-                            tarea.getExpectedDate()
-                        });
-                    }
+                    filtrarTareas(idEmpleado, proyectosLista, proyectosSeleccionados, estadosLista, estadosSeleccionados, ordenarPor, forma, model);
+//                    Set<String> proyectos = new HashSet<>();
+//                    for (int i = 0; i < proyectosSeleccionados.length; i++)
+//                    {
+//                        if (proyectosSeleccionados[i])
+//                        {
+//                            proyectos.add(ProjectController.obtenerCampo("pk_id", "nombre", proyectosLista.get(i)));
+//                        }
+//                    }
+//
+//                    Set<String> estados = new HashSet<>();
+//                    for (int i = 0; i < estadosSeleccionados.length; i++)
+//                    {
+//                        if (estadosSeleccionados[i])
+//                        {
+//                            estados.add(String.valueOf(i));
+//                        }
+//                    }
+//
+//                    List<Task> tareas = TaskController.getSusTareasFiltradas(idEmpleado, proyectos, estados, ordenarPor, forma);
+//                    model.setRowCount(0);
+//                    for (Task tarea : tareas)
+//                    {
+//                        model.addRow(new Object[]
+//                        {
+//                            tarea.getProject(),
+//                            tarea.getTitulo(),
+//                            tarea.getState(),
+//                            tarea.getStartDate(),
+//                            tarea.getEndDate(),
+//                            tarea.getExpectedDate()
+//                        });
+//                    }
                 }
             }
         });
@@ -290,44 +289,41 @@ public class SeleccionarCampos
         return popupMenu;
     }
 
-    public static JPopupMenu fitrarTareasPorEstados(String[] elementos, boolean[] seleccionados, DefaultTableModel model)
+    public static void filtrarTareas(int idEmpleado, List<String> proyectosLista, boolean[] proyectosSeleccionados, String[] estadosLista, boolean[] estadosSeleccionados, String ordenarPor, String forma, DefaultTableModel model)
     {
-        String[] elements = elementos;
 
-        JList<String> lista = new JList<>(elements);
-
-        // Personalizar el JList para que use JCheckBox como renderizador
-        lista.setCellRenderer((JList<? extends String> list, String value, int index, boolean isSelected, boolean cellHasFocus) ->
+        Set<String> proyectos = new HashSet<>();
+        for (int i = 0; i < proyectosSeleccionados.length; i++)
         {
-            JPanel panel = new JPanel(new BorderLayout());
-            JCheckBox checkBox = new JCheckBox(value);
-            checkBox.setSelected(seleccionados[index]);
-            panel.add(checkBox, BorderLayout.WEST);
-            return panel;
-        });
-
-        lista.addMouseListener(new MouseAdapter()
-        {
-            @Override
-            public void mouseClicked(MouseEvent e)
+            if (proyectosSeleccionados[i])
             {
-                int index = lista.locationToIndex(e.getPoint());
-                if (index != -1)
-                {
-                    seleccionados[index] = !seleccionados[index];
-                    lista.repaint();
-                    model.setRowCount(0);
-                }
+                proyectos.add(ProjectController.obtenerCampo("pk_id", "nombre", proyectosLista.get(i)));
             }
-        });
+        }
 
-        JScrollPane scrollPane = new JScrollPane(lista);
-        scrollPane.setPreferredSize(new Dimension(110, 125));
+        Set<String> estados = new HashSet<>();
+        for (int i = 0; i < estadosSeleccionados.length; i++)
+        {
+            if (estadosSeleccionados[i])
+            {
+                estados.add(String.valueOf(i));
+            }
+        }
 
-        JPopupMenu popupMenu = new JPopupMenu();
-        popupMenu.setLayout(new BorderLayout());
-        popupMenu.add(scrollPane, BorderLayout.CENTER);
-        return popupMenu;
+        List<Task> tareas = TaskController.getSusTareasFiltradas(idEmpleado, proyectos, estados, ordenarPor, forma);
+        model.setRowCount(0);
+        for (Task tarea : tareas)
+        {
+            model.addRow(new Object[]
+            {
+                tarea.getProject(),
+                tarea.getTitulo(),
+                tarea.getState(),
+                tarea.getStartDate(),
+                tarea.getEndDate(),
+                tarea.getExpectedDate()
+            });
+        }
     }
 
     public static JPopupMenu listaDepartamentos(JScrollPane contenedorTabla)

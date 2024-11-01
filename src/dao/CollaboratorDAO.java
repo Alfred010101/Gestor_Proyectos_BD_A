@@ -1,4 +1,3 @@
-
 package dao;
 
 import controller.ProjectController;
@@ -17,9 +16,9 @@ import utils.ConnectionBD;
  *
  * @author Alfred
  */
-
 public class CollaboratorDAO
 {
+
     public static List<Collaborator> getColaborators()
     {
         String query = "SELECT * FROM Colaboradores";
@@ -32,7 +31,7 @@ public class CollaboratorDAO
                 int proyecto = resultSet.getInt("fk_proyecto");
                 int colaborador = resultSet.getInt("fk_colaborador");
 
-                colaboratosList.add(new Collaborator(pkId,proyecto, colaborador));
+                colaboratosList.add(new Collaborator(pkId, proyecto, colaborador));
 
             }
         } catch (SQLException ex)
@@ -58,7 +57,6 @@ public class CollaboratorDAO
                 int proyecto = resultSet.getInt("fk_proyecto");
                 int colaborador = resultSet.getInt("fk_colaborador");
 
-
                 return new Collaborator(pkId, proyecto, colaborador);
 
             }
@@ -71,20 +69,27 @@ public class CollaboratorDAO
         }
         return null;
     }
-    
+
     public static List<String> getSusProyectos(int id_empleado)
     {
         List<String> projects = new ArrayList<>();
-        String query = "SELECT fk_proyecto FROM Colaboradores WHERE fk_colaborador = ?";
+        String query = "SELECT nombre "
+                + "FROM Proyectos "
+                + "WHERE pk_id IN ("
+                + "    SELECT fk_proyecto "
+                + "    FROM Colaboradores "
+                + "    WHERE fk_colaborador = ?"
+                + ")"
+                + "ORDER BY nombre ASC;";
 
         try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query);)
         {
             statement.setInt(1, id_empleado);
             ResultSet resultSet = statement.executeQuery();
-            
+
             while (resultSet.next())
             {
-                projects.add(ProjectController.obtenerNombre(resultSet.getInt("fk_proyecto")));
+                projects.add(resultSet.getString("nombre"));
             }
         } catch (SQLException ex)
         {
