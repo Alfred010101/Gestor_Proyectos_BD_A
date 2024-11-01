@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Set;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -177,6 +178,45 @@ public class SeleccionarCampos
                             }
                         }
                     });
+                }
+            }
+        });
+
+        JScrollPane scrollPane = new JScrollPane(lista);
+        scrollPane.setPreferredSize(new Dimension(200, 160));
+
+        JPopupMenu popupMenu = new JPopupMenu();
+        popupMenu.setLayout(new BorderLayout());
+        popupMenu.add(scrollPane, BorderLayout.CENTER);
+        return popupMenu;
+    }
+    
+    public static JPopupMenu fitrarTareasPorProyectos(Set<String> elementos, boolean[] seleccionados)
+    {
+        String[] elements = elementos.toArray(String[]::new);
+
+        JList<String> lista = new JList<>(elements);
+
+        // Personalizar el JList para que use JCheckBox como renderizador
+        lista.setCellRenderer((JList<? extends String> list, String value, int index, boolean isSelected, boolean cellHasFocus) ->
+        {
+            JPanel panel = new JPanel(new BorderLayout());
+            JCheckBox checkBox = new JCheckBox(value);
+            checkBox.setSelected(seleccionados[index]);
+            panel.add(checkBox, BorderLayout.WEST);
+            return panel;
+        });
+
+        lista.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                int index = lista.locationToIndex(e.getPoint());
+                if (index != -1)
+                {
+                    seleccionados[index] = !seleccionados[index];
+                    lista.repaint();
                 }
             }
         });

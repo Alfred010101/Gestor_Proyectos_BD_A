@@ -1,35 +1,6 @@
 package view;
 
-import controller.StaffController;
-import controller.TaskController;
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.List;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JToggleButton;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.border.Border;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import model.Staff;
-import model.Task;
 import utils.Var;
 
 /**
@@ -97,10 +68,9 @@ public class WorkspaceEmployee extends PlantillaPrincipal
     @Override
     protected void initWorckspace()
     {
-//        panelCenter.add(new JPanel(), "null");
-        panelCenter.add(new EmployeeTasks(employee.getId()).panelPricipal, "Card Tareas");
-        panelCenter.add(new AdminDepartments(employee.getId()).panelPricipal, "Card Proyectos");
-        panelCenter.add(new AdminResources(employee.getId()).panelPricipal, "Card Colaboraciones");
+        panelCenter.add(new EmployeeTasks(employee.getId()), "Card Tareas");
+        panelCenter.add(new AdminDepartments(employee.getId()), "Card Proyectos");
+        panelCenter.add(new AdminResources(employee.getId()), "Card Colaboraciones");
     }
 }
 //        extends JFrame

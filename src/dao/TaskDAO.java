@@ -1,5 +1,8 @@
 package dao;
 
+import controller.ProjectController;
+import controller.StaffController;
+import controller.TaskController;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,11 +29,23 @@ public class TaskDAO
             while (resultSet.next())
             {
                 int pkId = resultSet.getInt("pk_id");
-                int proyecto = resultSet.getInt("fk_proyecto");
-                int responsable = resultSet.getInt("fk_responsable");
+                String proyecto = ProjectController.obtenerNombre(resultSet.getInt("fk_proyecto"));
+                String responsable = StaffController.obtenerNombre(resultSet.getInt("fk_responsable"));
                 String titulo = resultSet.getString("titulo");
                 String descripcion = resultSet.getString("descripcion");
-                int estado = resultSet.getInt("estado");
+                String estado = switch (resultSet.getInt("estado"))
+                {
+                    case 1 ->
+                        "En Progreso";
+                    case 2 ->
+                        "Detenida";
+                    case 3 ->
+                        "En Revicion";
+                    case 4 ->
+                        "Completada";
+                    default ->
+                        "Pendiente";
+                };
                 Date fechaInicio = resultSet.getDate("fecha_inicio");
                 Date fechaTermino = resultSet.getDate("fecha_termino");
                 Date fechaprogramadaTermino = resultSet.getDate("fecha_programada_termino");
@@ -58,11 +73,23 @@ public class TaskDAO
             if (resultSet.next())
             {
                 int pkId = resultSet.getInt("pk_id");
-                int proyecto = resultSet.getInt("fk_proyecto");
-                int responsable = resultSet.getInt("fk_responsable");
+                String proyecto = ProjectController.obtenerNombre(resultSet.getInt("fk_proyecto"));
+                String responsable = StaffController.obtenerNombre(resultSet.getInt("fk_responsable"));
                 String titulo = resultSet.getString("titulo");
                 String descripcion = resultSet.getString("descripcion");
-                int estado = resultSet.getInt("estado");
+                String estado = switch (resultSet.getInt("estado"))
+                {
+                    case 1 ->
+                        "En Progreso";
+                    case 2 ->
+                        "Detenida";
+                    case 3 ->
+                        "En Revicion";
+                    case 4 ->
+                        "Completada";
+                    default ->
+                        "Pendiente";
+                };
                 Date fechaInicio = resultSet.getDate("fecha_inicio");
                 Date fechaTermino = resultSet.getDate("fecha_termino");
                 Date fechaprogramadaTermino = resultSet.getDate("fecha_programada_termino");
@@ -93,11 +120,23 @@ public class TaskDAO
             while (resultSet.next())
             {
                 int pkId = resultSet.getInt("pk_id");
-                int proyecto = resultSet.getInt("fk_proyecto");
-                int responsable = resultSet.getInt("fk_responsable");
+                String proyecto = ProjectController.obtenerNombre(resultSet.getInt("fk_proyecto"));
+                String responsable = StaffController.obtenerNombre(resultSet.getInt("fk_responsable"));
                 String titulo = resultSet.getString("titulo");
                 String descripcion = resultSet.getString("descripcion");
-                int estado = resultSet.getInt("estado");
+                String estado = switch (resultSet.getInt("estado"))
+                {
+                    case 1 ->
+                        "En Progreso";
+                    case 2 ->
+                        "Detenida";
+                    case 3 ->
+                        "En Revicion";
+                    case 4 ->
+                        "Completada";
+                    default ->
+                        "Pendiente";
+                };
                 Date fechaInicio = resultSet.getDate("fecha_inicio");
                 Date fechaTermino = resultSet.getDate("fecha_termino");
                 Date fechaprogramadaTermino = resultSet.getDate("fecha_programada_termino");

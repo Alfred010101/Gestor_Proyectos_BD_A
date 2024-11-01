@@ -71,8 +71,8 @@ public class WorkspaceAdministrator extends PlantillaPrincipal
     protected void initWorckspace()
     {
 //        panelCenter.add(new JPanel(), "null");
-        panelCenter.add(new AdminEmployees(employee.getId()).panelPricipal, "Card Personal");
-        panelCenter.add(new AdminDepartments(employee.getId()).panelPricipal, "Card Departamentos");
-        panelCenter.add(new AdminResources(employee.getId()).panelPricipal, "Card Recursos");
+//        panelCenter.add(new AdminEmployees(employee.getId()).panelPricipal, "Card Personal");
+//        panelCenter.add(new AdminDepartments(employee.getId()).panelPricipal, "Card Departamentos");
+//        panelCenter.add(new AdminResources(employee.getId()).panelPricipal, "Card Recursos");
     }
 }

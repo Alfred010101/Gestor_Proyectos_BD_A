@@ -96,4 +96,27 @@ public class ProjectDAO
         }
         return projects;
     }
+    
+    public static String obtenerCampo(int id, String campo)
+    {
+        String resultado= "";
+        String query = "SELECT " + campo +" FROM Proyectos WHERE pk_id= ?";
+
+         try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query);)
+        {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next())
+            {
+                resultado = resultSet.getString(campo);               
+            }
+        } catch (SQLException ex)
+        {
+            System.out.println("SQLException : " + ex);
+        } catch (Exception e)
+        {
+            System.out.println("Exception : " + e);
+        }
+        return resultado;
+    }
 }

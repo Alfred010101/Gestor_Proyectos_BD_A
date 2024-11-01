@@ -4,23 +4,26 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Alfred
  */
 
-public abstract class CardJPanel
+public abstract class CardJPanel extends JPanel
 {
-    protected JPanel panelPricipal;
+    protected JTable tabla;
+    protected JScrollPane contenedorTabla;
     
     public CardJPanel()
     {
-        panelPricipal = new JPanel();
-        panelPricipal.setBackground(Color.LIGHT_GRAY);
-        panelPricipal.setLayout(new BorderLayout());
-        panelPricipal.setBorder(new EmptyBorder(10, 10, 10, 10));
+        this.setBackground(Color.LIGHT_GRAY);
+        this.setLayout(new BorderLayout());
+        this.setBorder(new EmptyBorder(10, 10, 10, 10));
     }
     
     protected abstract void reset();

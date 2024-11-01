@@ -3,7 +3,6 @@ package controller;
 
 import dao.ProjectDAO;
 import java.util.List;
-import model.Project;
 
 /**
  *
@@ -15,5 +14,11 @@ public class ProjectController
     {
         //Aqui deben ir validaciones
         return ProjectDAO.getProyects(id_empleado);
+    }
+    
+    public static String obtenerNombre(int id)
+    {
+        return ProjectDAO.obtenerCampo(id,"nombre");
+
     }
 }

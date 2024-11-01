@@ -1,15 +1,21 @@
-
 package view;
 
+import controller.CollaboratorController;
+import controller.ProjectController;
+import controller.TaskController;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -19,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
+import model.Task;
 import utils.Var;
 import view.forms.VtnModificarPersonalAdmin;
 import view.forms.VtnNuevoPersonal;
@@ -31,20 +38,40 @@ public class EmployeeTasks extends CardJPanel
 {
 
     private final int idEmployee;
-    private JTable tabla;
-    private JScrollPane contenedorTabla;
+
+    private final String[] NOMBRE_CAMPOS_TABLA =
+    {
+        "Proyecto", "Titulo", "Estado", "Fecha de Inicio", "Fecha de Termino", "Fecha Marcada"
+    };
+
+    private String elementoSeleccionadoProyecto = "";
+    private String elementoSeleccionadoTitulo = "";
+
+    private Set<String> susProyectos;
+    private boolean[] susProyectosFiltrados;    
+    private final String[] estados;
+    private final boolean[] estadosFiltrados;
 
     public EmployeeTasks(int idEmployee)
     {
         this.idEmployee = idEmployee;
-        for (int i = 0; i < Var.columnasDepartSeleccionados.length; i++)
+        
+        estados = new String[]
         {
-            Var.columnasDepartSeleccionados[i] = true;
-        }
-        for (int i = 0; i < Var.columnasRolesSeleccionados.length; i++)
+            "Pendiente",
+            "En Progreso",
+            "Detenida",
+            "En Revicion",
+            "Completada"
+        };
+        estadosFiltrados = new boolean[]
         {
-            Var.columnasRolesSeleccionados[i] = true;
-        }
+            true, true, true, true, true
+        };
+        susProyectos = CollaboratorController.getSusProyectos(idEmployee);
+        susProyectosFiltrados = new boolean[susProyectos.size()];
+        Arrays.fill(susProyectosFiltrados, true);
+
         initComponets();
     }
 
@@ -59,9 +86,12 @@ public class EmployeeTasks extends CardJPanel
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.setBorder(new EmptyBorder(0, 0, 10, 0));
 
+        /**
+         * Inicio de la configuracion de la pestaña Inicio
+         */
         JPanel panelInicio = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelInicio.setBackground(Color.decode("#ECEFF1"));
-        JButton btnAgregar = GenerateComponents.crearBotonHerramineta("Agregar", "nuevo_Res2.png");
+        JButton btnAgregar = GenerateComponents.crearBotonHerramineta("Agregar", "add_task_Res2.png");
         JButton btnVer = GenerateComponents.crearBotonHerramineta("Detalles", "expediente_Res2.png");
         JButton btnModificar = GenerateComponents.crearBotonHerramineta("Actualizar", "editar_Res2.png");
         JButton btnEliminar = GenerateComponents.crearBotonHerramineta("Eliminar", "borrar_Res2.png");
@@ -87,11 +117,16 @@ public class EmployeeTasks extends CardJPanel
         {
             btnEliminarAddActionListener();
         });
+        /**
+         * Fin de la configuracion de la pestaña Inicio
+         */
 
+        /**
+         * Inicio de la configuracion de la pestaña Filtrar
+         */
         JPanel panelFiltrar = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JButton btnCampos = GenerateComponents.crearBotonHerramineta("Ver Campos", "filtrar_Res2.png");
-        JButton btnRoles = GenerateComponents.crearBotonHerramineta("Roles", "filtrar_Res2.png");
-        JButton btnDepartamentos = GenerateComponents.crearBotonHerramineta("Departamentos", "filtrar_Res2.png");
+        JButton btnProyectos = GenerateComponents.crearBotonHerramineta("Proyectos", "filtrar_Res2.png");
+        JButton btnEstados = GenerateComponents.crearBotonHerramineta("Estado", "filtrar_Res2.png");
 
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
         model.addElement(Var.CAMPOS_ORDENAR_PEROSNAL[0]);
@@ -101,29 +136,22 @@ public class EmployeeTasks extends CardJPanel
         // Crear el JComboBox con las opciones
         JComboBox<String> cbxOrdenar = new JComboBox<>(model);
         JComboBox<String> cbxFormasOrdenar = new JComboBox<>(Var.CAMPOS_ORDENAR_PRIORIDAD_PEROSNAL);
-        panelFiltrar.add(btnCampos);
-        panelFiltrar.add(btnDepartamentos);
-        panelFiltrar.add(btnRoles);
+        panelFiltrar.add(btnProyectos);
+        panelFiltrar.add(btnEstados);
 
         /**
          *
          */
-        btnCampos.addActionListener((e) ->
+        btnProyectos.addActionListener((e) ->
         {
-            JPopupMenu popupCampos = SeleccionarCampos.listaCampos(contenedorTabla, btnRoles, btnDepartamentos, model);
-            popupCampos.show(btnCampos, 0, btnCampos.getHeight());
+            JPopupMenu popupProyectos = SeleccionarCampos.fitrarTareasPorProyectos(susProyectos, susProyectosFiltrados);
+            popupProyectos.show(btnProyectos, 0, btnProyectos.getHeight());
         });
 
-        btnRoles.addActionListener((e) ->
+        btnEstados.addActionListener((e) ->
         {
-            JPopupMenu popupRoles = SeleccionarCampos.listaRoles(contenedorTabla);
-            popupRoles.show(btnRoles, 0, btnRoles.getHeight());
-        });
-
-        btnDepartamentos.addActionListener((e) ->
-        {
-            JPopupMenu popupDepartamentos = SeleccionarCampos.listaDepartamentos(contenedorTabla);
-            popupDepartamentos.show(btnDepartamentos, 0, btnDepartamentos.getHeight());
+            JPopupMenu popupEstados = SeleccionarCampos.fitrarTareasPorProyectos(susProyectos, susProyectosFiltrados);
+            popupEstados.show(btnEstados, 0, btnEstados.getHeight());
         });
         /**
          *
@@ -160,11 +188,10 @@ public class EmployeeTasks extends CardJPanel
             {
                 if (!event.getValueIsAdjusting())
                 {
-                    int filaSeleccionada = nuevaTabla.getSelectedRow();
-                    if (filaSeleccionada != -1)
+                    int fila = nuevaTabla.getSelectedRow();
+                    if (fila != -1)
                     {
-                        Var.filaSeleccionadaPersonal = filaSeleccionada;
-                        Var.idSeleccionadaPersonal = (int) nuevaTabla.getValueAt(filaSeleccionada, 0);
+//                        elementoSeleccionado = (int) nuevaTabla.getValueAt(fila, 0);
                     }
                 }
             });
@@ -188,8 +215,8 @@ public class EmployeeTasks extends CardJPanel
         JPanel panelCentro = new JPanel();
         JPanel panelAbajo = new JPanel();
 //        JPanel panelBuscar = new JPanel();
-//        JButton btnRoles = GenerateComponents.crearBotonHerramineta("Roles", "agregar-tarea_Res.png");
-//        panelBuscar.add(btnRoles);
+//        JButton btnEstados = GenerateComponents.crearBotonHerramineta("Roles", "agregar-tarea_Res.png");
+//        panelBuscar.add(btnEstados);
         panelArriba.add(new JLabel("Id"));
         JTextField filtarId = new JTextField(10);
         panelArriba.add(filtarId);
@@ -210,34 +237,57 @@ public class EmployeeTasks extends CardJPanel
         panelBuscar.add(panelCentro, BorderLayout.CENTER);
         panelBuscar.add(panelAbajo, BorderLayout.SOUTH);
 
-        panelPricipal.add(tabbedPane, BorderLayout.NORTH);
+        add(tabbedPane, BorderLayout.NORTH);
 
     }
 
     private void initPanelCenter()
     {
-        tabla = GenerateTable.getTableTareas(idEmployee);
-        tabla.getSelectionModel().addListSelectionListener((ListSelectionEvent event) ->
-        {
-            if (!event.getValueIsAdjusting())
-            {
-                int filaSeleccionada = tabla.getSelectedRow();
-                if (filaSeleccionada != -1)
-                {
-                    Var.filaSeleccionadaPersonal = filaSeleccionada;
-                    Var.idSeleccionadaPersonal = (int) tabla.getValueAt(filaSeleccionada, 0);
-                }
-            }
-        });
+        initTabla();
         contenedorTabla = new JScrollPane(tabla);
         contenedorTabla.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        panelPricipal.add(contenedorTabla, BorderLayout.CENTER);
+        add(contenedorTabla, BorderLayout.CENTER);
     }
 
     @Override
     protected void reset()
     {
 
+    }
+
+    private void initTabla()
+    {
+        List<Task> tareas = TaskController.getMisTareas(idEmployee);
+        Object[][] data = new Object[tareas.size()][6];
+        for (int i = 0; i < tareas.size(); i++)
+        {
+            data[i][0] = tareas.get(i).getProject();
+            data[i][1] = tareas.get(i).getTitulo();
+            data[i][2] = tareas.get(i).getState();
+            data[i][3] = tareas.get(i).getStartDate();
+            data[i][4] = tareas.get(i).getEndDate();
+            data[i][5] = tareas.get(i).getExpectedDate();
+        }
+
+        tabla = GenerarTablas.configTabla(data, this.NOMBRE_CAMPOS_TABLA);
+
+        addSelection();
+    }
+
+    private void addSelection()
+    {
+        tabla.getSelectionModel().addListSelectionListener((ListSelectionEvent event) ->
+        {
+            if (!event.getValueIsAdjusting())
+            {
+                int fila = tabla.getSelectedRow();
+                if (fila != -1)
+                {
+                    elementoSeleccionadoProyecto = (String) tabla.getValueAt(fila, 0);
+                    elementoSeleccionadoTitulo = (String) tabla.getValueAt(fila, 1);
+                }
+            }
+        });
     }
 
     private void btnAgregarAddActionListener()
@@ -247,16 +297,37 @@ public class EmployeeTasks extends CardJPanel
 
     private void btnVerAddActionListener()
     {
-        new VtnModificarPersonalAdmin().setVisible(true);
+        if (!elementoSeleccionadoProyecto.isEmpty() && !elementoSeleccionadoTitulo.isEmpty())
+        {
+            new VtnModificarPersonalAdmin().setVisible(true);
+            System.out.println("Proyecto:" + elementoSeleccionadoProyecto + "\tTitulo:" + elementoSeleccionadoTitulo);
+        } else
+        {
+            JOptionPane.showMessageDialog(this, "Seleccione la tarea de la cual desea tener mas información.", "Tarea no seleccionada.", JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     private void btnModificarAddActionListener()
     {
-        new VtnModificarPersonalAdmin().setVisible(true);
+        if (!elementoSeleccionadoProyecto.isEmpty() && !elementoSeleccionadoTitulo.isEmpty())
+        {
+            new VtnModificarPersonalAdmin().setVisible(true);
+            System.out.println("Proyecto:" + elementoSeleccionadoProyecto + "\tTitulo:" + elementoSeleccionadoTitulo);
+        } else
+        {
+            JOptionPane.showMessageDialog(this, "Seleccione la tarea que desea modificar.", "Tarea no seleccionada.", JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     private void btnEliminarAddActionListener()
     {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (!elementoSeleccionadoProyecto.isEmpty() && !elementoSeleccionadoTitulo.isEmpty())
+        {
+            new VtnModificarPersonalAdmin().setVisible(true);
+            System.out.println("Proyecto:" + elementoSeleccionadoProyecto + "\tTitulo:" + elementoSeleccionadoTitulo);
+        } else
+        {
+            JOptionPane.showMessageDialog(this, "Seleccione la tarea que desea eliminar.", "Tarea no seleccionada.", JOptionPane.WARNING_MESSAGE);
+        }
     }
 }
