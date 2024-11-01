@@ -3,6 +3,7 @@ package controller;
 
 import dao.TaskDAO;
 import java.util.List;
+import java.util.Set;
 import model.Task;
 
 /**
@@ -16,5 +17,10 @@ public class TaskController
     {
         //Aqui deben ir validaciones
         return TaskDAO.getTareas(id_empleado);
+    }
+    
+    public static  List<Task> getSusTareasFiltradas(int id_empleado, Set<String> proyectos, Set<String> estados)
+    {
+        return TaskDAO.getSusTareasFiltradas(id_empleado, proyectos, estados);
     }
 }

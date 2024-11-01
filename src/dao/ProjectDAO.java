@@ -119,4 +119,27 @@ public class ProjectDAO
         }
         return resultado;
     }
+    
+    public static String obtenerCampo(String campo, String campoWhere, String valor)
+    {
+        String resultado= "";
+        String query = "SELECT " + campo +" FROM Proyectos WHERE " + campoWhere + " = ?";
+
+         try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query);)
+        {
+            statement.setString(1, valor);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next())
+            {
+                resultado = resultSet.getString(campo);               
+            }
+        } catch (SQLException ex)
+        {
+            System.out.println("SQLException : " + ex);
+        } catch (Exception e)
+        {
+            System.out.println("Exception : " + e);
+        }
+        return resultado;
+    }
 }

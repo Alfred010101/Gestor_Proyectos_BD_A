@@ -2,7 +2,7 @@
 package controller;
 
 import dao.CollaboratorDAO;
-import java.util.Set;
+import java.util.List;
 
 /**
  *
@@ -10,7 +10,7 @@ import java.util.Set;
  */
 public class CollaboratorController
 {
-     public static Set<String> getSusProyectos(int id_empleado)
+     public static List<String> getSusProyectos(int id_empleado)
     {
         return CollaboratorDAO.getSusProyectos(id_empleado);
     }

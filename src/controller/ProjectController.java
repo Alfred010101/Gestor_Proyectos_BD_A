@@ -21,4 +21,8 @@ public class ProjectController
         return ProjectDAO.obtenerCampo(id,"nombre");
 
     }
+    public static String obtenerCampo(String campo, String campoWhere, String valor)
+    {
+        return ProjectDAO.obtenerCampo(campo, campoWhere, valor);
+    }
 }

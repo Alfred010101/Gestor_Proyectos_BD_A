@@ -72,9 +72,9 @@ public class CollaboratorDAO
         return null;
     }
     
-    public static Set<String> getSusProyectos(int id_empleado)
+    public static List<String> getSusProyectos(int id_empleado)
     {
-        Set<String> projects = new HashSet();
+        List<String> projects = new ArrayList<>();
         String query = "SELECT fk_proyecto FROM Colaboradores WHERE fk_colaborador = ?";
 
         try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query);)

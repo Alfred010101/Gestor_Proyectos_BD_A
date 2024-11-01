@@ -25,6 +25,8 @@ import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import model.Task;
 import utils.Var;
 import view.forms.VtnModificarPersonalAdmin;
@@ -47,8 +49,8 @@ public class EmployeeTasks extends CardJPanel
     private String elementoSeleccionadoProyecto = "";
     private String elementoSeleccionadoTitulo = "";
 
-    private Set<String> susProyectos;
-    private boolean[] susProyectosFiltrados;    
+    private final List<String> susProyectos;
+    private final boolean[] susProyectosFiltrados;    
     private final String[] estados;
     private final boolean[] estadosFiltrados;
 
@@ -77,8 +79,8 @@ public class EmployeeTasks extends CardJPanel
 
     private void initComponets()
     {
-        initPanelNorth();
         initPanelCenter();
+        initPanelNorth();        
     }
 
     private void initPanelNorth()
@@ -144,14 +146,15 @@ public class EmployeeTasks extends CardJPanel
          */
         btnProyectos.addActionListener((e) ->
         {
-            JPopupMenu popupProyectos = SeleccionarCampos.fitrarTareasPorProyectos(susProyectos, susProyectosFiltrados);
+            JPopupMenu popupProyectos = SeleccionarCampos.fitrarTareasPorProyectos(idEmployee, susProyectos, susProyectosFiltrados, estados, estadosFiltrados,true, 200, 160, (DefaultTableModel)tabla.getModel());
             popupProyectos.show(btnProyectos, 0, btnProyectos.getHeight());
         });
 
         btnEstados.addActionListener((e) ->
         {
-            JPopupMenu popupEstados = SeleccionarCampos.fitrarTareasPorProyectos(susProyectos, susProyectosFiltrados);
+            JPopupMenu popupEstados = SeleccionarCampos.fitrarTareasPorProyectos(idEmployee, susProyectos, susProyectosFiltrados, estados, estadosFiltrados,false, 110, 125, (DefaultTableModel)tabla.getModel());
             popupEstados.show(btnEstados, 0, btnEstados.getHeight());
+            
         });
         /**
          *
