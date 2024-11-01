@@ -244,38 +244,6 @@ public class SeleccionarCampos
                     }
                     lista.repaint();
                     filtrarTareas(idEmpleado, proyectosLista, proyectosSeleccionados, estadosLista, estadosSeleccionados, ordenarPor, forma, model);
-//                    Set<String> proyectos = new HashSet<>();
-//                    for (int i = 0; i < proyectosSeleccionados.length; i++)
-//                    {
-//                        if (proyectosSeleccionados[i])
-//                        {
-//                            proyectos.add(ProjectController.obtenerCampo("pk_id", "nombre", proyectosLista.get(i)));
-//                        }
-//                    }
-//
-//                    Set<String> estados = new HashSet<>();
-//                    for (int i = 0; i < estadosSeleccionados.length; i++)
-//                    {
-//                        if (estadosSeleccionados[i])
-//                        {
-//                            estados.add(String.valueOf(i));
-//                        }
-//                    }
-//
-//                    List<Task> tareas = TaskController.getSusTareasFiltradas(idEmpleado, proyectos, estados, ordenarPor, forma);
-//                    model.setRowCount(0);
-//                    for (Task tarea : tareas)
-//                    {
-//                        model.addRow(new Object[]
-//                        {
-//                            tarea.getProject(),
-//                            tarea.getTitulo(),
-//                            tarea.getState(),
-//                            tarea.getStartDate(),
-//                            tarea.getEndDate(),
-//                            tarea.getExpectedDate()
-//                        });
-//                    }
                 }
             }
         });

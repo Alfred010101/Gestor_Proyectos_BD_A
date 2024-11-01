@@ -69,7 +69,7 @@ public class WorkspaceEmployee extends PlantillaPrincipal
     protected void initWorckspace()
     {
         panelCenter.add(new EmployeeTasks(employee.getId()), "Card Tareas");
-        panelCenter.add(new AdminDepartments(employee.getId()), "Card Proyectos");
+        panelCenter.add(new EmployeeProjects(employee.getId()), "Card Proyectos");
         panelCenter.add(new AdminResources(employee.getId()), "Card Colaboraciones");
     }
 }

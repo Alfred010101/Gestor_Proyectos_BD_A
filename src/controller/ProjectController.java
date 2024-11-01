@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class ProjectController
 {
-    public static List<Object[]> getMisProyectos(int id_empleado)
+    public static List<String> getSusProyectos(int id_empleado)
     {
         //Aqui deben ir validaciones
         return ProjectDAO.getProyects(id_empleado);

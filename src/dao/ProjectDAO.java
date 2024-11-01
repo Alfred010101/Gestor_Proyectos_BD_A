@@ -72,10 +72,13 @@ public class ProjectDAO
         return null;
     }
     
-    public static List<Object[]> getProyects(int id_empleado)
+    public static List<String> getProyects(int id_empleado)
     {
-        List<Object[]> projects = new ArrayList();
-        String query = "SELECT nombre FROM Proyectos WHERE Id_responsable = ?";
+        List<String> projects = new ArrayList();
+        String query = "SELECT nombre "
+                + "FROM Proyectos "
+                + "WHERE fk_lider = ? "
+                + "ORDER BY nombre ASC";
 
         try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query);)
         {
@@ -84,8 +87,7 @@ public class ProjectDAO
             
             while (resultSet.next())
             {
-                String description = resultSet.getString("nombre");
-                projects.add(new Object[]{description});
+                projects.add(resultSet.getString("nombre"));
             }
         } catch (SQLException ex)
         {
