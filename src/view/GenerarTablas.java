@@ -1,4 +1,3 @@
-
 package view;
 
 import java.awt.Color;
@@ -17,6 +16,14 @@ import javax.swing.table.JTableHeader;
  */
 public class GenerarTablas
 {
+
+    /**
+     * Configura la vista inicial de una tabla, asignando un DefaultTableModel
+     *
+     * @param data datos a insertar en la tabla
+     * @param columnNames nombre de los encabezados de las columnas (Campos)
+     * @return
+     */
     public static JTable configTabla(Object[][] data, String[] columnNames)
     {
         JTable tabla = new JTable();
@@ -25,12 +32,12 @@ public class GenerarTablas
             @Override
             public boolean isCellEditable(int row, int column)
             {
-                return false; 
+                return false;
             }
         };
-        
+
         tabla.setModel(tableModel);
-        
+
         // Estilizar la cabecera de la tabla
         JTableHeader header = tabla.getTableHeader();
         header.setBackground(new Color(51, 153, 255));
@@ -42,24 +49,28 @@ public class GenerarTablas
         tabla.setRowHeight(30); // Altura de las filas
         tabla.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         tabla.setSelectionForeground(Color.WHITE);
-        
+
         // Crear un renderizador personalizado para la tabla
         TableCellRenderer cellRenderer = new TableCellRenderer();
         tabla.setDefaultRenderer(Object.class, cellRenderer);
         tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
-        tabla.addMouseMotionListener(new MouseAdapter() {
+
+        tabla.addMouseMotionListener(new MouseAdapter()
+        {
             @Override
-            public void mouseMoved(MouseEvent e) {
+            public void mouseMoved(MouseEvent e)
+            {
                 int row = tabla.rowAtPoint(e.getPoint());
                 cellRenderer.setHoverRow(row);
                 tabla.repaint();
             }
         });
 
-        tabla.addMouseListener(new MouseAdapter() {
+        tabla.addMouseListener(new MouseAdapter()
+        {
             @Override
-            public void mouseExited(MouseEvent e) {
+            public void mouseExited(MouseEvent e)
+            {
                 cellRenderer.setHoverRow(-1);
                 tabla.repaint();
             }

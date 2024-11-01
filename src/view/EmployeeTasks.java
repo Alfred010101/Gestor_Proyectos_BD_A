@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.BorderFactory;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,14 +18,11 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import model.Task;
-import utils.Var;
 import view.forms.VtnModificarPersonalAdmin;
 import view.forms.VtnNuevoPersonal;
 
@@ -37,21 +33,39 @@ import view.forms.VtnNuevoPersonal;
 public class EmployeeTasks extends CardJPanel
 {
 
+    //Mantiene el id del usuario logeado
     private final int idEmployee;
-
+    //arreglo para guardar los encabezados de la tabla de tareas
     private final String[] NOMBRE_CAMPOS_TABLA =
     {
         "Proyecto", "Titulo", "Estado", "Fecha de Inicio", "Fecha de Termino", "Fecha Marcada"
     };
-
+    //Valores usados para implementar una consulta
+    //Mantiene el dato de la columna Proyecto de la fila seleccionada
     private String elementoSeleccionadoProyecto = "";
+    //Mantiene el dato de la columna Titulo de la fila seleccionada
     private String elementoSeleccionadoTitulo = "";
 
+    //Mantiene una lista de los proyectos en los que colabora
     private final List<String> susProyectos;
+    /**
+     * Mantiene una arreglo de banderas que indican los proyectos a mostrar en
+     * el filtrado de proyectos, marca como "true" los que estan activos en la
+     * lista desplegable, sirve como bandera para generar las consultas.
+     */
     private final boolean[] susProyectosFiltrados;
+    //Mantiene una arreglo de los estados posibles de una tarea
     private final String[] estados;
+    /**
+     * Mantiene una arreglo de banderas que indican los estados de tareas a
+     * mostrar en el filtrado de estados, marca como "true" los que estan
+     * activos en la lista desplegable, sirve como bandera para generar las
+     * consultas.
+     */
     private final boolean[] estadosFiltrados;
+    //Mantiene el nombre del campo por el cual seran ordenados los datos
     private String campoOrdenar = "fecha_programada_termino";
+    //Mantiene la forma de ordenar los datos en la consulta
     private String formaOrdenar = "ASC";
 
     public EmployeeTasks(int idEmployee)
@@ -204,6 +218,9 @@ public class EmployeeTasks extends CardJPanel
 
     }
 
+    /**
+     * Muestra la tabla por primera vez
+     */
     private void initTabla()
     {
         List<Task> tareas = TaskController.getMisTareas(idEmployee);
@@ -223,6 +240,9 @@ public class EmployeeTasks extends CardJPanel
         addSelection();
     }
 
+    /**
+     * Permite extraer datos de una fila en columnas especificas
+     */
     private void addSelection()
     {
         tabla.getSelectionModel().addListSelectionListener((ListSelectionEvent event) ->
@@ -247,11 +267,19 @@ public class EmployeeTasks extends CardJPanel
         });
     }
 
+    /**
+     * Metodo ejecutado por el boton Agregar/Nuevo aqui va la accion a
+     * implementar.
+     */
     private void btnAgregarAddActionListener()
     {
         new VtnNuevoPersonal().setVisible(true);
     }
 
+    /**
+     * Metodo ejecutado por el boton de Ver/Detalles aqui va la accion a
+     * implementar.
+     */
     private void btnVerAddActionListener()
     {
         if (!elementoSeleccionadoProyecto.isEmpty() && !elementoSeleccionadoTitulo.isEmpty())
@@ -264,6 +292,10 @@ public class EmployeeTasks extends CardJPanel
         }
     }
 
+    /**
+     * Metodo ejecutado por el boton de Modificar/Actualizar aqui va la accion a
+     * implementar.
+     */
     private void btnModificarAddActionListener()
     {
         if (!elementoSeleccionadoProyecto.isEmpty() && !elementoSeleccionadoTitulo.isEmpty())
@@ -276,6 +308,10 @@ public class EmployeeTasks extends CardJPanel
         }
     }
 
+    /**
+     * Metodo ejecutado por el boton de Eliminar aqui va la accion a
+     * implementar.
+     */
     private void btnEliminarAddActionListener()
     {
         if (!elementoSeleccionadoProyecto.isEmpty() && !elementoSeleccionadoTitulo.isEmpty())
