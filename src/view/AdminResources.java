@@ -227,7 +227,7 @@ public class AdminResources extends CardJPanel
         panelBuscar.add(panelCentro, BorderLayout.CENTER);
         panelBuscar.add(panelAbajo, BorderLayout.SOUTH);
 
-        panelPricipal.add(tabbedPane, BorderLayout.NORTH);
+//        panelPricipal.add(tabbedPane, BorderLayout.NORTH);
 
     }
 
@@ -248,7 +248,7 @@ public class AdminResources extends CardJPanel
         });
         contenedorTabla = new JScrollPane(tabla);
         contenedorTabla.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        panelPricipal.add(contenedorTabla, BorderLayout.CENTER);
+//        panelPricipal.add(contenedorTabla, BorderLayout.CENTER);
     }
 
     @Override

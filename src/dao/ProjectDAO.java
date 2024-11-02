@@ -72,10 +72,13 @@ public class ProjectDAO
         return null;
     }
     
-    public static List<Object[]> getProyects(int id_empleado)
+    public static List<String> getProyects(int id_empleado)
     {
-        List<Object[]> projects = new ArrayList();
-        String query = "SELECT nombre FROM Proyectos WHERE Id_responsable = ?";
+        List<String> projects = new ArrayList();
+        String query = "SELECT nombre "
+                + "FROM Proyectos "
+                + "WHERE fk_lider = ? "
+                + "ORDER BY nombre ASC";
 
         try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query);)
         {
@@ -84,8 +87,7 @@ public class ProjectDAO
             
             while (resultSet.next())
             {
-                String description = resultSet.getString("nombre");
-                projects.add(new Object[]{description});
+                projects.add(resultSet.getString("nombre"));
             }
         } catch (SQLException ex)
         {
@@ -95,5 +97,51 @@ public class ProjectDAO
             System.out.println("Exception : " + e);
         }
         return projects;
+    }
+    
+    public static String obtenerCampo(int id, String campo)
+    {
+        String resultado= "";
+        String query = "SELECT " + campo +" FROM Proyectos WHERE pk_id= ?";
+
+         try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query);)
+        {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next())
+            {
+                resultado = resultSet.getString(campo);               
+            }
+        } catch (SQLException ex)
+        {
+            System.out.println("SQLException : " + ex);
+        } catch (Exception e)
+        {
+            System.out.println("Exception : " + e);
+        }
+        return resultado;
+    }
+    
+    public static String obtenerCampo(String campo, String campoWhere, String valor)
+    {
+        String resultado= "";
+        String query = "SELECT " + campo +" FROM Proyectos WHERE " + campoWhere + " = ?";
+
+         try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query);)
+        {
+            statement.setString(1, valor);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next())
+            {
+                resultado = resultSet.getString(campo);               
+            }
+        } catch (SQLException ex)
+        {
+            System.out.println("SQLException : " + ex);
+        } catch (Exception e)
+        {
+            System.out.println("Exception : " + e);
+        }
+        return resultado;
     }
 }

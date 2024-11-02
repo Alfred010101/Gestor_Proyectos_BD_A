@@ -10,16 +10,16 @@ import java.util.Date;
 public class Task
 {
     private final int id;
-    private final int project;
-    private int responsible;
-    private int state;
+    private final String project;
+    private final String responsible;
+    private String state;
     private String titulo;
     private String description;
     private Date startDate;
     private Date endDate;
     private Date expectedDate;
 
-    public Task(int id, int project, int responsible, int state, String titulo, String description, Date startDate, Date endDate, Date expectedDate)
+    public Task(int id, String project, String responsible, String state, String titulo, String description, Date startDate, Date endDate, Date expectedDate)
     {
         this.id = id;
         this.project = project;
@@ -43,7 +43,7 @@ public class Task
     /**
      * @return the project
      */
-    public int getProject()
+    public String getProject()
     {
         return project;
     }
@@ -51,23 +51,15 @@ public class Task
     /**
      * @return the responsible
      */
-    public int getResponsible()
+    public String getResponsible()
     {
         return responsible;
     }
 
     /**
-     * @param responsible the responsible to set
-     */
-    public void setResponsible(int responsible)
-    {
-        this.responsible = responsible;
-    }
-
-    /**
      * @return the state
      */
-    public int getState()
+    public String getState()
     {
         return state;
     }
@@ -75,7 +67,7 @@ public class Task
     /**
      * @param state the state to set
      */
-    public void setState(int state)
+    public void setState(String state)
     {
         this.state = state;
     }

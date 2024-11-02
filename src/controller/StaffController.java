@@ -91,4 +91,10 @@ public class StaffController
     {
         return StaffDAO.getStaffDepartment(id);
     }
+    
+    public static String obtenerNombre(int id)
+    {
+        return StaffDAO.obtenerCampo(id,"nombre");
+
+    }
 }
