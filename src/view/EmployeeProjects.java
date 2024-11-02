@@ -1,5 +1,6 @@
 package view;
 
+import com.toedter.components.JTitlePanel;
 import controller.CollaboratorController;
 import controller.ProjectController;
 import controller.TaskController;
@@ -8,6 +9,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
 import javax.swing.border.BevelBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import model.Staff;
 import model.Task;
@@ -23,6 +27,11 @@ public class EmployeeProjects extends CardJPanel
     private final int idEmployee;
     private String proyectoSeleccionado = "";
     private final List<String> susProyectos;
+    
+    private JPanel panelInicio;
+    private CardLayout cardLayoutInicio;
+    private CardLayout cardLayoutFiltrar;
+    
     //arreglo para guardar los encabezados de la tabla de tareas
     private final String[] NOMBRE_CAMPOS_TABLA_TAREAS =
     {
@@ -35,6 +44,11 @@ public class EmployeeProjects extends CardJPanel
     private JTable tablaTareas;
     private JTable tablaColaboradores;
 
+    private String elementoSeleccionadoResponsable = "";
+    private String elementoSeleccionadoTitulo = "";
+    private String elementoSeleccionadoNombre = "";
+    private String elementoSeleccionadoCorreo = "";
+    
     public EmployeeProjects(int idEmployee)
     {
         this.idEmployee = idEmployee;
@@ -75,16 +89,67 @@ public class EmployeeProjects extends CardJPanel
 
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        JPanel panelInicio = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JButton btnAgregar = GenerateComponents.crearBotonHerramineta("Agregar", "agregar_Res2.png");
-        JButton btnVer = GenerateComponents.crearBotonHerramineta("Detalles", "expediente_Res2.png");
-        JButton btnModificar = GenerateComponents.crearBotonHerramineta("Actualizar", "editar_Res2.png");
-        JButton btnEliminar = GenerateComponents.crearBotonHerramineta("Eliminar", "borrar_Res2.png");
+        cardLayoutInicio = new CardLayout();
+        panelInicio = new JPanel(cardLayoutInicio);
+        
+        JPanel panelTareas = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JButton btnAgregarTarea = GenerateComponents.crearBotonHerramineta("Agregar", "agregar_Res2.png");
+        JButton btnVerTarea = GenerateComponents.crearBotonHerramineta("Detalles", "expediente_Res2.png");
+        JButton btnModificarTarea = GenerateComponents.crearBotonHerramineta("Actualizar", "editar_Res2.png");
+        JButton btnEliminarTarea = GenerateComponents.crearBotonHerramineta("Eliminar", "borrar_Res2.png");
+        
+        btnAgregarTarea.addActionListener((e) ->
+        {
+            btnAgregarTareaAddActionListener();
+        });
+        btnVerTarea.addActionListener((e) ->
+        {
+            btnVerTareaAddActionListener();
+        });
+        btnModificarTarea.addActionListener((e) ->
+        {
+            btnModificarTareaAddActionListener();
+        });
+        btnEliminarTarea.addActionListener((e) ->
+        {
+            btnEliminarTareaaddActionListener();
+        });
+        
+        panelTareas.add(btnAgregarTarea);
+        panelTareas.add(btnVerTarea);
+        panelTareas.add(btnModificarTarea);
+        panelTareas.add(btnEliminarTarea);
+        
+        JPanel panelColaboradores= new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JButton btnAgregarColaborador = GenerateComponents.crearBotonHerramineta("Agregar", "agregar_Res2.png");
+        JButton btnVerColaborador = GenerateComponents.crearBotonHerramineta("Detalles", "expediente_Res2.png");
+        JButton btnModificarColaborador = GenerateComponents.crearBotonHerramineta("Actualizar", "editar_Res2.png");
+        JButton btnEliminarColaborador = GenerateComponents.crearBotonHerramineta("Eliminar2", "borrar_Res2.png");
 
-        panelInicio.add(btnAgregar);
-        panelInicio.add(btnVer);
-        panelInicio.add(btnModificar);
-        panelInicio.add(btnEliminar);
+        btnAgregarColaborador.addActionListener((e) ->
+        {
+            btnAgregarColaboradorAddActionListener();
+        });
+        btnVerColaborador.addActionListener((e) ->
+        {
+            btnVerColaboradorAddActionListener();
+        });
+        btnModificarColaborador.addActionListener((e) ->
+        {
+            btnModificarColaboradorAddActionListener();
+        });
+        btnEliminarColaborador.addActionListener((e) ->
+        {
+            btnEliminarColaboradorAddActionListener();
+        });
+        
+        panelColaboradores.add(btnAgregarColaborador);
+        panelColaboradores.add(btnVerColaborador);
+        panelColaboradores.add(btnModificarColaborador);
+        panelColaboradores.add(btnEliminarColaborador);
+        
+        panelInicio.add(panelTareas, "Tareas");
+        panelInicio.add(panelColaboradores, "Colaboradores");
 
         JPanel panelFiltar = new JPanel();
 
@@ -123,6 +188,19 @@ public class EmployeeProjects extends CardJPanel
 
         tabbedPane.addTab("Tareas", panelTareas);
         tabbedPane.addTab("Colaboradores", panelColaboradores);
+        
+        tabbedPane.addChangeListener((ChangeEvent e) ->
+        {
+            int index = tabbedPane.getSelectedIndex();
+            switch (index) {
+                case 0 -> cardLayoutInicio.first(panelInicio);
+                case 1 -> cardLayoutInicio.last(panelInicio);
+                default ->
+                {
+                }
+            }
+        });
+        
         add(tabbedPane, BorderLayout.CENTER);
     }
 
@@ -159,6 +237,55 @@ public class EmployeeProjects extends CardJPanel
         }
 
         tablaColaboradores = GenerarTablas.configTabla(data, this.NOMBRE_CAMPOS_TABLA_COLABORADORES);
+        addSelection();
+    }
+    
+    /**
+     * Permite extraer datos de una fila en columnas especificas
+     */
+    private void addSelection()
+    {
+        tablaTareas.getSelectionModel().addListSelectionListener((ListSelectionEvent event) ->
+        {
+            if (!event.getValueIsAdjusting())
+            {
+                int filaSeleccionada = tablaTareas.getSelectedRow();
+                if (filaSeleccionada != -1)
+                {
+                    int columnaNombre = getColumnIndexByName(tablaTareas, "Responsable");
+                    if (columnaNombre != -1)
+                    {
+                        elementoSeleccionadoResponsable = (String) tablaTareas.getValueAt(filaSeleccionada, columnaNombre);
+                    }
+                    columnaNombre = getColumnIndexByName(tablaTareas, "Titulo");
+                    if (columnaNombre != -1)
+                    {
+                        elementoSeleccionadoTitulo = (String) tablaTareas.getValueAt(filaSeleccionada, columnaNombre);
+                    }
+                }
+            }
+        });
+        
+        tablaColaboradores.getSelectionModel().addListSelectionListener((ListSelectionEvent event) ->
+        {
+            if (!event.getValueIsAdjusting())
+            {
+                int filaSeleccionada = tablaColaboradores.getSelectedRow();
+                if (filaSeleccionada != -1)
+                {
+                    int columnaNombre = getColumnIndexByName(tablaColaboradores, "Nombre");
+                    if (columnaNombre != -1)
+                    {
+                        elementoSeleccionadoNombre = (String) tablaColaboradores.getValueAt(filaSeleccionada, columnaNombre);
+                    }
+                    columnaNombre = getColumnIndexByName(tablaColaboradores, "Correo");
+                    if (columnaNombre != -1)
+                    {
+                        elementoSeleccionadoCorreo = (String) tablaColaboradores.getValueAt(filaSeleccionada, columnaNombre);
+                    }
+                }
+            }
+        });
     }
 
     private void establecerCambioProyecto()
@@ -190,5 +317,47 @@ public class EmployeeProjects extends CardJPanel
                 colaborador.getEmail()
             });
         }
+    }
+
+    private void btnAgregarTareaAddActionListener()
+    {
+        System.out.println("Responsable : " + elementoSeleccionadoResponsable);
+        System.out.println("Titulo : " + elementoSeleccionadoTitulo);
+    }
+
+    private void btnVerTareaAddActionListener()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void btnModificarTareaAddActionListener()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void btnEliminarTareaaddActionListener()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void btnAgregarColaboradorAddActionListener()
+    {
+        System.out.println("Nombre : " + elementoSeleccionadoNombre);
+        System.out.println("Correo: " + elementoSeleccionadoCorreo);
+    }
+
+    private void btnVerColaboradorAddActionListener()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void btnModificarColaboradorAddActionListener()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void btnEliminarColaboradorAddActionListener()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

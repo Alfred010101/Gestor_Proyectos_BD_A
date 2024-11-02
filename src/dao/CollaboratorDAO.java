@@ -105,17 +105,11 @@ public class CollaboratorDAO
     public static List<Staff> getColaboradores(int id_empleado, String proyecto)
     {
         List<Staff> colaboradores = new ArrayList<>();
-        String query = "SELECT * "
-                + "FROM Personal "
-                + "WHERE pk_id IN ("
-                + "    SELECT fk_colaborador "
-                + "    FROM Colaboradores "
-                + "    WHERE fk_proyecto = ("
-                + "         SELECT pk_id "
-                + "         FROM Proyectos "
-                + "         WHERE nombre = ? AND fk_lider = ?"
-                + "     )"
-                + ")";
+        String query = "SELECT p.* "
+                + "FROM Personal p "
+                + "JOIN Colaboradores c ON p.pk_id = c.fk_colaborador "
+                + "JOIN Proyectos pr ON c.fk_proyecto = pr.pk_id "
+                + "WHERE pr.nombre = ? AND pr.fk_lider = ?";
 
         try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(query);)
         {
