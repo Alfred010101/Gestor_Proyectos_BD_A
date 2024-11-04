@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view.forms;
 
 import cjb.ci.CtrlInterfaz;
@@ -64,7 +60,7 @@ public class VtnModificarPersonalAdmin extends javax.swing.JFrame
                 btnRegistrarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 920, 110, 30));
+        jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 630, 110, 30));
 
         btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -76,7 +72,7 @@ public class VtnModificarPersonalAdmin extends javax.swing.JFrame
                 btnCancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 920, 110, 30));
+        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 630, 110, 30));
 
         apellidoPat.setEnabled(false);
         apellidoPat.addKeyListener(new java.awt.event.KeyAdapter()
@@ -90,7 +86,7 @@ public class VtnModificarPersonalAdmin extends javax.swing.JFrame
                 apellidoPatKeyTyped(evt);
             }
         });
-        jPanel1.add(apellidoPat, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 430, 30));
+        jPanel1.add(apellidoPat, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 200, 30));
 
         apellidoMat.setEnabled(false);
         apellidoMat.addKeyListener(new java.awt.event.KeyAdapter()
@@ -104,7 +100,7 @@ public class VtnModificarPersonalAdmin extends javax.swing.JFrame
                 apellidoMatKeyTyped(evt);
             }
         });
-        jPanel1.add(apellidoMat, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 430, 30));
+        jPanel1.add(apellidoMat, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, 200, 30));
 
         correo.setEnabled(false);
         correo.addKeyListener(new java.awt.event.KeyAdapter()
@@ -118,7 +114,7 @@ public class VtnModificarPersonalAdmin extends javax.swing.JFrame
                 correoKeyTyped(evt);
             }
         });
-        jPanel1.add(correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, 430, 30));
+        jPanel1.add(correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 240, 30));
 
         contraseña.setEnabled(false);
         contraseña.addKeyListener(new java.awt.event.KeyAdapter()
@@ -132,7 +128,7 @@ public class VtnModificarPersonalAdmin extends javax.swing.JFrame
                 contraseñaKeyTyped(evt);
             }
         });
-        jPanel1.add(contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, 430, 30));
+        jPanel1.add(contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 180, 30));
 
         confirmContra.setEnabled(false);
         confirmContra.addKeyListener(new java.awt.event.KeyAdapter()
@@ -146,7 +142,7 @@ public class VtnModificarPersonalAdmin extends javax.swing.JFrame
                 confirmContraKeyTyped(evt);
             }
         });
-        jPanel1.add(confirmContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 600, 430, 30));
+        jPanel1.add(confirmContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 440, 180, 30));
 
         telefono.setEnabled(false);
         telefono.addActionListener(new java.awt.event.ActionListener()
@@ -167,7 +163,7 @@ public class VtnModificarPersonalAdmin extends javax.swing.JFrame
                 telefonoKeyTyped(evt);
             }
         });
-        jPanel1.add(telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 660, 430, 30));
+        jPanel1.add(telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 370, 150, 30));
 
         direccion.setEnabled(false);
         direccion.addKeyListener(new java.awt.event.KeyAdapter()
@@ -181,7 +177,7 @@ public class VtnModificarPersonalAdmin extends javax.swing.JFrame
                 direccionKeyTyped(evt);
             }
         });
-        jPanel1.add(direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 730, 430, 30));
+        jPanel1.add(direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, 430, 30));
 
         nombre.addKeyListener(new java.awt.event.KeyAdapter()
         {
@@ -194,7 +190,7 @@ public class VtnModificarPersonalAdmin extends javax.swing.JFrame
                 nombreKeyTyped(evt);
             }
         });
-        jPanel1.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 430, 30));
+        jPanel1.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 250, 30));
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Rol.png"))); // NOI18N
@@ -208,7 +204,7 @@ public class VtnModificarPersonalAdmin extends javax.swing.JFrame
                 comboBoxRolKeyPressed(evt);
             }
         });
-        jPanel1.add(comboBoxRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 870, 430, 30));
+        jPanel1.add(comboBoxRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 580, 200, 30));
 
         comboBoxDepto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboBoxDepto.addActionListener(new java.awt.event.ActionListener()
@@ -225,7 +221,7 @@ public class VtnModificarPersonalAdmin extends javax.swing.JFrame
                 comboBoxDeptoKeyPressed(evt);
             }
         });
-        jPanel1.add(comboBoxDepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 800, 430, 30));
+        jPanel1.add(comboBoxDepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 580, 200, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ModificarPersonalAdmin.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -234,11 +230,13 @@ public class VtnModificarPersonalAdmin extends javax.swing.JFrame
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 990, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();

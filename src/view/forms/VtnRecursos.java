@@ -1,4 +1,4 @@
-package vtn;
+package view.forms;
 
 import cjb.ci.CtrlInterfaz;
 import cjb.ci.Mensajes;

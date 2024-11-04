@@ -1,8 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view.forms;
+
+import cjb.ci.CtrlInterfaz;
+import cjb.ci.Mensajes;
+import java.util.Date;
 
 /**
  *
@@ -35,18 +35,52 @@ public class VtnNuevoProyecto extends javax.swing.JFrame
         fechaInicio = new com.toedter.calendar.JDateChooser();
         fechaFinal = new com.toedter.calendar.JDateChooser();
         comboBoxEstado = new javax.swing.JComboBox<>();
+        btnGuardar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 440, 120));
+        jPanel1.add(descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 440, 100));
         jPanel1.add(nombrePro, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 440, 30));
         jPanel1.add(fechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 160, 30));
         jPanel1.add(fechaFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 390, 160, 30));
 
         comboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(comboBoxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 440, 30));
+
+        btnGuardar.setBackground(new java.awt.Color(102, 255, 102));
+        btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnGuardar.setText("Guardar");
+        btnGuardar.setEnabled(false);
+        btnGuardar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+        btnGuardar.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                btnGuardarKeyPressed(evt);
+            }
+        });
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 590, 110, 30));
+
+        btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
+        btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 590, 110, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/NuevoProyecto.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -64,6 +98,43 @@ public class VtnNuevoProyecto extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnGuardarActionPerformed
+    {//GEN-HEADEREND:event_btnGuardarActionPerformed
+        Date fechaIni = fechaInicio.getDate();
+        Date fechaActual = new Date();
+        Date fechaFin = fechaFinal.getDate();
+        if (fechaIni.before(fechaActual))
+        {
+            Mensajes.error(this, "Fecha de inicio incorrecta");
+
+        } else
+        {
+            if (fechaFin.before(fechaIni))
+            {
+                Mensajes.error(this, "Fecha de termino incorrecta");
+            } else
+            {
+                Mensajes.exito(this, "Nuevo proyecto creado");
+                btnCancelarActionPerformed(evt);
+            }
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnGuardarKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_btnGuardarKeyPressed
+    {//GEN-HEADEREND:event_btnGuardarKeyPressed
+        if (evt.getKeyChar() == '\n')
+        {
+            btnGuardarActionPerformed(null);
+        }
+    }//GEN-LAST:event_btnGuardarKeyPressed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelarActionPerformed
+    {//GEN-HEADEREND:event_btnCancelarActionPerformed
+        CtrlInterfaz.limpia(nombrePro, descripcion);
+        CtrlInterfaz.habilita(false, descripcion);
+        CtrlInterfaz.selecciona(nombrePro);
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -111,6 +182,8 @@ public class VtnNuevoProyecto extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> comboBoxEstado;
     private javax.swing.JTextField descripcion;
     private com.toedter.calendar.JDateChooser fechaFinal;
