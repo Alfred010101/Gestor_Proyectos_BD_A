@@ -1,8 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view.forms;
+
+import cjb.ci.CtrlInterfaz;
+import cjb.ci.Mensajes;
+import utils.Validations;
 
 /**
  *
@@ -46,10 +46,54 @@ public class VtnNuevoPersonal extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(apellidoPat, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 440, 30));
-        jPanel1.add(apellidoMat, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 440, 30));
-        jPanel1.add(correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, 440, 30));
 
+        apellidoPat.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        apellidoPat.setEnabled(false);
+        apellidoPat.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                apellidoPatKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                apellidoPatKeyTyped(evt);
+            }
+        });
+        jPanel1.add(apellidoPat, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 200, 30));
+
+        apellidoMat.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        apellidoMat.setEnabled(false);
+        apellidoMat.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                apellidoMatKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                apellidoMatKeyTyped(evt);
+            }
+        });
+        jPanel1.add(apellidoMat, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 320, 200, 30));
+
+        correo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        correo.setEnabled(false);
+        correo.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                correoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                correoKeyTyped(evt);
+            }
+        });
+        jPanel1.add(correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 240, 30));
+
+        contraseña.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        contraseña.setEnabled(false);
         contraseña.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -57,9 +101,35 @@ public class VtnNuevoPersonal extends javax.swing.JFrame
                 contraseñaActionPerformed(evt);
             }
         });
-        jPanel1.add(contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, 440, 30));
-        jPanel1.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 440, 30));
+        contraseña.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                contraseñaKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                contraseñaKeyTyped(evt);
+            }
+        });
+        jPanel1.add(contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 390, 180, 30));
 
+        nombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        nombre.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                nombreKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                nombreKeyTyped(evt);
+            }
+        });
+        jPanel1.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 250, 30));
+
+        direccion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        direccion.setEnabled(false);
         direccion.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -67,12 +137,40 @@ public class VtnNuevoPersonal extends javax.swing.JFrame
                 direccionActionPerformed(evt);
             }
         });
-        jPanel1.add(direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 670, 440, 30));
-        jPanel1.add(telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 600, 440, 30));
+        direccion.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                direccionKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                direccionKeyTyped(evt);
+            }
+        });
+        jPanel1.add(direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 460, 260, 30));
 
+        telefono.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        telefono.setToolTipText("");
+        telefono.setEnabled(false);
+        telefono.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                telefonoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                telefonoKeyTyped(evt);
+            }
+        });
+        jPanel1.add(telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, 150, 30));
+
+        comboBoxRol.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         comboBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(comboBoxRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 800, 440, 30));
+        jPanel1.add(comboBoxRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 530, 200, 30));
 
+        comboBoxDepto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         comboBoxDepto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboBoxDepto.addActionListener(new java.awt.event.ActionListener()
         {
@@ -81,11 +179,19 @@ public class VtnNuevoPersonal extends javax.swing.JFrame
                 comboBoxDeptoActionPerformed(evt);
             }
         });
-        jPanel1.add(comboBoxDepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 740, 440, 30));
+        comboBoxDepto.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                comboBoxDeptoKeyPressed(evt);
+            }
+        });
+        jPanel1.add(comboBoxDepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, 200, 30));
 
         btnGuardar.setBackground(new java.awt.Color(102, 255, 102));
         btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnGuardar.setText("Guardar");
+        btnGuardar.setEnabled(false);
         btnGuardar.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -93,12 +199,26 @@ public class VtnNuevoPersonal extends javax.swing.JFrame
                 btnGuardarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 850, 110, 30));
+        btnGuardar.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                btnGuardarKeyPressed(evt);
+            }
+        });
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 600, 110, 30));
 
         btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnCancelar.setText("Cancelar");
-        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 850, 110, 30));
+        btnCancelar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 600, 110, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/NuevoPersonal.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -124,7 +244,8 @@ public class VtnNuevoPersonal extends javax.swing.JFrame
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnGuardarActionPerformed
     {//GEN-HEADEREND:event_btnGuardarActionPerformed
-
+        Mensajes.exito(this, "Personal agregado correctamente");
+        btnCancelarActionPerformed(evt);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void comboBoxDeptoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_comboBoxDeptoActionPerformed
@@ -136,6 +257,96 @@ public class VtnNuevoPersonal extends javax.swing.JFrame
     {//GEN-HEADEREND:event_direccionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_direccionActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelarActionPerformed
+    {//GEN-HEADEREND:event_btnCancelarActionPerformed
+        CtrlInterfaz.limpia(nombre, apellidoPat, apellidoMat, correo, contraseña, telefono, direccion);
+        CtrlInterfaz.habilita(false, apellidoPat, apellidoMat, correo, contraseña, telefono, direccion);
+        CtrlInterfaz.selecciona(nombre);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void nombreKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_nombreKeyPressed
+    {//GEN-HEADEREND:event_nombreKeyPressed
+        Validations.enterCadenaNoVacia(this, evt, nombre, apellidoPat);
+    }//GEN-LAST:event_nombreKeyPressed
+
+    private void apellidoPatKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_apellidoPatKeyPressed
+    {//GEN-HEADEREND:event_apellidoPatKeyPressed
+        Validations.enterCadenaNoVacia(this, evt, apellidoPat, apellidoMat);
+    }//GEN-LAST:event_apellidoPatKeyPressed
+
+    private void apellidoMatKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_apellidoMatKeyPressed
+    {//GEN-HEADEREND:event_apellidoMatKeyPressed
+        Validations.enterCadenaNoVacia(this, evt, apellidoMat, correo);
+    }//GEN-LAST:event_apellidoMatKeyPressed
+
+    private void correoKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_correoKeyPressed
+    {//GEN-HEADEREND:event_correoKeyPressed
+        Validations.enterCadenaNoVacia(this, evt, correo, contraseña);
+    }//GEN-LAST:event_correoKeyPressed
+
+    private void contraseñaKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_contraseñaKeyPressed
+    {//GEN-HEADEREND:event_contraseñaKeyPressed
+        Validations.enterCadenaNoVacia(this, evt, contraseña, telefono);
+    }//GEN-LAST:event_contraseñaKeyPressed
+
+    private void telefonoKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_telefonoKeyPressed
+    {//GEN-HEADEREND:event_telefonoKeyPressed
+        Validations.enterCadenaNoVacia(this, evt, telefono, direccion);
+    }//GEN-LAST:event_telefonoKeyPressed
+
+    private void direccionKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_direccionKeyPressed
+    {//GEN-HEADEREND:event_direccionKeyPressed
+        Validations.enterCadenaNoVacia(this, evt, direccion, comboBoxDepto);
+    }//GEN-LAST:event_direccionKeyPressed
+
+    private void comboBoxDeptoKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_comboBoxDeptoKeyPressed
+    {//GEN-HEADEREND:event_comboBoxDeptoKeyPressed
+        
+    }//GEN-LAST:event_comboBoxDeptoKeyPressed
+
+    private void nombreKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_nombreKeyTyped
+    {//GEN-HEADEREND:event_nombreKeyTyped
+        Validations.validaAlfabeticos(evt, 15, nombre.getText());
+    }//GEN-LAST:event_nombreKeyTyped
+
+    private void apellidoPatKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_apellidoPatKeyTyped
+    {//GEN-HEADEREND:event_apellidoPatKeyTyped
+        Validations.validaAlfabeticos(evt, 15, apellidoPat.getText());
+    }//GEN-LAST:event_apellidoPatKeyTyped
+
+    private void apellidoMatKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_apellidoMatKeyTyped
+    {//GEN-HEADEREND:event_apellidoMatKeyTyped
+        Validations.validaAlfabeticos(evt, 15, apellidoMat.getText());
+    }//GEN-LAST:event_apellidoMatKeyTyped
+
+    private void correoKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_correoKeyTyped
+    {//GEN-HEADEREND:event_correoKeyTyped
+        Validations.validaCorreo(this, evt, 30, correo.getText());
+    }//GEN-LAST:event_correoKeyTyped
+
+    private void contraseñaKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_contraseñaKeyTyped
+    {//GEN-HEADEREND:event_contraseñaKeyTyped
+        Validations.validaAlfanumerico(evt, 15, contraseña.getText());
+    }//GEN-LAST:event_contraseñaKeyTyped
+
+    private void telefonoKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_telefonoKeyTyped
+    {//GEN-HEADEREND:event_telefonoKeyTyped
+        Validations.validaEntero(evt, 10, telefono.getText());
+    }//GEN-LAST:event_telefonoKeyTyped
+
+    private void direccionKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_direccionKeyTyped
+    {//GEN-HEADEREND:event_direccionKeyTyped
+        Validations.validaAlfanumerico(evt, 15, direccion.getText());
+    }//GEN-LAST:event_direccionKeyTyped
+
+    private void btnGuardarKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_btnGuardarKeyPressed
+    {//GEN-HEADEREND:event_btnGuardarKeyPressed
+        if (evt.getKeyChar()=='\n')
+        {
+            btnGuardarActionPerformed(null);
+        }
+    }//GEN-LAST:event_btnGuardarKeyPressed
 
     /**
      * @param args the command line arguments

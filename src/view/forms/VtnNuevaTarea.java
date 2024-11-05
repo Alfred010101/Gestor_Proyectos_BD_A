@@ -1,8 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-package vtn;
+package view.forms;
+
+import cjb.ci.Mensajes;
+import java.util.Date;
 
 /**
  *
@@ -84,7 +83,23 @@ public class VtnNuevaTarea extends javax.swing.JFrame
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnRegistrarActionPerformed
     {//GEN-HEADEREND:event_btnRegistrarActionPerformed
+        Date fechaIni = fechaInicio.getDate();
+        Date fechaActual = new Date();
+        Date fechaFin = fechaTermino.getDate();
+        if (fechaIni.before(fechaActual))
+        {
+            Mensajes.error(this, "Fecha de inicio incorrecta");
 
+        } else
+        {
+            if (fechaFin.before(fechaIni))
+            {
+                Mensajes.error(this, "Fecha de termino incorrecta");
+            } else
+            {
+                Mensajes.exito(this, "Nuevo tarea creada");                
+            }
+        }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     /**
