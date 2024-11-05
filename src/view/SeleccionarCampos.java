@@ -1,11 +1,16 @@
 package view;
 
+import controller.ProjectController;
+import controller.TaskController;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -17,6 +22,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import model.Task;
 import utils.Var;
 
 /**
@@ -188,6 +195,103 @@ public class SeleccionarCampos
         popupMenu.setLayout(new BorderLayout());
         popupMenu.add(scrollPane, BorderLayout.CENTER);
         return popupMenu;
+    }
+
+    public static JPopupMenu fitrarTareas(int idEmpleado, List<String> proyectosLista, boolean[] proyectosSeleccionados, String[] estadosLista, boolean[] estadosSeleccionados, boolean sonProyectos, String ordenarPor, String forma, int width, int height, DefaultTableModel model)
+    {
+        String[] elements;
+        if (sonProyectos)
+        {
+            elements = proyectosLista.toArray(String[]::new);
+        } else
+        {
+            elements = estadosLista;
+        }
+
+        JList<String> lista = new JList<>(elements);
+
+        // Personalizar el JList para que use JCheckBox como renderizador
+        lista.setCellRenderer((JList<? extends String> list, String value, int index, boolean isSelected, boolean cellHasFocus) ->
+        {
+            JPanel panel = new JPanel(new BorderLayout());
+            JCheckBox checkBox = new JCheckBox(value);
+            if (sonProyectos)
+            {
+                checkBox.setSelected(proyectosSeleccionados[index]);
+            } else
+            {
+                checkBox.setSelected(estadosSeleccionados[index]);
+            }
+            panel.add(checkBox, BorderLayout.WEST);
+            return panel;
+        });
+
+        lista.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                int index = lista.locationToIndex(e.getPoint());
+                if (index != -1)
+                {
+                    if (sonProyectos)
+                    {
+                        proyectosSeleccionados[index] = !proyectosSeleccionados[index];
+
+                    } else
+                    {
+                        estadosSeleccionados[index] = !estadosSeleccionados[index];
+                    }
+                    lista.repaint();
+                    filtrarTareas(idEmpleado, proyectosLista, proyectosSeleccionados, estadosLista, estadosSeleccionados, ordenarPor, forma, model);
+                }
+            }
+        });
+
+        JScrollPane scrollPane = new JScrollPane(lista);
+        scrollPane.setPreferredSize(new Dimension(width, height));
+
+        JPopupMenu popupMenu = new JPopupMenu();
+        popupMenu.setLayout(new BorderLayout());
+        popupMenu.add(scrollPane, BorderLayout.CENTER);
+        return popupMenu;
+    }
+
+    public static void filtrarTareas(int idEmpleado, List<String> proyectosLista, boolean[] proyectosSeleccionados, String[] estadosLista, boolean[] estadosSeleccionados, String ordenarPor, String forma, DefaultTableModel model)
+    {
+
+        Set<String> proyectos = new HashSet<>();
+        for (int i = 0; i < proyectosSeleccionados.length; i++)
+        {
+            if (proyectosSeleccionados[i])
+            {
+                proyectos.add(ProjectController.obtenerCampo("pk_id", "nombre", proyectosLista.get(i)));
+            }
+        }
+
+        Set<String> estados = new HashSet<>();
+        for (int i = 0; i < estadosSeleccionados.length; i++)
+        {
+            if (estadosSeleccionados[i])
+            {
+                estados.add(String.valueOf(i));
+            }
+        }
+
+        List<Task> tareas = TaskController.getSusTareasFiltradas(idEmpleado, proyectos, estados, ordenarPor, forma);
+        model.setRowCount(0);
+        for (Task tarea : tareas)
+        {
+            model.addRow(new Object[]
+            {
+                tarea.getProject(),
+                tarea.getTitulo(),
+                tarea.getState(),
+                tarea.getStartDate(),
+                tarea.getEndDate(),
+                tarea.getExpectedDate()
+            });
+        }
     }
 
     public static JPopupMenu listaDepartamentos(JScrollPane contenedorTabla)

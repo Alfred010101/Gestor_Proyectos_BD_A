@@ -3,7 +3,6 @@ package controller;
 
 import dao.ProjectDAO;
 import java.util.List;
-import model.Project;
 
 /**
  *
@@ -11,9 +10,18 @@ import model.Project;
  */
 public class ProjectController
 {
-    public static List<Object[]> getMisProyectos(int id_empleado)
+    public static List<String> getSusProyectos(int id_empleado)
     {
         //Aqui deben ir validaciones
         return ProjectDAO.getProyects(id_empleado);
+    }
+    
+    public static String obtenerNombre(int id)
+    {
+        return ProjectDAO.obtenerCampo(id,"nombre");
+    }
+    public static String obtenerCampo(String campo, String campoWhere, String valor)
+    {
+        return ProjectDAO.obtenerCampo(campo, campoWhere, valor);
     }
 }

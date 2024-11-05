@@ -87,22 +87,6 @@ public abstract class PlantillaPrincipal extends JFrame
         panelPrincipal.add(panelCenter, BorderLayout.CENTER);
     }
 
-    /**
-     * @return the panelPrincipal
-     */
-    public JPanel getPanelPrincipal()
-    {
-        return panelPrincipal;
-    }
-
-    /**
-     * @param panelPrincipal the panelPrincipal to set
-     */
-    public void setPanelPrincipal(JPanel panelPrincipal)
-    {
-        this.panelPrincipal = panelPrincipal;
-    }
-
     private void initPanelNorth()
     {
         panelNorth = new JPanel(new BorderLayout());
@@ -166,59 +150,6 @@ public abstract class PlantillaPrincipal extends JFrame
 
     protected abstract void initWorckspace();
 
-//    private void initMenu2()
-//    {
-////        Var.OPCION_ACTUAL = Var.MENU_ADMIN.DEPARTAMENTOS;
-//        JButton btnPersonal;
-//        JButton btnDepartamentos;
-//        JButton btnRecursos;
-//
-//        if (employee.getRole() == 1)
-//        {
-//            btnPersonal = GenerateButton.crearBotonConIcono("Personal", "jefe-de-equipo_Res.png", Var.MENU_ADMIN.PERSONAL);
-//
-//            btnDepartamentos = GenerateButton.crearBotonConIcono("Departamentos", "departamento-de-la-compania_Res.png", Var.MENU_ADMIN.DEPARTAMENTOS);
-//
-//            btnRecursos = GenerateButton.crearBotonConIcono("Recursos", "en-stock_Res.png", Var.MENU_ADMIN.RECURSOS);
-//
-//        } else
-//        {
-//            btnPersonal = GenerateButton.crearBotonConIcono("Tareas", "tareas_Res.png", Var.MENU_ADMIN.PERSONAL);
-//
-//            btnDepartamentos = GenerateButton.crearBotonConIcono("Proyectos", "gestion-de-proyectos_Res.png", Var.MENU_ADMIN.DEPARTAMENTOS);
-//
-//            btnRecursos = GenerateButton.crearBotonConIcono("Colaboraciones", "colaborar_Res.png", Var.MENU_ADMIN.RECURSOS);
-//
-//        }
-//
-//        btnPersonal.addActionListener((e) ->
-//        {
-//            if (Var.OPCION_ACTUAL != Var.MENU_ADMIN.PERSONAL)
-//            {
-//                setBackgroundMenusAdmin(Var.MENU_ADMIN.PERSONAL, btnPersonal, btnDepartamentos, btnRecursos);
-//            }
-//        });
-//
-//        btnDepartamentos.addActionListener((e) ->
-//        {
-//            if (Var.OPCION_ACTUAL != Var.MENU_ADMIN.DEPARTAMENTOS)
-//            {
-//                setBackgroundMenusAdmin(Var.MENU_ADMIN.DEPARTAMENTOS, btnPersonal, btnDepartamentos, btnRecursos);
-//            }
-//        });
-//
-//        btnRecursos.addActionListener((e) ->
-//        {
-//            if (Var.OPCION_ACTUAL != Var.MENU_ADMIN.RECURSOS)
-//            {
-//                setBackgroundMenusAdmin(Var.MENU_ADMIN.RECURSOS, btnPersonal, btnDepartamentos, btnRecursos);
-//            }
-//        });
-//
-//        panelWest.add(btnPersonal);
-//        panelWest.add(btnDepartamentos);
-//        panelWest.add(btnRecursos);
-//    }
     public void setBackgroundMenusAdmin(int opc, JButton... botones)
     {
         int menu = 0;
