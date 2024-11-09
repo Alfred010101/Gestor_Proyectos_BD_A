@@ -39,7 +39,7 @@ public class VtnNuevoProyecto extends javax.swing.JFrame
         btnCancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 440, 100));

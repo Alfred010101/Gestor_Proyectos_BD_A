@@ -24,7 +24,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import model.Task;
 import view.forms.VtnModificarPersonalAdmin;
-import view.forms.VtnNuevoPersonal;
+import view.forms.VtnNuevaTarea;
 
 /**
  *
@@ -273,7 +273,7 @@ public class EmployeeTasks extends CardJPanel
      */
     private void btnAgregarAddActionListener()
     {
-        new VtnNuevoPersonal().setVisible(true);
+        new VtnNuevaTarea().setVisible(true);
     }
 
     /**
