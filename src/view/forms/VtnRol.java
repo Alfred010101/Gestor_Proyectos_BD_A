@@ -2,6 +2,8 @@ package view.forms;
 
 import cjb.ci.CtrlInterfaz;
 import cjb.ci.Mensajes;
+import dao.RoleDAO;
+import model.Role;
 import utils.Validations;
 
 /**
@@ -35,7 +37,7 @@ public class VtnRol extends javax.swing.JFrame
         btnGuardar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -96,7 +98,19 @@ public class VtnRol extends javax.swing.JFrame
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnGuardarActionPerformed
     {//GEN-HEADEREND:event_btnGuardarActionPerformed
-        Mensajes.exito(this, "Rol asignado");
+        String nomS = nombreRol.getText();
+        
+//        boolean exito = dao.RoleDAO.insertRole(nomS);
+//        
+//        if (exito)
+//        {
+//            Mensajes.exito(this, "Rol asignado");
+//        } else
+//        {
+//            Mensajes.error(this, "El rol que intenta agregar ya existe");
+//        }
+//        
+//        
         btnCancelarActionPerformed(evt);
     }//GEN-LAST:event_btnGuardarActionPerformed
 

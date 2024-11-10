@@ -15,7 +15,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import model.Staff;
 import model.Task;
-
+import view.forms.VtnNuevoProyecto;
 /**
  * Panel principal Seleccion de proyeto y Creacion de nuevo proyecto
  *
@@ -27,11 +27,11 @@ public class EmployeeProjects extends CardJPanel
     private final int idEmployee;
     private String proyectoSeleccionado = "";
     private final List<String> susProyectos;
-    
+
     private JPanel panelInicio;
     private CardLayout cardLayoutInicio;
     private CardLayout cardLayoutFiltrar;
-    
+
     //arreglo para guardar los encabezados de la tabla de tareas
     private final String[] NOMBRE_CAMPOS_TABLA_TAREAS =
     {
@@ -48,7 +48,7 @@ public class EmployeeProjects extends CardJPanel
     private String elementoSeleccionadoTitulo = "";
     private String elementoSeleccionadoNombre = "";
     private String elementoSeleccionadoCorreo = "";
-    
+
     public EmployeeProjects(int idEmployee)
     {
         this.idEmployee = idEmployee;
@@ -87,17 +87,22 @@ public class EmployeeProjects extends CardJPanel
         panelContenedorNorth.add(new JLabel("Seleccione un Proyecto"));
         panelContenedorNorth.add(comboBox);
 
+        btnNuevoProyecto.addActionListener((e) ->
+        {
+            btnNuevoProyectoAddActionListener();
+        });
+
         JTabbedPane tabbedPane = new JTabbedPane();
 
         cardLayoutInicio = new CardLayout();
         panelInicio = new JPanel(cardLayoutInicio);
-        
+
         JPanel panelTareas = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton btnAgregarTarea = GenerateComponents.crearBotonHerramineta("Agregar", "agregar_Res2.png");
         JButton btnVerTarea = GenerateComponents.crearBotonHerramineta("Detalles", "expediente_Res2.png");
         JButton btnModificarTarea = GenerateComponents.crearBotonHerramineta("Actualizar", "editar_Res2.png");
         JButton btnEliminarTarea = GenerateComponents.crearBotonHerramineta("Eliminar", "borrar_Res2.png");
-        
+
         btnAgregarTarea.addActionListener((e) ->
         {
             btnAgregarTareaAddActionListener();
@@ -114,13 +119,13 @@ public class EmployeeProjects extends CardJPanel
         {
             btnEliminarTareaaddActionListener();
         });
-        
+
         panelTareas.add(btnAgregarTarea);
         panelTareas.add(btnVerTarea);
         panelTareas.add(btnModificarTarea);
         panelTareas.add(btnEliminarTarea);
-        
-        JPanel panelColaboradores= new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+        JPanel panelColaboradores = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton btnAgregarColaborador = GenerateComponents.crearBotonHerramineta("Agregar", "agregar_Res2.png");
         JButton btnVerColaborador = GenerateComponents.crearBotonHerramineta("Detalles", "expediente_Res2.png");
         JButton btnModificarColaborador = GenerateComponents.crearBotonHerramineta("Actualizar", "editar_Res2.png");
@@ -142,12 +147,12 @@ public class EmployeeProjects extends CardJPanel
         {
             btnEliminarColaboradorAddActionListener();
         });
-        
+
         panelColaboradores.add(btnAgregarColaborador);
         panelColaboradores.add(btnVerColaborador);
         panelColaboradores.add(btnModificarColaborador);
         panelColaboradores.add(btnEliminarColaborador);
-        
+
         panelInicio.add(panelTareas, "Tareas");
         panelInicio.add(panelColaboradores, "Colaboradores");
 
@@ -188,19 +193,22 @@ public class EmployeeProjects extends CardJPanel
 
         tabbedPane.addTab("Tareas", panelTareas);
         tabbedPane.addTab("Colaboradores", panelColaboradores);
-        
+
         tabbedPane.addChangeListener((ChangeEvent e) ->
         {
             int index = tabbedPane.getSelectedIndex();
-            switch (index) {
-                case 0 -> cardLayoutInicio.first(panelInicio);
-                case 1 -> cardLayoutInicio.last(panelInicio);
+            switch (index)
+            {
+                case 0 ->
+                    cardLayoutInicio.first(panelInicio);
+                case 1 ->
+                    cardLayoutInicio.last(panelInicio);
                 default ->
                 {
                 }
             }
         });
-        
+
         add(tabbedPane, BorderLayout.CENTER);
     }
 
@@ -239,7 +247,7 @@ public class EmployeeProjects extends CardJPanel
         tablaColaboradores = GenerarTablas.configTabla(data, this.NOMBRE_CAMPOS_TABLA_COLABORADORES);
         addSelection();
     }
-    
+
     /**
      * Permite extraer datos de una fila en columnas especificas
      */
@@ -265,7 +273,7 @@ public class EmployeeProjects extends CardJPanel
                 }
             }
         });
-        
+
         tablaColaboradores.getSelectionModel().addListSelectionListener((ListSelectionEvent event) ->
         {
             if (!event.getValueIsAdjusting())
@@ -360,4 +368,10 @@ public class EmployeeProjects extends CardJPanel
     {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    private void btnNuevoProyectoAddActionListener()
+    {
+        new VtnNuevoProyecto().setVisible(true);
+    }
+
 }

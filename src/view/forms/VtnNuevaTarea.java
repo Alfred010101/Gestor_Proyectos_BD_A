@@ -2,6 +2,7 @@ package view.forms;
 
 import cjb.ci.Mensajes;
 import java.util.Date;
+import model.Task;
 
 /**
  *
@@ -33,19 +34,26 @@ public class VtnNuevaTarea extends javax.swing.JFrame
         fechaTermino = new com.toedter.calendar.JDateChooser();
         fechaInicio = new com.toedter.calendar.JDateChooser();
         descripcion = new javax.swing.JTextField();
+        titulo = new javax.swing.JTextField();
         btnRegistrar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        comboBoxEstado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         comboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel2.add(comboBoxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 430, 30));
-        jPanel2.add(fechaTermino, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 320, 160, 30));
-        jPanel2.add(fechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 160, 30));
-        jPanel2.add(descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 430, 100));
+        jPanel2.add(comboBoxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 430, 30));
+        jPanel2.add(fechaTermino, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 370, 160, 30));
+        jPanel2.add(fechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 160, 30));
+
+        descripcion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel2.add(descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 430, 100));
+
+        titulo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel2.add(titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 430, 30));
 
         btnRegistrar.setBackground(new java.awt.Color(102, 255, 102));
         btnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -57,12 +65,12 @@ public class VtnNuevaTarea extends javax.swing.JFrame
                 btnRegistrarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 500, 110, 30));
+        jPanel2.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 550, 110, 30));
 
         btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnCancelar.setText("Cancelar");
-        jPanel2.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 500, 110, 30));
+        jPanel2.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 550, 110, 30));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/NuevaTarea.png"))); // NOI18N
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -75,7 +83,9 @@ public class VtnNuevaTarea extends javax.swing.JFrame
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -83,22 +93,43 @@ public class VtnNuevaTarea extends javax.swing.JFrame
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnRegistrarActionPerformed
     {//GEN-HEADEREND:event_btnRegistrarActionPerformed
-        Date fechaIni = fechaInicio.getDate();
         Date fechaActual = new Date();
+        Date fechaIni = fechaInicio.getDate();
         Date fechaFin = fechaTermino.getDate();
+        String titu = titulo.getText();
+        String estado = comboBoxEstado.getItemAt(comboBoxEstado.getSelectedIndex());
+        String desc = descripcion.getText();
+
+        if (fechaIni == null || fechaFin == null)
+        {
+            Mensajes.error(this, "Debe seleccionar fechas válidas");
+            return;
+        }
         if (fechaIni.before(fechaActual))
         {
             Mensajes.error(this, "Fecha de inicio incorrecta");
+            return;
+        }
+        if (fechaFin.before(fechaIni))
+        {
+            Mensajes.error(this, "Fecha de término incorrecta");
+            return;
+        }
 
+        if (estado == null || estado.isEmpty())
+        {
+            Mensajes.error(this, "Debe seleccionar un estado válido");
+            return;
+        }
+
+        model.Task tarea = new Task(estado, titu, desc, fechaIni, fechaFin);
+
+        if (dao.TaskDAO.insertaTarea(tarea))
+        {
+            Mensajes.exito(this, "Nueva tarea creada");
         } else
         {
-            if (fechaFin.before(fechaIni))
-            {
-                Mensajes.error(this, "Fecha de termino incorrecta");
-            } else
-            {
-                Mensajes.exito(this, "Nuevo tarea creada");                
-            }
+            Mensajes.error(this, "Error al crear la tarea");
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
@@ -156,5 +187,6 @@ public class VtnNuevaTarea extends javax.swing.JFrame
     private com.toedter.calendar.JDateChooser fechaTermino;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField titulo;
     // End of variables declaration//GEN-END:variables
 }

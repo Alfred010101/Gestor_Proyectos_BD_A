@@ -291,4 +291,39 @@ public class TaskDAO
 
         return tareas;
     }
+
+    public static boolean insertaTarea(Task task)
+    {
+        String sql = "INSERT INTO Tareas (fk_proyecto, fk_responsable, descripcion, estado, fecha_inicio, fecha_termino) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (Connection connection = ConnectionBD.getConnection(); PreparedStatement statement = connection.prepareStatement(sql))
+        {
+            statement.setString(1, task.getProject());
+            statement.setString(3, task.getDescription());
+            statement.setString(4, task.getState());
+            if (task.getStartDate() != null)
+            {
+                statement.setDate(5, new java.sql.Date(task.getStartDate().getTime()));
+            } else
+            {
+                statement.setNull(5, java.sql.Types.DATE);
+            }
+
+            if (task.getEndDate() != null)
+            {
+                statement.setDate(6, new java.sql.Date(task.getEndDate().getTime()));
+            } else
+            {
+                statement.setNull(6, java.sql.Types.DATE);
+            }
+            statement.executeUpdate();
+            System.out.println("Tarea agregada");
+            return true;
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            System.out.println("Error " + e.getMessage());
+            return false;
+        }
+    }  
 }
