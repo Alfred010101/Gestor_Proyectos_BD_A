@@ -32,6 +32,18 @@ public class Task
         this.expectedDate = expectedDate;
     }
 
+    public Task(String state, String titulo, String description, Date startDate, Date endDate)
+    {
+        this.state = state;
+        this.titulo = titulo;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.id = 0;
+        this.project = null;
+        this.responsible = null;
+    }
+    
     /**
      * @return the id
      */

@@ -2,6 +2,7 @@ package view.forms;
 
 import cjb.ci.Mensajes;
 import java.util.Date;
+import model.Task;
 
 /**
  *
@@ -92,21 +93,43 @@ public class VtnNuevaTarea extends javax.swing.JFrame
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnRegistrarActionPerformed
     {//GEN-HEADEREND:event_btnRegistrarActionPerformed
-        Date fechaIni = fechaInicio.getDate();
         Date fechaActual = new Date();
+        Date fechaIni = fechaInicio.getDate();
         Date fechaFin = fechaTermino.getDate();
+        String titu = titulo.getText();
+        String estado = comboBoxEstado.getItemAt(comboBoxEstado.getSelectedIndex());
+        String desc = descripcion.getText();
+
+        if (fechaIni == null || fechaFin == null)
+        {
+            Mensajes.error(this, "Debe seleccionar fechas válidas");
+            return;
+        }
         if (fechaIni.before(fechaActual))
         {
             Mensajes.error(this, "Fecha de inicio incorrecta");
+            return;
+        }
+        if (fechaFin.before(fechaIni))
+        {
+            Mensajes.error(this, "Fecha de término incorrecta");
+            return;
+        }
+
+        if (estado == null || estado.isEmpty())
+        {
+            Mensajes.error(this, "Debe seleccionar un estado válido");
+            return;
+        }
+
+        model.Task tarea = new Task(estado, titu, desc, fechaIni, fechaFin);
+
+        if (dao.TaskDAO.insertaTarea(tarea))
+        {
+            Mensajes.exito(this, "Nueva tarea creada");
         } else
         {
-            if (fechaFin.before(fechaIni))
-            {
-                Mensajes.error(this, "Fecha de termino incorrecta");
-            } else
-            {
-                Mensajes.exito(this, "Nuevo tarea creada");                
-            }
+            Mensajes.error(this, "Error al crear la tarea");
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
